@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arteli.net.br/sitemap.xml

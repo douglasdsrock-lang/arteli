@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arteli — Escolha seu Plano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --bg0: #080808;
+            --bg1: #0f0f0f;
+            --bg2: #161616;
+            --bg3: #1e1e1e;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --border-hover: rgba(255, 255, 255, 0.2);
+            --text-primary: #F5F2EC;
+            --text-secondary: #8A877F;
+            --text-muted: #4A4845;
+            --gold: #C8924A;
+            --gold-light: #E8B97A;
+            --gold-dark: #8A6030;
+            --lime: #B8D900;
+            --lime-light: #D4F032;
+            --lime-dark: #6E8200;
+            --r: 10px;
+            --r-lg: 18px;
+            --r-xl: 28px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden
+        }
+
+        body {
+            background: var(--bg0);
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.7
+        }
+
+        ::selection {
+            background: rgba(184, 217, 0, 0.2);
+            color: var(--lime-light)
+        }
+
+        ::-webkit-scrollbar {
+            width: 2px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg0)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-md);
+            border-radius: 2px
+        }
+
+        #grain {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: .05;
+            mix-blend-mode: soft-light
+        }
+
+        #cur {
+            position: fixed;
+            width: 7px;
+            height: 7px;
+            background: var(--lime);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9000;
+            left: 0;
+            top: 0;
+            mix-blend-mode: difference;
+            transition: width .3s, height .3s;
+            will-change: transform
+        }
+
+        #cur-ring {
+            position: fixed;
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(184, 217, 0, 0.35);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 8999;
+            left: 0;
+            top: 0;
+            will-change: transform;
+            transition: width .4s, height .4s, border-color .3s
+        }
+
+        .scroll-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), var(--lime));
+            z-index: 9997;
+            pointer-events: none
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 500;
+            padding: 0 2.5rem
+        }
+
+        .nav-bg {
+            position: absolute;
+            inset: 0;
+            background: rgba(8, 8, 8, 0.82);
+            backdrop-filter: blur(28px) saturate(160%);
+            border-bottom: 0.5px solid var(--border)
+        }
+
+        .nav-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: relative;
+            z-index: 1
+        }
+
+        .nav-logo {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 23px;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -.03em;
+            font-weight: 300
+        }
+
+        .nav-logo em {
+            color: var(--lime);
+            font-style: italic;
+            font-weight: 500
+        }
+
+        .nav-back {
+            background: rgba(255, 255, 255, .04);
+            color: var(--text-secondary);
+            border: 0.5px solid var(--border-md);
+            padding: 10px 20px;
+            border-radius: var(--r);
+            font-size: 13px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .25s
+        }
+
+        .nav-back:hover {
+            background: rgba(255, 255, 255, .07);
+            color: var(--text-primary)
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 52vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 2.5rem
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            pointer-events: none
+        }
+
+        .o1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(184, 217, 0, .07) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            animation: of1 13s ease-in-out infinite
+        }
+
+        .o2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(200, 146, 74, .065) 0%, transparent 70%);
+            bottom: -100px;
+            left: -80px;
+            animation: of2 17s ease-in-out infinite
+        }
+
+        @keyframes of1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0)
+            }
+
+            50% {
+                transform: translate(-30px, 50px)
+            }
+        }
+
+        @keyframes of2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0)
+            }
+
+            50% {
+                transform: translate(50px, -30px)
+            }
+        }
+
+        .hgrid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%)
+        }
+
+        .hero-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            padding: 130px 0 80px;
+            text-align: center
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 18px;
+            border-radius: 99px;
+            border: 0.5px solid var(--border-md);
+            background: rgba(255, 255, 255, .03);
+            backdrop-filter: blur(12px);
+            font-size: 11px;
+            color: var(--text-secondary);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: 2rem
+        }
+
+        .pdot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--lime);
+            position: relative;
+            flex-shrink: 0
+        }
+
+        .pdot::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: rgba(184, 217, 0, .3);
+            animation: pd 2.2s ease-out infinite
+        }
+
+        @keyframes pd {
+            0% {
+                transform: scale(1);
+                opacity: 1
+            }
+
+            100% {
+                transform: scale(2.8);
+                opacity: 0
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(36px, 5vw, 72px);
+            line-height: 1.0;
+            letter-spacing: -.03em;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+            font-weight: 300
+        }
+
+        .hero h1 .ac {
+            color: var(--lime)
+        }
+
+        .hero-sub {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.65;
+            font-weight: 300
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--text-muted)
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .hero-meta span::before {
+            content: '✓';
+            color: var(--lime);
+            font-size: 11px
+        }
+
+        /* PLANS SECTION */
+        section.plans {
+            padding: 60px 2.5rem 100px
+        }
+
+        .si {
+            max-width: 1160px;
+            margin: 0 auto
+        }
+
+        /* PLAN BLOCK — 2 col layout: benefits | models+price+cta */
+        .plan-block {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 48px;
+            align-items: start;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .plan-block:last-child {
+            margin-bottom: 0
+        }
+
+        /* LEFT COL */
+        .plan-left {}
+
+        .plan-num {
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            margin-bottom: .75rem
+        }
+
+        .plan-name {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(26px, 3vw, 40px);
+            line-height: 1.0;
+            letter-spacing: -.03em;
+            font-weight: 300;
+            margin-bottom: .35rem
+        }
+
+        .plan-name em {
+            font-style: italic;
+            color: var(--gold)
+        }
+
+        .plan-name .ac {
+            color: var(--lime)
+        }
+
+        .plan-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 1.75rem;
+            line-height: 1.55
+        }
+
+        .popular-pill {
+            display: inline-block;
+            background: var(--lime);
+            color: #080808;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 99px;
+            margin-bottom: 1rem
+        }
+
+        /* BENEFITS LIST */
+        .benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 0.5px solid var(--border);
+            border-radius: var(--r-lg);
+            overflow: hidden;
+            background: rgba(255, 255, 255, .015);
+        }
+
+        .benefit {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px 16px;
+            border-bottom: 0.5px solid var(--border);
+            transition: background .2s;
+            position: relative;
+        }
+
+        .benefit:last-child {
+            border-bottom: none
+        }
+
+        .benefit:hover {
+            background: rgba(255, 255, 255, .025)
+        }
+
+        .benefit-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .benefit-icon.lime-icon {
+            background: rgba(184, 217, 0, .1);
+            color: var(--lime);
+            border: 0.5px solid rgba(184, 217, 0, .2)
+        }
+
+        .benefit-icon.gold-icon {
+            background: rgba(200, 146, 74, .1);
+            color: var(--gold);
+            border: 0.5px solid rgba(200, 146, 74, .2)
+        }
+
+        .benefit-icon.muted-icon {
+            background: rgba(255, 255, 255, .05);
+            color: var(--text-muted);
+            border: 0.5px solid var(--border)
+        }
+
+        .benefit-text {}
+
+        .benefit-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.3
+        }
+
+        .benefit-sub {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-top: 2px
+        }
+
+        .benefit.highlight .benefit-title {
+            color: var(--text-primary)
+        }
+
+        /* RIGHT COL */
+        .plan-right {}
+
+        .models-label {
+            font-size: 10px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .models-label::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--border-md)
+        }
+
+        /* MOCKUP GRID */
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 1.75rem
+        }
+
+        .mockup-wrap {}
+
+        .mockup-card {
+            position: relative;
+            border-radius: var(--r-xl);
+            overflow: hidden;
+            border: 0.5px solid var(--border);
+            background: var(--bg2);
+            aspect-ratio: 9/14;
+            cursor: pointer;
+            transition: transform .35s cubic-bezier(.2, 0, .2, 1), border-color .35s, box-shadow .35s
+        }
+
+        .mockup-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-hover)
+        }
+
+        .mockup-card.selected {
+            border-color: var(--lime);
+            box-shadow: 0 0 0 1px var(--lime), 0 20px 56px rgba(184, 217, 0, .1)
+        }
+
+        .mockup-card.selected-gold {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 1px var(--gold), 0 20px 56px rgba(200, 146, 74, .1)
+        }
+
+        .mk-nav {
+            height: 30px;
+            background: rgba(255, 255, 255, .03);
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 5px;
+            flex-shrink: 0
+        }
+
+        .mk-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%
+        }
+
+        .mk-body {
+            padding: 12px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            flex: 1;
+            overflow: hidden
+        }
+
+        .mk-hero {
+            border-radius: 7px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 9px;
+            gap: 4px
+        }
+
+        .mk-line {
+            height: 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, .1)
+        }
+
+        .mk-line.gl {
+            background: rgba(200, 146, 74, .5)
+        }
+
+        .mk-line.ll {
+            background: rgba(184, 217, 0, .5)
+        }
+
+        .mk-line.s {
+            width: 60%
+        }
+
+        .mk-line.xs {
+            width: 40%
+        }
+
+        .mk-row {
+            display: flex;
+            gap: 5px
+        }
+
+        .mk-block {
+            flex: 1;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .04)
+        }
+
+        .mk-btn {
+            height: 20px;
+            border-radius: 5px;
+            margin-top: 1px
+        }
+
+        .mk-btn.lb {
+            background: rgba(184, 217, 0, .18);
+            border: 1px solid rgba(184, 217, 0, .25)
+        }
+
+        .mk-btn.gb {
+            background: rgba(200, 146, 74, .18);
+            border: 1px solid rgba(200, 146, 74, .25)
+        }
+
+        .mk-shimmer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, .04) 50%, transparent 60%);
+            background-size: 200% 100%;
+            animation: shimmer 3s ease infinite;
+            pointer-events: none
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0
+            }
+
+            100% {
+                background-position: -200% 0
+            }
+        }
+
+        .mk-badge {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: .07em;
+            padding: 3px 7px;
+            border-radius: 99px;
+            text-transform: uppercase
+        }
+
+        .mk-badge.lb {
+            background: rgba(184, 217, 0, .9);
+            color: #080808
+        }
+
+        .mk-badge.gb {
+            background: rgba(200, 146, 74, .9);
+            color: #080808
+        }
+
+        .style-a .mk-hero {
+            background: linear-gradient(135deg, rgba(40, 40, 70, .5), rgba(20, 20, 45, .2));
+            border: 1px solid rgba(80, 80, 160, .1)
+        }
+
+        .style-b .mk-hero {
+            background: linear-gradient(135deg, rgba(200, 146, 74, .18), rgba(100, 70, 30, .08))
+        }
+
+        .style-c .mk-hero {
+            background: linear-gradient(135deg, rgba(184, 217, 0, .09), rgba(90, 110, 0, .04));
+            border: 1px solid rgba(184, 217, 0, .07)
+        }
+
+        .mockup-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 7px;
+            letter-spacing: .04em;
+            transition: color .25s
+        }
+
+        .mockup-label.al {
+            color: var(--lime)
+        }
+
+        .mockup-label.ag {
+            color: var(--gold)
+        }
+
+        /* PRICE + CTA ROW */
+        .price-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, .02);
+            border: 0.5px solid var(--border);
+            border-radius: var(--r-lg);
+            flex-wrap: wrap;
+        }
+
+        .price-block {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        .price-value {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(32px, 3.5vw, 46px);
+            line-height: 1;
+            letter-spacing: -.04em;
+            font-weight: 300
+        }
+
+        .price-value sup {
+            font-size: .42em;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            vertical-align: super;
+            opacity: .8
+        }
+
+        .price-value.lv {
+            color: var(--lime)
+        }
+
+        .price-value.gv {
+            color: var(--gold)
+        }
+
+        .price-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: var(--text-secondary)
+        }
+
+        .price-upsell {
+            font-size: 12px;
+            color: var(--text-secondary)
+        }
+
+        .price-upsell span {
+            color: var(--gold-light)
+        }
+
+        .btn-lime {
+            background: var(--lime);
+            color: #080808;
+            padding: 13px 26px;
+            border-radius: var(--r);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            transition: all .3s;
+            letter-spacing: -.01em;
+            white-space: nowrap
+        }
+
+        .btn-lime:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(184, 217, 0, .32);
+            background: var(--lime-light)
+        }
+
+        .btn-lime svg,
+        .btn-gold svg {
+            transition: transform .3s
+        }
+
+        .btn-lime:hover svg,
+        .btn-gold:hover svg {
+            transform: translateX(4px)
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #080808;
+            padding: 13px 26px;
+            border-radius: var(--r);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            transition: all .3s;
+            letter-spacing: -.01em;
+            white-space: nowrap
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(200, 146, 74, .32);
+            background: var(--gold-light)
+        }
+
+        /* DIVIDER */
+        .plan-divider {
+            height: 0.5px;
+            background: linear-gradient(90deg, transparent, var(--border-md), transparent);
+            margin: 80px 0
+        }
+
+        /* ORB ACCENTS */
+        .orb-plan {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0
+        }
+
+        .op1 {
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(184, 217, 0, .05) 0%, transparent 70%);
+            top: -60px;
+            right: -60px
+        }
+
+        .op2 {
+            width: 340px;
+            height: 340px;
+            background: radial-gradient(circle, rgba(184, 217, 0, .05) 0%, transparent 70%);
+            top: 50%;
+            right: -40px
+        }
+
+        .op3 {
+            width: 360px;
+            height: 360px;
+            background: radial-gradient(circle, rgba(200, 146, 74, .06) 0%, transparent 70%);
+            top: 0;
+            right: -40px
+        }
+
+        /* REVEAL */
+        .rv {
+            opacity: 0;
+            transform: translateY(22px)
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:900px) {
+            .plan-block {
+                grid-template-columns: 1fr;
+                gap: 32px
+            }
+
+            .plan-divider {
+                margin: 56px 0
+            }
+        }
+
+        @media(max-width:640px) {
+            nav {
+                padding: 0 1.25rem
+            }
+
+            .hero {
+                padding: 0 1.25rem
+            }
+
+            section.plans {
+                padding: 40px 1.25rem 80px
+            }
+
+            .price-cta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem
+            }
+        }
+
+        @media(max-width:400px) {
+            .mockup-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .mockup-grid .mockup-wrap:last-child {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="cur"></div>
+    <div id="cur-ring"></div>
+    <canvas id="grain"></canvas>
+    <div class="scroll-line" id="scrollLine"></div>
+
+    <nav>
+        <div class="nav-bg"></div>
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">Arte<em>li</em></a>
+            <a href="/" class="nav-back">← Voltar ao site</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="orb o1"></div>
+        <div class="orb o2"></div>
+        <div class="hgrid"></div>
+        <div class="hero-inner">
+            <div class="hero-eyebrow rv"><span class="pdot"></span>&nbsp;&nbsp;Planos com entrega em até 72h</div>
+            <h1 class="rv">Escolha o plano ideal<br>e tenha seu site no ar <em>em dias,</em><br>não em <span
+                    class="ac">meses.</span></h1>
+            <p class="hero-sub rv">Veja os modelos disponíveis, escolha o que faz sentido para o seu negócio e receba
+                seu site pronto.</p>
+            <div class="hero-meta rv">
+                <span>Entrega garantida</span>
+                <span>SSL incluso em todos</span>
+                <span>Adaptado para celular</span>
+                <span>Código 100% seu</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="plans">
+        <div class="si">
+
+            <!-- ══ PLANO 01 ══ -->
+            <div class="plan-block" style="position:relative">
+                <div class="orb-plan op1"></div>
+
+                <!-- LEFT: info + benefícios -->
+                <div class="plan-left rv-l">
+                    <div class="plan-num">Plano 01</div>
+                    <div class="plan-name">Plano <em>Básico</em></div>
+                    <div class="plan-desc">Ideal para marcar presença agora</div>
+
+                    <div class="benefits">
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Site de 1 página</div>
+                                <div class="benefit-sub">Tudo que seu cliente precisa saber em uma única página</div>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Design moderno e profissional</div>
+                                <div class="benefit-sub">Visual de agência, sem pagar preço de agência</div>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Adaptado para celular, tablet e PC</div>
+                                <div class="benefit-sub">Funciona perfeitamente em qualquer tela</div>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Certificado SSL incluso</div>
+                                <div class="benefit-sub">Site seguro com cadeado no navegador</div>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Entrega em até 24h</div>
+                                <div class="benefit-sub">Do pagamento ao site no ar em um dia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: modelos + preço + cta -->
+                <div class="plan-right">
+                    <div class="models-label rv">Escolha um modelo</div>
+                    <div class="mockup-grid rv" id="g1">
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-a" onclick="sel(this,'g1','l1a')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:70px">
+                                        <div class="mk-line gl s"></div>
+                                        <div class="mk-line xs" style="opacity:.5"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:34px"></div>
+                                        <div class="mk-block" style="height:34px"></div>
+                                    </div>
+                                    <div class="mk-line s" style="opacity:.25"></div>
+                                    <div class="mk-block" style="height:40px"></div>
+                                    <div class="mk-btn gb"></div>
+                                </div>
+                            </div>
+                            <div class="mockup-label" id="l1a">Modelo A</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-b" onclick="sel(this,'g1','l1b')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:88px;justify-content:center">
+                                        <div class="mk-line gl"></div>
+                                        <div class="mk-line s" style="opacity:.5"></div>
+                                        <div class="mk-line xs" style="opacity:.3"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:26px"></div>
+                                        <div class="mk-block" style="height:26px"></div>
+                                        <div class="mk-block" style="height:26px"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:44px"></div>
+                                    <div class="mk-btn gb"></div>
+                                </div>
+                            </div>
+                            <div class="mockup-label" id="l1b">Modelo B</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-c" onclick="sel(this,'g1','l1c')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-line xs" style="opacity:.2;margin-bottom:2px"></div>
+                                    <div class="mk-hero" style="height:76px">
+                                        <div class="mk-line gl s"></div>
+                                        <div class="mk-line xs" style="opacity:.45"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:38px;flex:1.5"></div>
+                                        <div class="mk-block" style="height:38px"></div>
+                                    </div>
+                                    <div class="mk-line s" style="opacity:.22"></div>
+                                    <div class="mk-btn gb"></div>
+                                </div>
+                            </div>
+                            <div class="mockup-label" id="l1c">Modelo C</div>
+                        </div>
+                    </div>
+
+                    <div class="price-cta rv">
+                        <div class="price-block">
+                            <div class="price-value gv"><sup>R$</sup>247</div>
+                            <div class="price-meta">
+                                <div class="price-note">pagamento único · sem mensalidade</div>
+                                <div class="price-upsell" style="font-style:italic;opacity:.6">Domínio e hospedagem não
+                                    inclusos</div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-lime">Quero esse plano <svg width="14" height="14" viewBox="0 0 15 15"
+                                fill="none">
+                                <path d="M2.5 7.5h10M9 4l3.5 3.5L9 11" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan-divider"></div>
+
+            <!-- ══ PLANO 02 ══ -->
+            <div class="plan-block" style="position:relative">
+                <div class="orb-plan op2"></div>
+
+                <div class="plan-left rv-l">
+                    <div class="plan-num">Plano 02</div>
+                    <div class="popular-pill">✦ Mais escolhido</div>
+                    <div class="plan-name">Plano <span class="ac">Profissional</span></div>
+                    <div class="plan-desc">Ideal para autônomos e prestadores de serviço</div>
+
+                    <div class="benefits">
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Site de 1 página</div>
+                                <div class="benefit-sub">Estrutura completa em uma página de alto impacto</div>
+                            </div>
+                        </div>
+                        <div class="benefit highlight">
+                            <div class="benefit-icon lime-icon">✦</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Animações + efeitos de texto e botões</div>
+                                <div class="benefit-sub">Site fluido e moderno — visível nos modelos abaixo</div>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Botão WhatsApp fixo na tela</div>
+                                <div class="benefit-sub">Cliente acessa você com um clique em qualquer momento</div>
+                            </div>
+                        </div>
+                        <div class="benefit highlight">
+                            <div class="benefit-icon lime-icon">✦</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">SEO otimizado para Google</div>
+                                <div class="benefit-sub">Seu site aparece nas buscas do seu segmento</div>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Adaptado para celular, tablet e PC</div>
+                                <div class="benefit-sub">Perfeito em qualquer dispositivo</div>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Certificado SSL incluso</div>
+                                <div class="benefit-sub">Site seguro com cadeado no navegador</div>
+                            </div>
+                        </div>
+                        <div class="benefit highlight">
+                            <div class="benefit-icon lime-icon">✦</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Domínio incluso por 1 ano</div>
+                                <div class="benefit-sub">Extensão econômica inclusa · upgrade para .com.br por +R$50
+                                </div>
+                            </div>
+                        </div>
+                        <div class="benefit highlight">
+                            <div class="benefit-icon lime-icon">✦</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Hospedagem inclusa</div>
+                                <div class="benefit-sub">Site no ar no seu endereço, sem custo adicional</div>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <div class="benefit-icon muted-icon">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Entrega em até 48h</div>
+                                <div class="benefit-sub">Seu site no ar em até dois dias</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="plan-right">
+                    <div class="models-label rv">Escolha um modelo — com animações incluídas</div>
+                    <div class="mockup-grid rv" id="g2">
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-a" onclick="sel(this,'g2','l2a')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:78px">
+                                        <div class="mk-line ll s"></div>
+                                        <div class="mk-line xs" style="opacity:.45"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:32px"></div>
+                                        <div class="mk-block" style="height:32px"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:44px"></div>
+                                    <div class="mk-btn lb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge lb">✦ Animado</div>
+                            </div>
+                            <div class="mockup-label" id="l2a">Modelo A</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-b" onclick="sel(this,'g2','l2b')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:94px">
+                                        <div class="mk-line ll"></div>
+                                        <div class="mk-line s" style="opacity:.5"></div>
+                                        <div class="mk-line xs" style="opacity:.28"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:24px"></div>
+                                        <div class="mk-block" style="height:24px"></div>
+                                        <div class="mk-block" style="height:24px"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:38px"></div>
+                                    <div class="mk-btn lb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge lb">✦ Animado</div>
+                            </div>
+                            <div class="mockup-label" id="l2b">Modelo B</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-c" onclick="sel(this,'g2','l2c')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:85px">
+                                        <div class="mk-line ll s"></div>
+                                        <div class="mk-line xs" style="opacity:.4"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:36px;flex:1.5"></div>
+                                        <div class="mk-block" style="height:36px"></div>
+                                    </div>
+                                    <div class="mk-line s" style="opacity:.2"></div>
+                                    <div class="mk-block" style="height:32px"></div>
+                                    <div class="mk-btn lb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge lb">✦ Animado</div>
+                            </div>
+                            <div class="mockup-label" id="l2c">Modelo C</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-b" onclick="sel(this,'g2','l2d')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:70px;justify-content:center">
+                                        <div class="mk-line ll"></div>
+                                        <div class="mk-line ll s" style="opacity:.6"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:30px"></div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:28px"></div>
+                                        <div class="mk-block" style="height:28px;flex:1.5"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:28px"></div>
+                                    <div class="mk-btn lb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge lb">✦ Animado</div>
+                            </div>
+                            <div class="mockup-label" id="l2d">Modelo D</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-c" onclick="sel(this,'g2','l2e')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-line xs" style="opacity:.2;margin-bottom:3px"></div>
+                                    <div class="mk-hero" style="height:60px">
+                                        <div class="mk-line ll s"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:38px"></div>
+                                        <div class="mk-block" style="height:38px"></div>
+                                        <div class="mk-block" style="height:38px"></div>
+                                    </div>
+                                    <div class="mk-line s" style="opacity:.18"></div>
+                                    <div class="mk-block" style="height:30px"></div>
+                                    <div class="mk-btn lb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge lb">✦ Animado</div>
+                            </div>
+                            <div class="mockup-label" id="l2e">Modelo E</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-a" onclick="sel(this,'g2','l2f')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:100px">
+                                        <div class="mk-line ll"></div>
+                                        <div class="mk-line s" style="opacity:.55"></div>
+                                        <div class="mk-line xs" style="opacity:.3"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:26px;flex:2"></div>
+                                        <div class="mk-block" style="height:26px"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:26px"></div>
+                                    <div class="mk-btn lb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge lb">✦ Animado</div>
+                            </div>
+                            <div class="mockup-label" id="l2f">Modelo F</div>
+                        </div>
+                    </div>
+
+                    <div class="price-cta rv">
+                        <div class="price-block">
+                            <div class="price-value lv"><sup>R$</sup>397</div>
+                            <div class="price-meta">
+                                <div class="price-note">pagamento único · sem mensalidade</div>
+                                <div class="price-upsell">Domínio + hospedagem inclusos · <span>upgrade .com.br por
+                                        +R$50</span></div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-lime">Quero esse plano <svg width="14" height="14" viewBox="0 0 15 15"
+                                fill="none">
+                                <path d="M2.5 7.5h10M9 4l3.5 3.5L9 11" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan-divider"></div>
+
+            <!-- ══ PLANO 03 ══ -->
+            <div class="plan-block" style="position:relative">
+                <div class="orb-plan op3"></div>
+
+                <div class="plan-left rv-l">
+                    <div class="plan-num">Plano 03</div>
+                    <div class="plan-name">Plano <em>Empresarial</em></div>
+                    <div class="plan-desc">Para quem quer presença completa e autoridade online</div>
+
+                    <div class="benefits">
+                        <div class="benefit"
+                            style="background:rgba(184,217,0,.03);border-bottom:0.5px solid rgba(184,217,0,.1)">
+                            <div class="benefit-icon lime-icon" style="font-size:13px">✓</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title"
+                                    style="font-size:13px;color:var(--text-secondary);font-weight:400">Tudo do Plano
+                                    Profissional incluso</div>
+                                <div class="benefit-sub">Animações, SEO, WhatsApp, SSL, domínio e hospedagem</div>
+                            </div>
+                        </div>
+                        <div class="benefit-separator"
+                            style="padding:10px 16px 4px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);opacity:.8">
+                            Mais tudo isso ↓</div>
+                        <div class="benefit highlight">
+                            <div class="benefit-icon gold-icon">✦</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Site com 3 páginas completas</div>
+                                <div class="benefit-sub">Home, Sobre e Serviços/Contato — presença completa</div>
+                            </div>
+                        </div>
+                        <div class="benefit highlight">
+                            <div class="benefit-icon gold-icon">✦</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Página de links para redes sociais</div>
+                                <div class="benefit-sub">Sua bio page profissional com todos os seus canais</div>
+                            </div>
+                        </div>
+                        <div class="benefit highlight">
+                            <div class="benefit-icon gold-icon">✦</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Domínio .com.br ou .com incluso</div>
+                                <div class="benefit-sub">Extensão profissional no lugar da extensão econômica</div>
+                            </div>
+                        </div>
+                        <div class="benefit highlight">
+                            <div class="benefit-icon gold-icon">✦</div>
+                            <div class="benefit-text">
+                                <div class="benefit-title">Entrega em até 72h</div>
+                                <div class="benefit-sub">Projeto completo com mais páginas entregue em três dias</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="plan-right">
+                    <div class="models-label rv">Escolha um modelo — 3 páginas + página de links</div>
+                    <div class="mockup-grid rv" id="g3">
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-a" onclick="selG(this,'g3','l3a')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:60px">
+                                        <div class="mk-line gl s"></div>
+                                        <div class="mk-line xs" style="opacity:.45"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:28px"></div>
+                                        <div class="mk-block" style="height:28px"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:26px"></div>
+                                    <div class="mk-line s" style="opacity:.18;margin:2px 0"></div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:20px"></div>
+                                        <div class="mk-block" style="height:20px"></div>
+                                        <div class="mk-block" style="height:20px"></div>
+                                    </div>
+                                    <div class="mk-btn gb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge gb">✦ Premium</div>
+                            </div>
+                            <div class="mockup-label" id="l3a">Modelo A</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-b" onclick="selG(this,'g3','l3b')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:72px">
+                                        <div class="mk-line gl"></div>
+                                        <div class="mk-line s" style="opacity:.5"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:30px"></div>
+                                    <div class="mk-line xs" style="opacity:.2;margin:2px 0"></div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:26px"></div>
+                                        <div class="mk-block" style="height:26px;flex:1.5"></div>
+                                    </div>
+                                    <div class="mk-block" style="height:24px"></div>
+                                    <div class="mk-btn gb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge gb">✦ Premium</div>
+                            </div>
+                            <div class="mockup-label" id="l3b">Modelo B</div>
+                        </div>
+                        <div class="mockup-wrap">
+                            <div class="mockup-card style-c" onclick="selG(this,'g3','l3c')">
+                                <div class="mk-nav">
+                                    <div class="mk-dot" style="background:#ff6b6b"></div>
+                                    <div class="mk-dot" style="background:#ffd93d"></div>
+                                    <div class="mk-dot" style="background:#6bcb77"></div>
+                                </div>
+                                <div class="mk-body">
+                                    <div class="mk-hero" style="height:66px">
+                                        <div class="mk-line gl s"></div>
+                                        <div class="mk-line xs" style="opacity:.4"></div>
+                                    </div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:33px;flex:2"></div>
+                                        <div class="mk-block" style="height:33px"></div>
+                                    </div>
+                                    <div class="mk-line s" style="opacity:.18;margin:2px 0"></div>
+                                    <div class="mk-block" style="height:28px"></div>
+                                    <div class="mk-row">
+                                        <div class="mk-block" style="height:20px"></div>
+                                        <div class="mk-block" style="height:20px"></div>
+                                    </div>
+                                    <div class="mk-btn gb"></div>
+                                </div>
+                                <div class="mk-shimmer"></div>
+                                <div class="mk-badge gb">✦ Premium</div>
+                            </div>
+                            <div class="mockup-label" id="l3c">Modelo C</div>
+                        </div>
+                    </div>
+
+                    <div class="price-cta rv" style="border-color:rgba(200,146,74,.2);background:rgba(200,146,74,.03)">
+                        <div class="price-block">
+                            <div class="price-value gv"><sup>R$</sup>597</div>
+                            <div class="price-meta">
+                                <div class="price-note">pagamento único · sem mensalidade</div>
+                                <div class="price-upsell">Domínio .com.br + hospedagem inclusos por 1 ano</div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-gold">Quero esse plano <svg width="14" height="14" viewBox="0 0 15 15"
+                                fill="none">
+                                <path d="M2.5 7.5h10M9 4l3.5 3.5L9 11" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script>
+        // GRAIN
+        (function () { const c = document.getElementById('grain'), ctx = c.getContext('2d'); let w, h; function r() { c.width = w = window.innerWidth; c.height = h = window.innerHeight; c.style.width = '100%'; c.style.height = '100vh' } r(); window.addEventListener('resize', r, { passive: true }); function d() { const img = ctx.createImageData(w, h), dt = img.data; for (let i = 0; i < dt.length; i += 4) { const v = Math.random() > .5 ? 255 : 0; dt[i] = dt[i + 1] = dt[i + 2] = v; dt[i + 3] = 255 } ctx.putImageData(img, 0, 0); requestAnimationFrame(d) } d() })();
+
+        // CURSOR
+        const cur = document.getElementById('cur'), ring = document.getElementById('cur-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.transform = 'translate(' + (mx - 3.5) + 'px,' + (my - 3.5) + 'px)'; }, { passive: true });
+        (function aR() { rx += (mx - rx) * .1; ry += (my - ry) * .1; ring.style.transform = 'translate(' + (rx - 17) + 'px,' + (ry - 17) + 'px)'; requestAnimationFrame(aR) })();
+        document.querySelectorAll('a,button').forEach(el => {
+            el.addEventListener('mouseenter', () => { ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(184,217,0,.7)'; cur.style.width = '0'; cur.style.height = '0' });
+            el.addEventListener('mouseleave', () => { ring.style.width = '34px'; ring.style.height = '34px'; ring.style.borderColor = 'rgba(184,217,0,.35)'; cur.style.width = '7px'; cur.style.height = '7px' });
+        });
+
+        // SCROLL LINE
+        window.addEventListener('scroll', () => { document.getElementById('scrollLine').style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%'; }, { passive: true });
+
+        // MODEL SELECT — lime
+        function sel(card, gid, lid) {
+            document.getElementById(gid).querySelectorAll('.mockup-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById(gid).querySelectorAll('.mockup-label').forEach(l => { l.classList.remove('al'); l.textContent = l.textContent.replace(' ✦', '') });
+            card.classList.add('selected');
+            const l = document.getElementById(lid); l.classList.add('al'); l.textContent = l.textContent + ' ✦';
+        }
+        // MODEL SELECT — gold
+        function selG(card, gid, lid) {
+            document.getElementById(gid).querySelectorAll('.mockup-card').forEach(c => c.classList.remove('selected-gold'));
+            document.getElementById(gid).querySelectorAll('.mockup-label').forEach(l => { l.classList.remove('ag'); l.textContent = l.textContent.replace(' ✦', '') });
+            card.classList.add('selected-gold');
+            const l = document.getElementById(lid); l.classList.add('ag'); l.textContent = l.textContent + ' ✦';
+        }
+
+        // GSAP
+        window.addEventListener('load', function () {
+            if (typeof gsap === 'undefined') return;
+            gsap.registerPlugin(ScrollTrigger);
+            // Hero
+            gsap.timeline({ delay: .2 })
+                .to('.hero-eyebrow', { opacity: 1, y: 0, duration: .8, ease: 'power3.out' })
+                .to('.hero h1', { opacity: 1, y: 0, duration: .9, ease: 'power3.out' }, '-.5')
+                .to('.hero-sub', { opacity: 1, y: 0, duration: .7, ease: 'power3.out' }, '-.5')
+                .to('.hero-meta', { opacity: 1, y: 0, duration: .6, ease: 'power3.out' }, '-.4');
+            // Scroll reveals
+            document.querySelectorAll('.rv').forEach((el, i) => {
+                if (el.closest('.hero')) return;
+                gsap.to(el, { opacity: 1, y: 0, duration: .75, ease: 'power3.out', delay: (i % 3) * .05, scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none reverse' } });
+            });
+            document.querySelectorAll('.rv-l').forEach(el => {
+                gsap.to(el, { opacity: 1, x: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' } });
+            });
+            // Benefits stagger per block
+            document.querySelectorAll('.benefits').forEach(list => {
+                const items = list.querySelectorAll('.benefit');
+                gsap.fromTo(items, { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: .5, ease: 'power3.out', stagger: .06, scrollTrigger: { trigger: list, start: 'top 88%', toggleActions: 'play none none reverse' } });
+            });
+            // Mockup grids
+            // g2 tem 6 cards
+            gsap.fromTo(document.querySelectorAll('#g2 .mockup-wrap'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .6, ease: 'power3.out', stagger: .07, scrollTrigger: { trigger: '#g2', start: 'top 90%', toggleActions: 'play none none reverse' } });
+            ['#g1', '#g3'].forEach(s => {
+                gsap.fromTo(document.querySelectorAll(s + ' .mockup-wrap'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .6, ease: 'power3.out', stagger: .1, scrollTrigger: { trigger: s, start: 'top 90%', toggleActions: 'play none none reverse' } });
+            });
+        });
+    </script>
+</body>
+
+</html>
