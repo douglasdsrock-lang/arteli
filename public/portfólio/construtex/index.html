@@ -1,0 +1,3898 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="CONSTRUTEX - Engenharia e Construções Civis de Alta Complexidade. Projetos estruturais, modelagem integrada BIM e execução sob rigoroso controle técnico.">
+    <title>CONSTRUTEX - Alta Engenharia Estrutural</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/team_architect.png">
+
+    <!-- Google Fonts: Elegant Serif + Technical Sans-serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Lenis Smooth Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+
+
+    <style>
+        /* --- AAA UNIQUE CORPORATE DESIGN SYSTEM --- */
+        :root {
+            --bg-base: #060608;        /* Dark Charcoal */
+            --bg-base-alt: #0b0b0e;    /* Deep Slate/Carbon block */
+            --bg-card: rgba(12, 12, 16, 0.85); /* Frosted Glass structure */
+            
+            --color-crimson: #a91d22;      /* Luxury Crimson/Ruby Corporate Red */
+            --color-crimson-hover: #c92a31; /* Interactive red state */
+            --color-gold: #c5a880;          /* Understated Champagne/Bronze Gold */
+            --color-gold-dim: rgba(197, 168, 128, 0.15);
+
+            --text-title: #f8fafc;     /* Crisp Off-white */
+            --text-body: #94a3b8;      /* Slate/Steel gray for editorial look */
+            --text-muted: #475569;     /* Deep stone/slate */
+            
+            --border-color: rgba(255, 255, 255, 0.04);
+            --border-color-active: rgba(169, 29, 34, 0.22);
+            
+            --font-title: 'Playfair Display', Georgia, serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-accent: 'Outfit', sans-serif;
+            
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- GLOBAL RESETS & STYLING --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-crimson) var(--bg-base);
+            background-color: var(--bg-base);
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-body);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020203;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-crimson);
+            border-radius: 2px;
+        }
+
+        section {
+            padding: 9.5rem 0;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-base);
+        }
+
+        .section-elevated {
+            background-color: var(--bg-base-alt);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            margin-bottom: 6rem;
+            gap: 0.8rem;
+            max-width: 800px;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-accent);
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: clamp(2.4rem, 4.5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--text-title);
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title span {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--color-crimson);
+        }
+
+        .section-desc {
+            color: var(--text-body);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 680px;
+            margin-top: 0.5rem;
+        }
+
+        /* --- BUTTONS SYSTEM (Editorial Borders & Fills) --- */
+        .btn-corporate {
+            position: relative;
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.95rem 2.6rem;
+            border-radius: 9999px;
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            overflow: hidden;
+            z-index: 1;
+            transition: var(--transition-fast);
+        }
+
+        .btn-corporate::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--color-crimson) 0%, #681520 100%);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-corporate:hover {
+            color: #ffffff;
+            border-color: var(--color-crimson);
+            box-shadow: 0 8px 25px rgba(169, 29, 34, 0.15);
+        }
+
+        .btn-corporate:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn-corporate-outline {
+            position: relative;
+            background: transparent;
+            color: var(--text-body);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.95rem 2.6rem;
+            border-radius: 9999px;
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            overflow: hidden;
+            z-index: 1;
+            transition: var(--transition-fast);
+        }
+
+        .btn-corporate-outline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            z-index: -1;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-corporate-outline:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.22);
+        }
+
+        .btn-corporate-outline:hover::before {
+            transform: scaleY(1);
+        }
+
+        .logo-link {
+            text-decoration: none !important;
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: transparent;
+            border-bottom: none;
+            transition: var(--transition-smooth);
+        }
+
+        header.scrolled {
+            position: fixed;
+            background: rgba(6, 6, 8, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-icon-container {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-body);
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--text-title);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            font-family: var(--font-accent);
+            font-size: 0.52rem;
+            font-weight: 500;
+            color: var(--color-crimson);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 3px;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem;
+            align-items: center;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: var(--text-body);
+            font-family: var(--font-accent);
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: var(--transition-fast);
+            position: relative;
+            padding: 0.4rem 0;
+        }
+
+        .nav-item a:hover {
+            color: #ffffff;
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background-color: var(--color-crimson);
+            transition: var(--transition-fast);
+        }
+
+        .nav-item a.active-link {
+            color: #ffffff;
+        }
+
+        .nav-item a.active-link::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle svg {
+            width: 24px;
+            height: 24px;
+            display: block;
+        }
+
+        /* --- SEÇÃO 2: SPLIT-SCREEN HERO LAYOUT (Immersive blueprint panel) --- */
+        .hero-split {
+            min-height: 100vh;
+            display: flex;
+            width: 100%;
+            background-color: var(--bg-base);
+            position: relative;
+            z-index: 5;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-left {
+            width: 44vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10rem 4rem 6rem 5rem;
+            position: relative;
+            z-index: 10;
+            background-color: var(--bg-base);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .hero-left-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+            max-width: 580px;
+        }
+
+        .hero-headline {
+            font-family: var(--font-title);
+            font-size: clamp(2.6rem, 4vw, 4rem);
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero-headline span {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--color-crimson);
+        }
+
+        .hero-description {
+            font-size: 1.05rem;
+            color: var(--text-body);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .hero-index-list {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.8rem;
+        }
+
+        .hero-index-item {
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-body);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: var(--transition-fast);
+        }
+
+        .hero-index-item span {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 0.65rem;
+        }
+
+        .hero-index-item:hover, .hero-index-item.active {
+            color: var(--color-crimson);
+            padding-left: 8px;
+        }
+
+        .hero-right {
+            width: 56vw;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            overflow: hidden;
+            background: #020203;
+        }
+
+        .hero-viewport-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.45;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1s ease, opacity 0.3s ease;
+            filter: grayscale(0.2) contrast(1.1);
+        }
+
+        /* --- HERO SLIDESHOW NAVIGATION & TIMER --- */
+        .hero-controls-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+        }
+
+        .hero-nav-btns {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .hero-nav-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-color: rgba(12, 12, 16, 0.6);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            outline: none;
+        }
+
+        .hero-nav-btn:hover {
+            border-color: var(--color-crimson);
+            background-color: var(--color-crimson);
+            box-shadow: 0 0 15px rgba(169, 29, 34, 0.3);
+        }
+
+        .hero-timer-bar-container {
+            flex-grow: 1;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+            position: relative;
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .hero-timer-bar-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background-color: var(--color-crimson);
+            transition: width 0.1s linear;
+        }
+
+        /* Technical vectors and metadata overlays inside Hero right */
+        .hero-metadata-overlay {
+            position: absolute;
+            inset: 0;
+            padding: 7rem 3rem 3rem;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 10;
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .hud-border {
+            position: absolute;
+            top: 7rem;
+            left: 3rem;
+            right: 3rem;
+            bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+        }
+
+        .hud-border::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 10px;
+            height: 10px;
+            border-top: 1.5px solid var(--color-crimson);
+            border-left: 1.5px solid var(--color-crimson);
+        }
+
+        .hud-border::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 10px;
+            height: 10px;
+            border-bottom: 1.5px solid var(--color-crimson);
+            border-right: 1.5px solid var(--color-crimson);
+        }
+
+        .hud-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .hud-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .active-project-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            text-align: right;
+        }
+
+        .active-project-specs span {
+            color: var(--color-gold);
+            font-weight: bold;
+        }
+
+        /* --- SEÇÃO 3: CREDENTIALS (Asymmetric Row Panels) --- */
+        .credentials-sec {
+            padding: 0;
+            background-color: var(--bg-base);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .credentials-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background-color: var(--border-color);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+        }
+
+        .credential-panel {
+            background-color: var(--bg-base-alt);
+            padding: 5.5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .credential-panel:hover {
+            background-color: rgba(169, 29, 34, 0.02);
+        }
+
+        .cred-num {
+            font-family: var(--font-title);
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--color-crimson);
+            line-height: 1;
+        }
+
+        .cred-label {
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-title);
+            letter-spacing: 0.5px;
+            margin-top: 0.4rem;
+        }
+
+        .cred-desc {
+            font-size: 0.85rem;
+            color: var(--text-body);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+
+        /* --- SEÇÃO 4: SOBRE NÓS (Asymmetric Column Shift) --- */
+        .sobre-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 7rem;
+            align-items: center;
+        }
+
+        .sobre-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+            align-items: flex-start;
+        }
+
+        .sobre-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-body);
+            font-weight: 300;
+        }
+
+        .sobre-stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            width: 100%;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .sobre-stat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .sobre-stat-num {
+            font-family: var(--font-title);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .sobre-stat-lbl {
+            font-size: 0.72rem;
+            color: var(--color-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .sobre-image-container {
+            position: relative;
+        }
+
+        .sobre-img-frame {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            aspect-ratio: 1.15;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        .sobre-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.2) contrast(1.05);
+        }
+
+        .sobre-image-container::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 100%;
+            height: 100%;
+            border: 1.5px solid var(--color-crimson);
+            border-radius: 4px;
+            z-index: 1;
+            opacity: 0.25;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .sobre-image-container:hover::after {
+            transform: translate(-6px, 6px);
+            opacity: 0.5;
+        }
+
+
+        /* --- SEÇÃO 5: EXPANDING ACCORDION DIVISÕES (Services) --- */
+        .accordion-divisoes {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .divisao-row {
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .divisao-summary {
+            display: grid;
+            grid-template-columns: 0.6fr 2.4fr 2.4fr 0.6fr;
+            align-items: center;
+            padding: 2.4rem 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .divisao-num {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            color: var(--color-crimson);
+            font-weight: 600;
+        }
+
+        .divisao-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--text-title);
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .divisao-meta-quick {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .divisao-indicator {
+            justify-self: end;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divisao-row:hover .divisao-title {
+            color: var(--color-crimson);
+        }
+        
+        .divisao-details {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .divisao-details-inner {
+            padding: 0 1.5rem 3.5rem 1.5rem;
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .divisao-desc {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--text-body);
+            font-weight: 300;
+        }
+
+        .divisao-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .div-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .div-stat-num {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .div-stat-lbl {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .divisao-row.active .divisao-indicator {
+            transform: rotate(45deg);
+            color: var(--color-crimson);
+        }
+
+
+        /* --- SEÇÃO 6: PORTFOLIO (Asymmetric Editorial Grid) --- */
+        .portfolio-asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+        }
+
+        .portfolio-col {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .portfolio-card-editorial {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .portfolio-card-editorial:hover {
+            border-color: var(--color-crimson);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        .port-editorial-wrapper {
+            width: 100%;
+            aspect-ratio: 1.5;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portfolio-card-editorial.tall .port-editorial-wrapper {
+            aspect-ratio: 0.95;
+        }
+
+        .port-editorial-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(0.2) contrast(1.05);
+        }
+
+        .portfolio-card-editorial:hover .port-editorial-wrapper img {
+            transform: scale(1.05);
+            filter: grayscale(0) contrast(1);
+        }
+
+        .port-editorial-tag {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: rgba(6, 6, 8, 0.95);
+            border: 1px solid var(--color-crimson);
+            color: #ffffff;
+            font-family: var(--font-accent);
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .port-editorial-info {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .port-editorial-info h3 {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+
+        .port-editorial-info p {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+
+        /* --- SEÇÃO 7: DIFERENCIAIS E ESG --- */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 7rem;
+            align-items: center;
+        }
+
+        .dashboard-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+        }
+
+        .dashboard-visuals {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .widget-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2.8rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: var(--transition-smooth);
+        }
+
+        .widget-box:hover {
+            border-color: var(--border-color-active);
+        }
+
+        .circular-progress {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(var(--color-crimson) 0deg, #131317 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circular-progress::before {
+            content: '';
+            position: absolute;
+            width: 106px;
+            height: 106px;
+            border-radius: 50%;
+            background-color: #0b0b0d;
+        }
+
+        .progress-value {
+            position: relative;
+            font-family: var(--font-title);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: #ffffff;
+            z-index: 5;
+        }
+
+        .widget-box h4 {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+
+        .widget-box p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+
+        /* --- SEÇÃO 8: HORIZONTAL SCROLL TIMELINE (Our Process) --- */
+        .horizontal-scroll-sec {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--bg-base-alt);
+            padding: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .scroll-pin-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .horizontal-scroll-container {
+            max-width: 100%;
+            padding: 0 5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+            width: 100%;
+        }
+
+        .horizontal-scroll-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 650px;
+            gap: 0.8rem;
+        }
+
+        .horizontal-scroll-track {
+            display: flex;
+            gap: 3rem;
+            width: max-content;
+            will-change: transform;
+            padding-bottom: 2rem;
+        }
+
+        .horizontal-step-card {
+            width: 330px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .horizontal-step-card:hover {
+            border-color: var(--border-color-active);
+            transform: translateY(-4px);
+        }
+
+        .step-num {
+            font-family: var(--font-title);
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--color-crimson);
+            line-height: 1;
+        }
+
+        .horizontal-step-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+
+        .horizontal-step-card p {
+            font-size: 0.9rem;
+            color: var(--text-body);
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+
+        /* --- SEÇÃO 9: LIDERANÇA TÉCNICA (Team) --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .team-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+
+        .team-card:hover {
+            border-color: var(--color-crimson);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .team-visual {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1.12;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #0d0d10;
+        }
+
+        .team-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+            filter: grayscale(0.6) contrast(1.05);
+        }
+
+        .team-card:hover .team-visual img {
+            filter: grayscale(0) contrast(1);
+            transform: scale(1.03);
+        }
+
+        .team-info {
+            padding: 2.2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            align-items: flex-start;
+        }
+
+        .team-role {
+            font-family: var(--font-accent);
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--color-crimson);
+        }
+
+        .team-name {
+            font-family: var(--font-title);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }
+
+        .team-reg {
+            font-size: 0.8rem;
+            color: var(--text-body);
+            font-weight: 500;
+        }
+
+        .team-desc {
+            font-size: 0.88rem;
+            color: var(--text-body);
+            line-height: 1.6;
+            font-weight: 300;
+            margin-top: 0.4rem;
+        }
+
+
+        /* --- SEÇÃO 10: FORNECEDORES CAROUSEL --- */
+        #convenios-carousel-section {
+            padding: 4.5rem 0;
+            background-color: var(--bg-base);
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .fade-overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 8rem;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .fade-left {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-base), transparent);
+        }
+
+        .fade-right {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-base), transparent);
+        }
+
+        .carousel-track {
+            display: flex;
+            width: max-content;
+        }
+
+        .carousel-logo-box {
+            margin-left: 3rem;
+            margin-right: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            width: 150px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.22);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+        }
+
+        .carousel-logo-box:hover {
+            color: #ffffff;
+            transform: scale(1.12);
+            cursor: pointer;
+        }
+
+
+        /* --- SEÇÃO 11: TESTIMONIALS PARALLAX MASONRY --- */
+        .testimonials-parallax-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .testimonials-static-panel {
+            position: sticky;
+            top: 15vh;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .testimonials-masonry {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            padding-top: 2rem;
+        }
+
+        .parallax-testimonial-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4rem 3.5rem;
+            position: relative;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: border-color 0.4s ease;
+            will-change: transform;
+        }
+
+        .parallax-testimonial-card:hover {
+            border-color: var(--border-color-active);
+        }
+
+        .quote-mark {
+            font-family: var(--font-title);
+            font-size: 10rem;
+            line-height: 1;
+            color: rgba(169, 29, 34, 0.05);
+            position: absolute;
+            top: 0.5rem;
+            left: 2rem;
+            user-select: none;
+        }
+
+        .quote-text {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            line-height: 1.75;
+            color: #f1f5f9;
+            font-style: italic;
+            position: relative;
+            z-index: 5;
+            margin-bottom: 2.2rem;
+            font-weight: 400;
+        }
+
+        .quote-author {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .author-initials {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-crimson) 0%, #681520 100%);
+            color: #ffffff;
+            font-family: var(--font-accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quote-author h4 {
+            font-family: var(--font-accent);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.1rem;
+        }
+
+        .quote-author p {
+            font-size: 0.8rem;
+            color: var(--text-body);
+        }
+
+
+        /* --- SEÇÃO 12: FAQ ACCORDION --- */
+        .faq-container {
+            max-width: 850px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .faq-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .faq-item:hover {
+            border-color: var(--color-gold-dim);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.8rem 2.2rem;
+            background: none;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .faq-question h4 {
+            font-family: var(--font-accent);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #ffffff;
+            transition: var(--transition-fast);
+        }
+
+        .faq-item.active .faq-question h4 {
+            color: var(--color-crimson);
+        }
+
+        .faq-icon-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-body);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-item.active .faq-icon-box {
+            background-color: var(--color-crimson);
+            color: #ffffff;
+            transform: rotate(180deg);
+            border-color: var(--color-crimson);
+        }
+
+        .faq-icon-box svg {
+            width: 12px;
+            height: 12px;
+            display: block;
+        }
+
+        .faq-answer {
+            height: 0;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .faq-answer-inner {
+            padding: 0 2.2rem 2rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-body);
+            font-weight: 300;
+        }
+
+
+        /* --- SEÇÃO 13: CONTATO E ESTIMADOR DE CUSTO --- */
+        .contato-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+            align-items: stretch;
+        }
+
+        .contato-info-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        /* Interactive CAD Blueprint Estimator Console */
+        .estimator-widget {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .estimator-widget h3 {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--text-title);
+        }
+
+        .estimator-widget h3 span {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--color-crimson);
+        }
+
+        .estimator-console-body {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .estimator-visual-panel {
+            background: #020203;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            aspect-ratio: 1.2;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slider-label {
+            font-family: var(--font-accent);
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-body);
+            letter-spacing: 1px;
+        }
+
+        .slider-val-bubble {
+            font-family: var(--font-accent);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--color-crimson);
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 3px;
+            background: #1e1e24;
+            border-radius: 1.5px;
+            outline: none;
+            border: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--color-crimson);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.25);
+        }
+
+        .estimator-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.8rem;
+        }
+
+        .result-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .result-lbl {
+            font-size: 0.72rem;
+            color: var(--text-body);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .result-val {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .contato-form-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3.5rem;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .contato-form-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-title);
+            line-height: 1.3;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.4rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-family: var(--font-accent);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-body);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: rgba(6, 6, 8, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.9rem 1.2rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: #ffffff;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus {
+            border-color: var(--color-crimson);
+        }
+
+        textarea.form-input {
+            resize: none;
+            min-height: 110px;
+        }
+
+        .contato-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contato-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.8rem;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .contato-card:hover {
+            border-color: var(--color-crimson);
+            transform: translateY(-2px);
+        }
+
+        .contato-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background: rgba(169, 29, 34, 0.05);
+            border: 1px solid rgba(169, 29, 34, 0.15);
+            color: var(--color-crimson);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contato-icon-wrapper svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .contato-text h4 {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.5px;
+        }
+
+        .contato-text p {
+            font-size: 0.9rem;
+            color: var(--text-body);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 0.6rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-body);
+            transition: var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+            transition: var(--transition-fast);
+        }
+
+        .social-link:hover {
+            color: #ffffff;
+            border-color: var(--color-crimson);
+            background-color: var(--color-crimson);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(169, 29, 34, 0.3);
+        }
+
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #040405;
+            color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            padding: 6.5rem 0 2.5rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.8fr 0.8fr 1.1fr;
+            gap: 4rem;
+            margin-bottom: 4.5rem;
+        }
+
+        .footer-logo-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            align-items: flex-start;
+        }
+
+        .footer-logo-col p {
+            color: var(--text-body);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .footer-title {
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-body);
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+            font-weight: 400;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-crimson);
+            padding-left: 3px;
+        }
+
+        .footer-newsletter-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-newsletter-col p {
+            color: var(--text-body);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.8rem 1.1rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: #ffffff;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--color-crimson);
+        }
+
+        .newsletter-btn {
+            background-color: var(--color-crimson);
+            color: #ffffff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--color-crimson-hover);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-body);
+            font-weight: 400;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-bottom-links a {
+            text-decoration: none;
+            color: var(--text-body);
+            transition: var(--transition-fast);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--color-crimson);
+        }
+
+        /* --- VERIFICATION & UTILITIES --- */
+        .mobile-menu-close-container {
+            display: none;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+
+
+        /* Ticker logic */
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-left {
+            animation: scroll-left 45s linear infinite;
+        }
+        .carousel-wrapper:hover .animate-left {
+            animation-play-state: paused;
+        }
+
+        /* Entrance Scroll Reveal System */
+        .scroll-left, .scroll-right, .scroll-bottom, .scroll-bottom1, .scroll-bottom2 {
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .scroll-left { transform: translateX(-35px); }
+        .scroll-right { transform: translateX(35px); }
+        .scroll-bottom { transform: translateY(35px); }
+        .scroll-bottom1 { transform: translateY(35px); transition-delay: 0.15s; }
+        .scroll-bottom2 { transform: translateY(35px); transition-delay: 0.3s; }
+        .scroll-left.ativo,
+        .scroll-right.ativo,
+        .scroll-bottom.ativo,
+        .scroll-bottom1.ativo,
+        .scroll-bottom2.ativo {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* --- AAA FILM GRAIN NOISE --- */
+        .grain-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 99997;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 250px 250px;
+            animation: grain-anim 0.5s steps(1) infinite;
+        }
+
+        @keyframes grain-anim {
+            0%   { background-position: 0 0; }
+            10%  { background-position: -5% -10%; }
+            20%  { background-position: -15% 5%; }
+            30%  { background-position: 7% -25%; }
+            40%  { background-position: -5% 25%; }
+            50%  { background-position: -15% 10%; }
+            60%  { background-position: 15% 0; }
+            70%  { background-position: 0 15%; }
+            80%  { background-position: 3% 35%; }
+            90%  { background-position: -10% 10%; }
+        }
+
+        /* --- AAA BLUEPRINT DESIGN GRID LINES --- */
+        .lines {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        .line {
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 50%, rgba(255, 255, 255, 0.03) 100%);
+        }
+
+        /* --- AAA AMBIENT GLOWS --- */
+        .ambient-glow {
+            position: fixed;
+            width: 1300px;
+            height: 1300px;
+            top: -200px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            background: radial-gradient(circle, rgba(169, 29, 34, 0.04) 0%, rgba(197, 168, 128, 0.015) 45%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(100px);
+            animation: ambient-drift 32s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambient-drift {
+            0% { transform: translate(-45%, -5%) scale(1); }
+            100% { transform: translate(-55%, 5%) scale(1.03); }
+        }
+
+        .perspective-3d {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* --- AAA CUSTOM CURSOR & PREVIEW STYLES --- */
+        .custom-cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-crimson);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+        }
+        .custom-cursor-dot.is-hover {
+            width: 10px;
+            height: 10px;
+            background-color: #ffffff;
+        }
+        .custom-cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 32px;
+            height: 32px;
+            border: 1.5px solid rgba(169, 29, 34, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .custom-cursor-ring.is-hover {
+            width: 50px;
+            height: 50px;
+            border-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        .custom-cursor-ring.view-mode::after {
+            content: "VER OBRA";
+            position: absolute;
+            font-family: var(--font-accent);
+            font-size: 0.52rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+        }
+        .custom-cursor-ring.view-mode {
+            width: 70px;
+            height: 70px;
+            background-color: var(--color-crimson);
+            border-color: var(--color-crimson);
+        }
+        .cursor-preview {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 140px;
+            border-radius: 4px;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 99996;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+        }
+        .cursor-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Hide custom cursor on mobile viewports */
+        @media (max-width: 1024px) {
+            .custom-cursor-dot,
+            .custom-cursor-ring,
+            .cursor-preview {
+                display: none !important;
+            }
+            .credential-panel {
+                padding: 3.5rem 2rem !important;
+            }
+        }
+
+        /* --- ADDITIONAL RESPONSIVENESS --- */
+        @media (max-width: 1100px) {
+            .hero-split {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+            .hero-left {
+                width: 100%;
+                padding: 7.5rem 2rem 4rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .hero-right {
+                width: 100%;
+                height: 55vh;
+                position: relative;
+            }
+            .sobre-layout,
+            .dashboard-layout,
+            .contato-layout,
+            .node-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .node-content {
+                gap: 1.5rem;
+            }
+            .portfolio-asymmetric-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+            .divisao-summary {
+                grid-template-columns: 0.5fr 2.5fr 0.5fr;
+                gap: 1rem;
+            }
+            .divisao-meta-quick {
+                display: none;
+            }
+            .divisao-details-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-right {
+                height: 45vh;
+            }
+            .hero-metadata-overlay {
+                padding: 2rem !important;
+            }
+            .hud-border {
+                top: 2rem !important;
+                left: 2rem !important;
+                right: 2rem !important;
+                bottom: 2rem !important;
+            }
+            .header-container {
+                padding: 1.2rem 1.5rem;
+            }
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(6, 6, 8, 0.98);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                padding: 8rem 2rem 5rem;
+                z-index: 2000;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-menu .nav-item a {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+                padding: 0.6rem 0;
+            }
+            .mobile-menu-close-container {
+                display: flex !important;
+                position: absolute;
+                top: 2.2rem;
+                left: 50%;
+                transform: translateX(-50%);
+                justify-content: center;
+                align-items: center;
+                width: auto;
+            }
+            .mobile-menu-close {
+                background: none;
+                border: none;
+                color: #ffffff;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.5rem;
+                transition: var(--transition-fast);
+            }
+            .mobile-menu-close:hover {
+                color: var(--color-crimson);
+                transform: scale(1.1);
+            }
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .header-actions {
+                display: none;
+            }
+            .team-grid,
+            .footer-grid,
+            .dashboard-visuals,
+            .credentials-row {
+                grid-template-columns: 1fr;
+            }
+            .contato-form-card {
+                padding: 2.5rem 1.8rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            .footer-bottom-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1.2rem;
+            }
+            .newsletter-form {
+                flex-direction: column;
+            }
+            .newsletter-btn {
+                width: 100%;
+                border-radius: 4px;
+            }
+            .estimator-results {
+                grid-template-columns: 1fr;
+            }
+            .estimator-console-body {
+                grid-template-columns: 1fr;
+            }
+            .divisao-summary {
+                grid-template-columns: 0.4fr 2.6fr;
+            }
+            .divisao-indicator {
+                display: none;
+            }
+
+            /* Mobile Horizontal Scroll Process */
+            .horizontal-scroll-sec {
+                height: auto !important;
+                padding: 6rem 0;
+            }
+            .scroll-pin-wrapper {
+                height: auto;
+            }
+            .horizontal-scroll-container {
+                padding: 0 1.5rem;
+            }
+            .horizontal-scroll-track {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 1.5rem;
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 2rem;
+            }
+            .horizontal-scroll-track::-webkit-scrollbar {
+                height: 3px;
+            }
+            .horizontal-scroll-track::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.02);
+            }
+            .horizontal-scroll-track::-webkit-scrollbar-thumb {
+                background: var(--color-crimson);
+                border-radius: 2px;
+            }
+            .horizontal-step-card {
+                flex-shrink: 0;
+                width: 300px;
+                padding: 2.5rem 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- AAA GLOBAL LAYOUT LAYER -->
+    <div class="grain-overlay"></div>
+    <div class="ambient-glow"></div>
+    <div class="lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <!-- AAA MINIMALIST LERP CURSOR -->
+    <div class="custom-cursor-dot" id="cursor-dot"></div>
+    <div class="custom-cursor-ring" id="cursor-ring"></div>
+
+    <!-- FLOATING SERVICE PREVIEW CURSOR -->
+    <div class="cursor-preview" id="cursor-preview">
+        <img src="" id="cursor-preview-img" alt="Visualização do Segmento">
+    </div>
+
+    <!-- SEÇÃO 1: HEADER & NAVBAR -->
+    <header id="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <div class="logo-icon-container">
+                    <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 12L82 31V69L50 88L18 69V31L50 12Z" stroke="#f8fafc" stroke-width="4" stroke-linejoin="round"/>
+                        <path d="M50 25V75" stroke="#a91d22" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M34 42L34 68M66 42L66 68" stroke="#a91d22" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>CONSTRUTEX</h1>
+                    <span>Engenharia de Precisão</span>
+                </div>
+            </a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="mobile-menu-close-container">
+                    <button class="mobile-menu-close" id="mobile-close" aria-label="Fechar Menu">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                    </button>
+                </li>
+                <li class="nav-item"><a href="#inicio" class="active-link">Início</a></li>
+                <li class="nav-item"><a href="#sobre">Empresa</a></li>
+                <li class="nav-item"><a href="#servicos">Divisões</a></li>
+                <li class="nav-item"><a href="#portfolio">Obras</a></li>
+                <li class="nav-item"><a href="#diferenciais">ESG</a></li>
+                <li class="nav-item"><a href="#processo">Processo</a></li>
+                <li class="nav-item"><a href="#contato">Orçamento</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <a href="#contato" class="btn-corporate">
+                    <span>Simulador Técnico</span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Abrir Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- SEÇÃO 2: SPLIT-SCREEN HERO SECTION -->
+    <div class="hero-split" id="inicio">
+        <div class="hero-left">
+            <div class="hero-left-content scroll-left">
+                <h2 class="hero-headline">
+                    Estruturas moldadas pela <span>precisão técnica</span>.
+                </h2>
+
+                <p class="hero-description">
+                    Atuamos no cálculo, planejamento integrado em BIM e execução de obras civis complexas de alto padrão e infraestrutura viária pesada.
+                </p>
+
+                <div class="hero-ctas">
+                    <a href="#portfolio" class="btn-corporate">
+                        <span>Ver Nossas Obras</span>
+                    </a>
+                </div>
+
+                <div class="hero-index-list">
+                    <div class="hero-index-item active" data-img="bg-desktop.webp" data-load="650 kN/m²" data-scale="1:250" data-coord="LAT: 23° 32' S | LND: 46° 38' W">
+                        <span>01 /</span> INFRAESTRUTURA URBANA
+                    </div>
+                    <div class="hero-index-item" data-img="./assets/project_commercial.png" data-load="820 kN/m²" data-scale="1:150" data-coord="LAT: 23° 30' S | LND: 46° 40' W">
+                        <span>02 /</span> INCORPORAÇÃO COMERCIAL
+                    </div>
+                    <div class="hero-index-item" data-img="./assets/project_residential.png" data-load="380 kN/m²" data-scale="1:100" data-coord="LAT: 23° 28' S | LND: 46° 42' W">
+                        <span>03 /</span> ALTO PADRÃO RESIDENCIAL
+                    </div>
+                </div>
+
+                <div class="hero-controls-row">
+                    <div class="hero-nav-btns">
+                        <button class="hero-nav-btn" id="hero-prev-btn" aria-label="Projeto Anterior">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        </button>
+                        <button class="hero-nav-btn" id="hero-next-btn" aria-label="Próximo Projeto">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </button>
+                    </div>
+                    <div class="hero-timer-bar-container">
+                        <div class="hero-timer-bar-progress" id="hero-timer-progress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hud-border"></div>
+            <div class="hero-metadata-overlay">
+                <div class="hud-top">
+                    <div>CONSTRUTEX CAD ENGINE V1.2</div>
+                    <div id="hud-coordinates">LAT: 23° 32' S | LND: 46° 38' W</div>
+                </div>
+                <div class="hud-bottom">
+                    <div>LIVE STRUCTURAL RUNTIME</div>
+                    <div class="active-project-specs">
+                        <div>LOAD LIMIT: <span id="hud-load">650 kN/m²</span></div>
+                        <div>SCALE FACTOR: <span id="hud-scale">1:250</span></div>
+                    </div>
+                </div>
+            </div>
+            <img src="bg-desktop.webp" id="hero-interactive-bg" class="hero-viewport-image" alt="Visualização da Obra Construtex">
+        </div>
+    </div>
+
+
+    <!-- SEÇÃO 3: CREDENTIALS ROW PANELS -->
+    <section class="credentials-sec">
+        <div class="credentials-row">
+            <!-- Panel 1 -->
+            <div class="credential-panel scroll-bottom">
+                <span class="cred-num">Zero</span>
+                <span class="cred-label">Acidentes de Trabalho</span>
+                <p class="cred-desc">Programas diários de conformidade técnica e gerenciamento preventivo no canteiro.</p>
+            </div>
+            <!-- Panel 2 -->
+            <div class="credential-panel scroll-bottom1">
+                <span class="cred-num">100%</span>
+                <span class="cred-label">Materiais Certificados</span>
+                <p class="cred-desc">Testes tecnológicos de concreto e aço rastreáveis desde a usina.</p>
+            </div>
+            <!-- Panel 3 -->
+            <div class="credential-panel scroll-bottom2">
+                <span class="cred-num">18d</span>
+                <span class="cred-label">Adiantamento Médio</span>
+                <p class="cred-desc">Conclusão de etapas físico-financeiras antes do prazo planejado em contrato.</p>
+            </div>
+            <!-- Panel 4 -->
+            <div class="credential-panel scroll-bottom">
+                <span class="cred-num">92%</span>
+                <span class="cred-label">Resíduos Tratados</span>
+                <p class="cred-desc">Destinação ecologicamente correta e economia circular de insumos de demolição.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 4: QUEM SOMOS -->
+    <section id="sobre" class="section-elevated">
+        <div class="section-container">
+            <div class="sobre-layout">
+                <div class="sobre-text scroll-left">
+                    <span class="section-subtitle">Engenharia de Estruturas</span>
+                    <h2 class="section-title">Tecnologia construtiva que molda o <span>amanhã</span></h2>
+                    <p>
+                        A <strong>CONSTRUTEX</strong> desenvolve soluções de engenharia civil pesada com base em análise estrutural computacional profunda e integrações eficientes.
+                    </p>
+                    <p>
+                        Através da modelagem inteligente em BIM (Building Information Modeling Level 3), eliminamos imprecisões executivas, otimizamos o consumo de materiais e garantimos controle total do fluxo orçamentário corporativo.
+                    </p>
+
+                    <div class="sobre-stats-row">
+                        <div class="sobre-stat-card">
+                            <span class="sobre-stat-num">120+</span>
+                            <span class="sobre-stat-lbl">Projetos Executados</span>
+                        </div>
+                        <div class="sobre-stat-card">
+                            <span class="sobre-stat-num">15+</span>
+                            <span class="sobre-stat-lbl">Anos de Inovação</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sobre-image-container">
+                    <div class="sobre-img-frame">
+                        <img src="./assets/about_construction.png" alt="Reunião técnica de engenheiros Construtex em campo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 5: ACCORDION DIVISÕES (Services) -->
+    <section id="servicos">
+        <div class="section-container">
+            <div class="section-header scroll-bottom">
+                <span class="section-subtitle">Divisões Técnicas</span>
+                <h2 class="section-title">Nossas especialidades em <span>engenharia</span></h2>
+                <p class="section-desc">Explore nossas principais frentes de trabalho. Passe o mouse para ver amostras gráficas e detalhes técnicos.</p>
+            </div>
+
+            <div class="accordion-divisoes">
+                <!-- Divisão 1 -->
+                <div class="divisao-row" data-image="./assets/project_infra.png">
+                    <div class="divisao-summary">
+                        <span class="divisao-num">01</span>
+                        <h3 class="divisao-title">Cálculo & Fundações</h3>
+                        <div class="divisao-meta-quick">Estruturas e Contenções Complexas</div>
+                        <div class="divisao-indicator"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                    </div>
+                    <div class="divisao-details">
+                        <div class="divisao-details-inner">
+                            <div class="divisao-desc">
+                                Projetamos fundações profundas de alta capacidade de carga útil, blocos de ancoragem de tirantes tracionados e superestruturas em concreto de alto desempenho.
+                            </div>
+                            <div class="divisao-stats-grid">
+                                <div class="div-stat">
+                                    <span class="div-stat-num">C50/C60</span>
+                                    <span class="div-stat-lbl">Classe de Concreto Média</span>
+                                </div>
+                                <div class="div-stat">
+                                    <span class="div-stat-num">BIM Level 3</span>
+                                    <span class="div-stat-lbl">Integração de Projetos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisão 2 -->
+                <div class="divisao-row" data-image="./assets/project_residential.png">
+                    <div class="divisao-summary">
+                        <span class="divisao-num">02</span>
+                        <h3 class="divisao-title">Incorporação de Alto Padrão</h3>
+                        <div class="divisao-meta-quick">Residências e Loteamentos Luxuosos</div>
+                        <div class="divisao-indicator"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                    </div>
+                    <div class="divisao-details">
+                        <div class="divisao-details-inner">
+                            <div class="divisao-desc">
+                                Executamos residências modernas minimalistas caracterizadas por grandes vãos livres em concreto protendido, fechamentos térmicos eficientes e paisagismo integrado.
+                            </div>
+                            <div class="divisao-stats-grid">
+                                <div class="div-stat">
+                                    <span class="div-stat-num">24m</span>
+                                    <span class="div-stat-lbl">Vão Livre Máximo</span>
+                                </div>
+                                <div class="div-stat">
+                                    <span class="div-stat-num">98%</span>
+                                    <span class="div-stat-lbl">Aproveitamento Térmico</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisão 3 -->
+                <div class="divisao-row" data-image="./assets/project_commercial.png">
+                    <div class="divisao-summary">
+                        <span class="divisao-num">03</span>
+                        <h3 class="divisao-title">Complexos Corporativos</h3>
+                        <div class="divisao-meta-quick">Torres e Lajes Comerciais AAA</div>
+                        <div class="divisao-indicator"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                    </div>
+                    <div class="divisao-details">
+                        <div class="divisao-details-inner">
+                            <div class="divisao-desc">
+                                Edifícios verticais equipados com fachadas cortina de isolamento termoacústico, sistemas de climatização central inteligente e instalações elétricas/hidráulicas flexíveis.
+                            </div>
+                            <div class="divisao-stats-grid">
+                                <div class="div-stat">
+                                    <span class="div-stat-num">LEED Gold</span>
+                                    <span class="div-stat-lbl">Padrão Ecológico</span>
+                                </div>
+                                <div class="div-stat">
+                                    <span class="div-stat-num">4m</span>
+                                    <span class="div-stat-lbl">Pé-direito Livre</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisão 4 -->
+                <div class="divisao-row" data-image="./assets/about_construction.png">
+                    <div class="divisao-summary">
+                        <span class="divisao-num">04</span>
+                        <h3 class="divisao-title">Retrofitting Estrutural</h3>
+                        <div class="divisao-meta-quick">Modernização de Prédios Históricos</div>
+                        <div class="divisao-indicator"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                    </div>
+                    <div class="divisao-details">
+                        <div class="divisao-details-inner">
+                            <div class="divisao-desc">
+                                Recuperamos e reforçamos fundações antigas de edifícios consolidados, adequando-os aos novos padrões de acessibilidade, segurança contra incêndios e cargas estruturais vigentes.
+                            </div>
+                            <div class="divisao-stats-grid">
+                                <div class="div-stat">
+                                    <span class="div-stat-num">+40%</span>
+                                    <span class="div-stat-lbl">Ganho de Capacidade</span>
+                                </div>
+                                <div class="div-stat">
+                                    <span class="div-stat-num">Bespoke</span>
+                                    <span class="div-stat-lbl">Estudo de Fundação</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 6: PORTFOLIO (Asymmetric Editorial Layout) -->
+    <section id="portfolio" class="section-elevated">
+        <div class="section-container">
+            <div class="section-header scroll-bottom" style="align-items: center; text-align: center; margin-left: auto; margin-right: auto; max-width: 800px;">
+                <span class="section-subtitle">Portfolio de Obras</span>
+                <h2 class="section-title">Nossas marcas na <span>paisagem urbana</span></h2>
+                <p class="section-desc">Uma seleção de empreendimentos caracterizados pela complexidade estrutural e execução cirúrgica.</p>
+            </div>
+
+            <div class="portfolio-asymmetric-grid">
+                <!-- Coluna da Esquerda (Projetos Maiores/Widescreen) -->
+                <div class="portfolio-col">
+                    <div class="portfolio-card-editorial scroll-bottom">
+                        <div class="port-editorial-wrapper">
+                            <span class="port-editorial-tag">Infraestrutura</span>
+                            <img src="./assets/project_infra.png" alt="Ponte Estaiada Pinheiros Construtex">
+                        </div>
+                        <div class="port-editorial-info">
+                            <h3>Estaiada Pinheiros</h3>
+                            <p>Estrutura estaiada executada em concreto de alta performance, cruzando vias de tráfego pesado sob regime de monitoramento tecnológico em tempo real.</p>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card-editorial scroll-bottom">
+                        <div class="port-editorial-wrapper">
+                            <span class="port-editorial-tag">Residencial</span>
+                            <img src="./assets/project_residential.png" alt="Residência Alphaville Construtex">
+                        </div>
+                        <div class="port-editorial-info">
+                            <h3>Villa Alphaville</h3>
+                            <p>Residência minimalista marcada por lajes suspensas em balanço, fechamento de painéis de vidro deslizantes de alto desempenho térmico.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna da Direita (Projetos Altos/Detalhes) -->
+                <div class="portfolio-col" style="padding-top: 5rem;">
+                    <div class="portfolio-card-editorial tall scroll-bottom">
+                        <div class="port-editorial-wrapper">
+                            <span class="port-editorial-tag">Comercial</span>
+                            <img src="./assets/project_commercial.png" alt="Torre Comercial Faria Lima Construtex">
+                        </div>
+                        <div class="port-editorial-info">
+                            <h3>Torre Faria Lima</h3>
+                            <p>Laje corporativa Triple A revestida em pele de vidro duplo temperado acústico, automação central integrada e certificação LEED.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 7: DIFERENCIAIS E ESG -->
+    <section id="diferenciais">
+        <div class="section-container">
+            <div class="dashboard-layout">
+                <div class="dashboard-text scroll-left">
+                    <span class="section-subtitle">Compromisso Socioambiental</span>
+                    <h2 class="section-title">Certificações e diretrizes de <span>sustentabilidade</span></h2>
+                    <p class="section-desc">
+                        A sustentabilidade em nossos canteiros de obras não é apenas um conceito, mas uma métrica operacional auditada e rastreada a cada etapa.
+                    </p>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1rem;">
+                        <li style="display: flex; align-items: center; gap: 1rem; font-weight: 500; font-size: 0.95rem; color: #ffffff;">
+                            <i data-lucide="check" style="color: var(--color-crimson); stroke-width: 2.5; width: 18px; height: 18px;"></i> Monitoramento e neutralização certificada de carbono.
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 1rem; font-weight: 500; font-size: 0.95rem; color: #ffffff;">
+                            <i data-lucide="check" style="color: var(--color-crimson); stroke-width: 2.5; width: 18px; height: 18px;"></i> Triagem e reuso integral de resíduos sólidos e concreto.
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 1rem; font-weight: 500; font-size: 0.95rem; color: #ffffff;">
+                            <i data-lucide="check" style="color: var(--color-crimson); stroke-width: 2.5; width: 18px; height: 18px;"></i> Implementação de painéis solares para autossuficiência do canteiro.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-visuals scroll-right">
+                    <!-- Progress Card 1 -->
+                    <div class="widget-box">
+                        <div class="circular-progress" id="progress-esg">
+                            <span class="progress-value" id="val-esg">0%</span>
+                        </div>
+                        <h4>Energia Limpa</h4>
+                        <p>Percentual de uso de fontes sustentáveis de energia na obra.</p>
+                    </div>
+
+                    <!-- Progress Card 2 -->
+                    <div class="widget-box">
+                        <div class="circular-progress" id="progress-safety">
+                            <span class="progress-value" id="val-safety">0%</span>
+                        </div>
+                        <h4>Segurança Operacional</h4>
+                        <p>Prevenção e controle estatístico de incidentes em campo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 8: HORIZONTAL SCROLL TIMELINE (Our Process) -->
+    <section id="processo" class="horizontal-scroll-sec">
+        <div class="scroll-pin-wrapper">
+            <div class="horizontal-scroll-container">
+                <div class="horizontal-scroll-header">
+                    <span class="section-subtitle">Método Construtivo</span>
+                    <h2 class="section-title">Fluxo operacional <span>físico-financeiro</span></h2>
+                    <p class="section-desc">Garantimos rastreabilidade e exatidão em cada uma das fases do projeto construtivo.</p>
+                </div>
+                <div class="horizontal-scroll-track" id="horizontal-track">
+                    <!-- Card 1 -->
+                    <div class="horizontal-step-card">
+                        <span class="step-num">01</span>
+                        <h3>Estudo de Solo</h3>
+                        <p>Ensaios de sondagem SP profunda, caracterização geológica e liberação burocrática de licenças.</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="horizontal-step-card">
+                        <span class="step-num">02</span>
+                        <h3>Modelagem BIM</h3>
+                        <p>Integração em BIM Level 3 de todos os sistemas estruturais, eliminando choques de instalações.</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="horizontal-step-card">
+                        <span class="step-num">03</span>
+                        <h3>Infraestrutura</h3>
+                        <p>Execução de estacas profundas, escavação subterrânea e blocos primários de ancoragem.</p>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="horizontal-step-card">
+                        <span class="step-num">04</span>
+                        <h3>Superestrutura</h3>
+                        <p>Elevação de pilares de alta carga, lajes protendidas e acompanhamento laboratorial contínuo.</p>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="horizontal-step-card">
+                        <span class="step-num">05</span>
+                        <h3>Fechamentos</h3>
+                        <p>Montagem de fachadas pele de vidro duplo térmico e acabamentos estruturais aparentes.</p>
+                    </div>
+                    <!-- Card 6 -->
+                    <div class="horizontal-step-card">
+                        <span class="step-num">06</span>
+                        <h3>Vistoria e Habite-se</h3>
+                        <p>Testes de carga integrados, emissão do Habite-se regulamentar e entrega física das chaves.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 9: LIDERANÇA TÉCNICA -->
+    <section id="corpo-tecnico">
+        <div class="section-container">
+            <div class="section-header scroll-bottom">
+                <span class="section-subtitle">Responsabilidade Técnica</span>
+                <h2 class="section-title">Diretoria técnica e <span>engenharia de canteiro</span></h2>
+                <p class="section-desc">Especialistas com sólida trajetória na execução de empreendimentos corporativos de grande escala.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Membro 1 -->
+                <div class="team-card">
+                    <div class="team-visual">
+                        <img src="./assets/team_director.png" alt="Eng. Marcos Silveira">
+                    </div>
+                    <div class="team-info">
+                        <span class="team-role">Diretor Técnico</span>
+                        <h3 class="team-name">Eng. Marcos Silveira</h3>
+                        <span class="team-reg">CREA-SP 506.789</span>
+                        <p class="team-desc">Formado pela Escola Politécnica-USP, coordena grandes obras há 25 anos com foco em viabilidade e suprimentos estruturais.</p>
+                    </div>
+                </div>
+
+                <!-- Membro 2 -->
+                <div class="team-card">
+                    <div class="team-visual">
+                        <img src="./assets/team_engineer.png" alt="Eng. André Costa">
+                    </div>
+                    <div class="team-info">
+                        <span class="team-role">Gerente de Obras</span>
+                        <h3 class="team-name">Eng. André Costa</h3>
+                        <span class="team-reg">CREA-SP 402.345</span>
+                        <p class="team-desc">Especialista em Lean Construction, atua na otimização de cronogramas integrados de logística física e controle de resíduos.</p>
+                    </div>
+                </div>
+
+                <!-- Membro 3 -->
+                <div class="team-card">
+                    <div class="team-visual">
+                        <img src="./assets/team_architect.png" alt="Arq. Sofia Varella">
+                    </div>
+                    <div class="team-info">
+                        <span class="team-role">Arquitetura Chefe</span>
+                        <h3 class="team-name">Arq. Sofia Varella</h3>
+                        <span class="team-reg">CAU-SP 305.671</span>
+                        <p class="team-desc">Responsável por modelagem paramétrica e projetos em BIM Level 3, focando na integração termoacústica de fachadas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 10: PARCEIROS (Grayscale Ticker) -->
+    <section id="convenios" style="padding: 0; border: none;">
+        <div id="convenios-carousel-section">
+            <div style="text-align: center; margin-bottom: 2.2rem;">
+                <span style="font-family: var(--font-accent); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted);">FORNECEDORES E PARCEIROS ESTRUTURAIS</span>
+            </div>
+            <div class="widget-container">
+                <div class="carousel-wrapper">
+                    <div class="fade-overlay fade-left"></div>
+                    <div class="fade-overlay fade-right"></div>
+                    <div class="carousel-track animate-left" id="row1-widget">
+                        <!-- Content generated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 11: TESTIMONIALS PARALLAX MASONRY -->
+    <section id="depoimentos">
+        <div class="section-container">
+            <div class="testimonials-parallax-grid">
+                <div class="testimonials-static-panel scroll-left">
+                    <span class="section-subtitle">Opiniões e Referências</span>
+                    <h2 class="section-title">Quem confia em nossa <span>engenharia</span></h2>
+                    <p class="section-desc">Depoimentos reais de incorporadores corporativos e gestores de fundos imobiliários que atestam a nossa qualidade operacional.</p>
+                </div>
+                <div class="testimonials-masonry">
+                    <!-- Card 1 -->
+                    <div class="parallax-testimonial-card speed-slow">
+                        <span class="quote-mark">“</span>
+                        <p class="quote-text">A Construtex entregou o centro de distribuição com 15 dias de antecedência, mantendo o controle financeiro perfeitamente alinhado com o planejado.</p>
+                        <div class="quote-author">
+                            <div class="author-initials">RC</div>
+                            <div>
+                                <h4>Renato Camargo</h4>
+                                <p>Diretor de Logística - Camargo Log</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="parallax-testimonial-card speed-fast">
+                        <span class="quote-mark">“</span>
+                        <p class="quote-text">A modelagem BIM evitou qualquer colisão estrutural no canteiro. Rigor orçamentário impecável da fundação ao fechamento.</p>
+                        <div class="quote-author">
+                            <div class="author-initials">FA</div>
+                            <div>
+                                <h4>Fabiana Andrade</h4>
+                                <p>Gerente de Real Estate - Expansão Real</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 12: FAQ (Accordion) -->
+    <section id="faq" class="section-elevated">
+        <div class="section-container">
+            <div class="section-header scroll-bottom" style="align-items: center; text-align: center; margin-left: auto; margin-right: auto; max-width: 800px;">
+                <span class="section-subtitle">Esclarecimentos</span>
+                <h2 class="section-title">Perguntas frequentes sobre <span>nossa atuação</span></h2>
+                <p class="section-desc">Consulte respostas diretas sobre contratos, garantias e segurança em canteiros.</p>
+            </div>
+
+            <div class="faq-container scroll-bottom1">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h4>Qual o período de garantia assegurado pós-entrega estrutural?</h4>
+                        <div class="faq-icon-box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Asseguramos uma garantia estrutural integral de 5 anos para todas as obras de fundações, lajes de concreto armado e coberturas metálicas contra eventuais patologias de fabricação, em conformidade com o Código Civil Brasileiro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h4>A construtora cuida das autorizações de alvarás e Habite-se?</h4>
+                        <div class="faq-icon-box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Sim. Gerenciamos toda a tramitação documental e fluxo regulatório perante prefeituras municipais e concessionárias de serviços para a emissão de licenças de demolição, alvarás construtivos e Habite-se legal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h4>Qual a abrangência das normas de segurança em seus canteiros?</h4>
+                        <div class="faq-icon-box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Nossos canteiros operam sob a rígida supervisão de técnicos de SST dedicados, com aplicação diária de DDS (Diálogo Diário de Segurança) e conformidade integral com as NRs 18 e 35.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 13: CONTATO E ESTIMADOR DE CUSTO COM CAD SVG -->
+    <section id="contato">
+        <div class="section-container">
+            <div class="contato-layout">
+                <div class="contato-info-column">
+                    <!-- CAD SVG Estimator Widget -->
+                    <div class="estimator-widget">
+                        <h3>Simulador de <span>Escopo & CAD</span></h3>
+                        
+                        <div class="estimator-console-body">
+                            <!-- Left Sliders -->
+                            <div style="display: flex; flex-direction: column; gap: 1.4rem;">
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">Área da Obra</span>
+                                        <span class="slider-val-bubble" id="slider-bubble">200 m²</span>
+                                    </div>
+                                    <input type="range" id="sqm-slider" class="custom-slider" min="100" max="5000" step="50" value="200">
+                                </div>
+
+                                <div class="estimator-results">
+                                    <div class="result-item">
+                                        <span class="result-lbl">Prazo Estimado</span>
+                                        <span class="result-val" id="res-time">9 meses</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-lbl">Orçamento Prévio</span>
+                                        <span class="result-val" id="res-cost" style="color: var(--color-crimson);">R$ 700k</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right CAD SVG Viewport -->
+                            <div class="estimator-visual-panel">
+                                <svg id="blueprint-svg" viewBox="0 0 400 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Technical Grid Backdrop -->
+                                    <defs>
+                                        <pattern id="calc-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255, 255, 255, 0.02)" stroke-width="1"/>
+                                        </pattern>
+                                    </defs>
+                                    <rect width="100%" height="100%" fill="url(#calc-grid)" />
+                                    
+                                    <!-- Blueprint building model -->
+                                    <!-- Ground Line -->
+                                    <line x1="50" y1="260" x2="350" y2="260" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+                                    
+                                    <!-- Piles (Fundações) -->
+                                    <line x1="100" y1="260" x2="100" y2="290" stroke="var(--color-crimson)" stroke-width="3" stroke-dasharray="2" id="pile-1" />
+                                    <line x1="200" y1="260" x2="200" y2="290" stroke="var(--color-crimson)" stroke-width="3" stroke-dasharray="2" id="pile-2" />
+                                    <line x1="300" y1="260" x2="300" y2="290" stroke="var(--color-crimson)" stroke-width="3" stroke-dasharray="2" id="pile-3" />
+                                    
+                                    <!-- Structure Wireframe (Scalable Building) -->
+                                    <rect id="structure-box" x="80" y="100" width="240" height="160" fill="none" stroke="rgba(197, 168, 128, 0.4)" stroke-width="1.5" />
+                                    
+                                    <!-- Floors Lines (Drawn inside rect) -->
+                                    <line id="floor-1" x1="80" y1="220" x2="320" y2="220" stroke="rgba(197, 168, 128, 0.3)" stroke-width="1" />
+                                    <line id="floor-2" x1="80" y1="180" x2="320" y2="180" stroke="rgba(197, 168, 128, 0.3)" stroke-width="1" />
+                                    <line id="floor-3" x1="80" y1="140" x2="320" y2="140" stroke="rgba(197, 168, 128, 0.3)" stroke-width="1" />
+                                    
+                                    <!-- Columns -->
+                                    <line id="col-1" x1="140" y1="100" x2="140" y2="260" stroke="rgba(197, 168, 128, 0.2)" stroke-width="1" />
+                                    <line id="col-2" x1="260" y1="100" x2="260" y2="260" stroke="rgba(197, 168, 128, 0.2)" stroke-width="1" />
+                                    
+                                    <!-- Diagonal Bracings (Technical cross hatches) -->
+                                    <line id="cross-1" x1="80" y1="260" x2="140" y2="220" stroke="rgba(169, 29, 34, 0.15)" stroke-width="0.75" />
+                                    <line id="cross-2" x1="140" y1="260" x2="80" y2="220" stroke="rgba(169, 29, 34, 0.15)" stroke-width="0.75" />
+                                    <line id="cross-3" x1="260" y1="260" x2="320" y2="220" stroke="rgba(169, 29, 34, 0.15)" stroke-width="0.75" />
+                                    <line id="cross-4" x1="320" y1="260" x2="260" y2="220" stroke="rgba(169, 29, 34, 0.15)" stroke-width="0.75" />
+                                    
+                                    <!-- Status Indicator Text -->
+                                    <text x="60" y="40" fill="#a91d22" font-size="9" font-family="monospace" letter-spacing="1">CALCULATING STRUCTURAL NODES...</text>
+                                    <text id="svg-text-scale" x="60" y="55" fill="#94a3b8" font-size="8" font-family="monospace">SCALE: 1:200 | LOAD: 450 kN/m²</text>
+                                    
+                                    <!-- Active Node Circles (Glowing joints) -->
+                                    <circle id="node-1" cx="80" cy="100" r="3" fill="#a91d22" />
+                                    <circle id="node-2" cx="200" cy="100" r="3" fill="#a91d22" />
+                                    <circle id="node-3" cx="320" cy="100" r="3" fill="#a91d22" />
+                                    <circle id="node-4" cx="80" cy="180" r="2" fill="var(--color-gold)" />
+                                    <circle id="node-5" cx="320" cy="180" r="2" fill="var(--color-gold)" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="contato-cards">
+                        <div class="contato-card">
+                            <div class="contato-icon-wrapper"><i data-lucide="map-pin"></i></div>
+                            <div class="contato-text">
+                                <h4>Endereço Corporativo</h4>
+                                <p>Av. Paulista, 2000 - 15º Andar - Bela Vista, São Paulo - SP</p>
+                            </div>
+                        </div>
+
+                        <div class="contato-card">
+                            <div class="contato-icon-wrapper"><i data-lucide="phone"></i></div>
+                            <div class="contato-text">
+                                <h4>Contatos Diretos</h4>
+                                <p>(11) 3999-5555 / (11) 98888-9999</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Icons -->
+                    <div>
+                        <h4 style="font-family: var(--font-accent); font-size: 0.8rem; font-weight: 600; color: #ffffff; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Redes Sociais</h4>
+                        <div class="social-row">
+                            <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                            </a>
+                            <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="social-link" aria-label="Linkedin">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="contato-form-card">
+                    <h3>Reunião de Viabilidade</h3>
+                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Solicitação de reunião enviada com sucesso! Nossos engenheiros entrarão em contato.');">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="client-name">Nome da Empresa / Incorporador</label>
+                                <input type="text" id="client-name" class="form-input" placeholder="Ex: Incorporações Paulista Ltda" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">E-mail Corporativo</label>
+                                <input type="email" id="email" class="form-input" placeholder="Ex: contato@empresa.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Telefone / WhatsApp</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="Ex: (11) 99999-8888" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="message">Mensagem ou Detalhes da Obra</label>
+                                <textarea id="message" class="form-input" placeholder="Comente sobre a localização do terreno, área pretendida ou cronograma estimado..."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-corporate" style="width: 100%; margin-top: 1.2rem;">
+                            <span>Agendar Apresentação Comercial</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 14: FOOTER -->
+    <footer>
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="footer-logo-col">
+                    <a href="#" class="logo-link">
+                        <div class="logo-icon-container">
+                            <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50 12L82 31V69L50 88L18 69V31L50 12Z" stroke="#f8fafc" stroke-width="4"/>
+                                <path d="M50 25V75" stroke="#a91d22" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text">
+                            <h1>CONSTRUTEX</h1>
+                            <span>Engenharia de Precisão</span>
+                        </div>
+                    </a>
+                    <p style="margin-top: 0.8rem;">Estruturas projetadas digitalmente, controle operacional absoluto e conformidade socioambiental em campo.</p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Institucional</h4>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#sobre">A Construtora</a></li>
+                        <li><a href="#servicos">Divisões Técnicas</a></li>
+                        <li><a href="#portfolio">Obras Executadas</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Regulatório</h4>
+                    <ul class="footer-links">
+                        <li><a href="#diferenciais">Compromisso ESG</a></li>
+                        <li><a href="#processo">Fluxo Construtivo</a></li>
+                        <li><a href="#contato">Simulador de Custos</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter-col">
+                    <h4 class="footer-title">Boletim Técnico</h4>
+                    <p>Cadastre seu e-mail para receber análises técnicas de mercado e novidades de engenharia.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Cadastro efetuado na newsletter técnica!'); this.reset();">
+                        <input type="email" class="newsletter-input" placeholder="Seu e-mail..." required>
+                        <button type="submit" class="newsletter-btn" aria-label="Enviar">
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Construtex Engenharia e Construções Ltda. Diretor Técnico: Eng. Marcos Silveira - CREA-SP 506.789.</span>
+                <div class="footer-bottom-links">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- INTERATIVE CODE & SCRIPTS -->
+    <script>
+        // Initialize Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // Sticky Header scroll styling
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const mobileClose = document.getElementById('mobile-close');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+
+        if (mobileClose) {
+            mobileClose.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+
+        // Active Link styling on scroll
+        const sections = document.querySelectorAll('section, div.hero-split');
+        const navLinks = document.querySelectorAll('.nav-item a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 180)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active-link');
+                }
+            });
+        });
+
+        // Dynamic Logo Ticker
+        (function() {
+            const logos = [
+                // Gerdau
+                `<svg viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M5 20L15 6H30L40 20L30 34H15L5 20Z" stroke-width="1.8"/>
+                     <path d="M15 6L25 34M30 6L20 34" stroke-width="1" stroke-dasharray="1.5"/>
+                     <text x="50" y="25" fill="currentColor" font-family="var(--font-accent)" font-weight="700" font-size="12" letter-spacing="1.5">GERDAU</text>
+                 </svg>`,
+                // Votorantim
+                `<svg viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M22 6L37 15V32L22 35L7 32V15L22 6Z"/>
+                     <path d="M22 6V35M7 15L37 32M37 15L7 32" stroke-width="1"/>
+                     <text x="47" y="24" fill="currentColor" font-family="var(--font-accent)" font-weight="700" font-size="9" letter-spacing="1.2">VOTORANTIM</text>
+                 </svg>`,
+                // Tigre
+                `<svg viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                     <rect x="6" y="8" width="24" height="24" rx="2" stroke-width="2"/>
+                     <circle cx="18" cy="20" r="6" stroke-width="1.5"/>
+                     <text x="40" y="26" fill="currentColor" font-family="var(--font-accent)" font-weight="800" font-size="14" letter-spacing="2">TIGRE</text>
+                 </svg>`,
+                // Bosch
+                `<svg viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                     <circle cx="18" cy="20" r="11" stroke-width="2"/>
+                     <circle cx="18" cy="20" r="3" fill="currentColor"/>
+                     <path d="M18 5V9M18 31V35M5 20H9M31 20H35" stroke-width="1.5" stroke-linecap="round"/>
+                     <text x="38" y="26" fill="currentColor" font-family="var(--font-accent)" font-weight="800" font-size="14" letter-spacing="1.5">BOSCH</text>
+                 </svg>`,
+                // Saint-Gobain
+                `<svg viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M5 28L18 8L31 28H5Z" stroke-width="1.8"/>
+                     <path d="M18 8V28M5 28L18 18L31 28" stroke-width="1"/>
+                     <text x="39" y="24" fill="currentColor" font-family="var(--font-accent)" font-weight="700" font-size="9" letter-spacing="0.5">SAINT-GOBAIN</text>
+                 </svg>`,
+                // Cemex
+                `<svg viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M6 10L14 30M16 10L24 30M26 10L34 30" stroke-width="3.5" stroke-linecap="round"/>
+                     <text x="44" y="26" fill="currentColor" font-family="var(--font-accent)" font-weight="800" font-size="14" letter-spacing="2">CEMEX</text>
+                 </svg>`
+            ];
+
+            function createLogoBox(svgHtml) {
+                return `<div class="carousel-logo-box">${svgHtml}</div>`;
+            }
+
+            function fillRow(elementId, dataArray) {
+                const container = document.getElementById(elementId);
+                if (!container) return; 
+                
+                const content = [
+                    ...dataArray, 
+                    ...dataArray, 
+                    ...dataArray,
+                    ...dataArray,
+                    ...dataArray
+                ].map(svgHtml => createLogoBox(svgHtml)).join(''); 
+                container.innerHTML = content;
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                fillRow('row1-widget', logos);
+            });
+        })();
+
+        // Scroll Reveal system
+        const elementos = document.querySelectorAll(".scroll-left, .scroll-right, .scroll-bottom, .scroll-bottom1, .scroll-bottom2");
+        const posicaoScroll = window.innerHeight * 0.9;
+
+        function fadeScroll(){
+            elementos.forEach(elemento => {
+                const elementoTop = elemento.getBoundingClientRect().top;
+                if(elementoTop < posicaoScroll){
+                    elemento.classList.add("ativo");
+                }
+            });
+        }
+        
+        window.addEventListener("scroll", fadeScroll);
+        window.addEventListener("load", fadeScroll);
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const answer = button.nextElementSibling;
+                const activeItem = document.querySelector('.faq-item.active');
+
+                if (activeItem && activeItem !== faqItem) {
+                    activeItem.classList.remove('active');
+                    activeItem.querySelector('.faq-answer').style.height = '0';
+                }
+
+                faqItem.classList.toggle('active');
+
+                if (faqItem.classList.contains('active')) {
+                    answer.style.height = answer.scrollHeight + 'px';
+                } else {
+                    answer.style.height = '0';
+                }
+            });
+        });
+    </script>
+
+    <!-- Lenis, GSAP, and Physical Interactivity -->
+    <script>
+        // 1. Lenis Smooth Scroll Setup
+        let lenis;
+        function initLenis() {
+            if (window.innerWidth > 1024 && typeof Lenis !== "undefined") {
+                lenis = new Lenis({ duration: 1.3 });
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+                lenis.on("scroll", ScrollTrigger.update);
+            }
+        }
+        window.addEventListener("load", initLenis);
+
+        // 2. Custom Minimalist LERP Cursor (Crimson Red thin ring)
+        (function() {
+            const dot = document.getElementById('cursor-dot');
+            const ring = document.getElementById('cursor-ring');
+            if (!dot || !ring) return;
+
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let ringX = mouseX;
+            let ringY = mouseY;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                dot.style.left = mouseX + 'px';
+                dot.style.top = mouseY + 'px';
+            });
+
+            (function animateCursorRing() {
+                ringX += (mouseX - ringX) * 0.11;
+                ringY += (mouseY - ringY) * 0.11;
+                ring.style.left = ringX + 'px';
+                ring.style.top = ringY + 'px';
+                requestAnimationFrame(animateCursorRing);
+            })();
+
+            // Interactive hovering states
+            const interactiveSelectors = 'a, button, .credential-panel, .portfolio-card-editorial, .team-card, .faq-question, .contato-card, .contato-form-card, .widget-box, input, textarea, select, .divisao-summary, .hero-index-item';
+            document.querySelectorAll(interactiveSelectors).forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    dot.classList.add('is-hover');
+                    ring.classList.add('is-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    dot.classList.remove('is-hover');
+                    ring.classList.remove('is-hover');
+                });
+            });
+
+            // Special image hover badge ("VER OBRA")
+            document.querySelectorAll('.portfolio-card-editorial').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    ring.classList.add('view-mode');
+                });
+                el.addEventListener('mouseleave', () => {
+                    ring.classList.remove('view-mode');
+                });
+            });
+
+            document.addEventListener('mousedown', () => {
+                dot.classList.add('is-clicking');
+                ring.classList.add('is-clicking');
+            });
+            document.addEventListener('mouseup', () => {
+                dot.classList.remove('is-clicking');
+                ring.classList.remove('is-clicking');
+            });
+
+            document.addEventListener('mouseleave', () => {
+                dot.style.opacity = '0';
+                ring.style.opacity = '0';
+            });
+            document.addEventListener('mouseenter', () => {
+                dot.style.opacity = '1';
+                ring.style.opacity = '1';
+            });
+        })();
+
+        // 3. Magnetic Buttons (Subtle corporate scale)
+        (function() {
+            const magnetButtons = document.querySelectorAll('.btn-corporate, .btn-corporate-outline, .logo-link, .mobile-menu-toggle');
+            magnetButtons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    if (!window.matchMedia("(min-width: 1025px)").matches) return;
+                    const rect = btn.getBoundingClientRect();
+                    const cx = rect.left + rect.width / 2;
+                    const cy = rect.top + rect.height / 2;
+                    const dx = (e.clientX - cx) * 0.22;
+                    const dy = (e.clientY - cy) * 0.22;
+                    btn.style.transform = `translate(${dx}px, ${dy}px)`;
+                    btn.style.transition = 'transform 0.1s ease-out';
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                    btn.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+                });
+            });
+        })();
+
+        // 4. Spotlight Card Hovers
+        (function() {
+            const spotlightCards = document.querySelectorAll('.credential-panel, .portfolio-card-editorial, .widget-box, .team-card, .contato-card, .contato-form-card, .node-content');
+            spotlightCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        })();
+
+        // 5. Mouse-Following Image Previews (Divisões Accordion)
+        (function() {
+            const preview = document.getElementById("cursor-preview");
+            const previewImg = document.getElementById("cursor-preview-img");
+            if (!preview || !previewImg) return;
+
+            let targetX = 0, targetY = 0;
+            let currentX = 0, currentY = 0;
+
+            document.addEventListener("mousemove", (e) => {
+                targetX = e.clientX + 20;
+                targetY = e.clientY + 20;
+            });
+
+            function animatePreviewFollower() {
+                currentX += (targetX - currentX) * 0.15;
+                currentY += (targetY - currentY) * 0.15;
+                preview.style.left = `${currentX}px`;
+                preview.style.top = `${currentY}px`;
+                requestAnimationFrame(animatePreviewFollower);
+            }
+            animatePreviewFollower();
+
+            document.querySelectorAll(".divisao-row").forEach(row => {
+                row.addEventListener("mouseenter", () => {
+                    const imgUrl = row.getAttribute("data-image");
+                    if (imgUrl) {
+                        previewImg.src = imgUrl;
+                        preview.style.opacity = "1";
+                        preview.style.transform = "scale(1)";
+                    }
+                });
+
+                row.addEventListener("mouseleave", () => {
+                    preview.style.opacity = "0";
+                    preview.style.transform = "scale(0.85)";
+                });
+            });
+        })();
+
+        // 6. Split-Screen Hero Interactive Index with Auto-Timer & Button Navigation
+        (function() {
+            const heroBg = document.getElementById("hero-interactive-bg");
+            const hudCoords = document.getElementById("hud-coordinates");
+            const hudLoad = document.getElementById("hud-load");
+            const hudScale = document.getElementById("hud-scale");
+            const indexItems = document.querySelectorAll(".hero-index-item");
+            const prevBtn = document.getElementById("hero-prev-btn");
+            const nextBtn = document.getElementById("hero-next-btn");
+            const timerProgress = document.getElementById("hero-timer-progress");
+
+            // Initialize to bg-mobile.webp on mobile/tablet viewports
+            const isMobile = window.innerWidth <= 1024;
+            if (isMobile && heroBg) {
+                heroBg.src = "bg-mobile.webp";
+                const firstItem = document.querySelector(".hero-index-item");
+                if (firstItem) {
+                    firstItem.setAttribute("data-img", "bg-mobile.webp");
+                }
+            }
+
+            let currentIndex = 0;
+            const slideDuration = 6000; // 6 seconds auto-slide
+            let timerInterval = null;
+            let elapsed = 0;
+            let swapTimeout = null;
+
+            function showSlide(index) {
+                if (index < 0) index = indexItems.length - 1;
+                if (index >= indexItems.length) index = 0;
+                
+                currentIndex = index;
+                
+                // Update active indicator class
+                indexItems.forEach((item, i) => {
+                    if (i === currentIndex) {
+                        item.classList.add("active");
+                    } else {
+                        item.classList.remove("active");
+                    }
+                });
+
+                const currentItem = indexItems[currentIndex];
+                const newImg = currentItem.getAttribute("data-img");
+                const newLoad = currentItem.getAttribute("data-load");
+                const newScale = currentItem.getAttribute("data-scale");
+                const newCoords = currentItem.getAttribute("data-coord");
+
+                if (heroBg) {
+                    if (swapTimeout) clearTimeout(swapTimeout);
+                    heroBg.style.opacity = "0";
+                    swapTimeout = setTimeout(() => {
+                        heroBg.src = newImg;
+                        heroBg.style.opacity = "0.45";
+                    }, 250);
+                }
+
+                if (hudCoords) hudCoords.textContent = newCoords;
+                if (hudLoad) hudLoad.textContent = newLoad;
+                if (hudScale) hudScale.textContent = newScale;
+
+                // Reset timer progress
+                elapsed = 0;
+                if (timerProgress) timerProgress.style.width = "0%";
+            }
+
+            function startTimer() {
+                if (timerInterval) clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    elapsed += 100;
+                    const pct = (elapsed / slideDuration) * 100;
+                    if (timerProgress) timerProgress.style.width = `${pct}%`;
+
+                    if (elapsed >= slideDuration) {
+                        showSlide(currentIndex + 1);
+                    }
+                }, 100);
+            }
+
+            // Click indicators to navigate manually
+            indexItems.forEach((item, i) => {
+                item.addEventListener("click", () => {
+                    showSlide(i);
+                    startTimer(); // resets timer on click
+                });
+            });
+
+            // Prev / Next button actions
+            if (prevBtn) {
+                prevBtn.addEventListener("click", () => {
+                    showSlide(currentIndex - 1);
+                    startTimer();
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener("click", () => {
+                    showSlide(currentIndex + 1);
+                    startTimer();
+                });
+            }
+
+            // Start slideshow timer on load
+            startTimer();
+        })();
+
+        // 7. Accordion Divisões Toggling
+        (function() {
+            document.querySelectorAll('.divisao-row').forEach(row => {
+                const summary = row.querySelector('.divisao-summary');
+                const details = row.querySelector('.divisao-details');
+                
+                summary.addEventListener('click', () => {
+                    const isActive = row.classList.contains('active');
+                    
+                    document.querySelectorAll('.divisao-row.active').forEach(activeRow => {
+                        if (activeRow !== row) {
+                            activeRow.classList.remove('active');
+                            activeRow.querySelector('.divisao-details').style.height = '0';
+                        }
+                    });
+                    
+                    if (isActive) {
+                        row.classList.remove('active');
+                        details.style.height = '0';
+                    } else {
+                        row.classList.add('active');
+                        details.style.height = details.scrollHeight + 'px';
+                    }
+                });
+            });
+        })();
+
+        // 8. GSAP ScrollTrigger Animations
+        (function() {
+            if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            const mm = gsap.matchMedia();
+
+            // Desktop-only animations (>= 1025px)
+            mm.add("(min-width: 1025px)", () => {
+                // 3D Perspective unfoldings & Fade-in Reveal
+                const unfoldElements = document.querySelectorAll('.sobre-image-container, .team-card, .estimator-widget, .contato-form-card');
+                unfoldElements.forEach(el => {
+                    el.classList.add("perspective-3d");
+                    
+                    // Reveal animation
+                    gsap.fromTo(el,
+                        { opacity: 0, y: 30 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 90%",
+                                toggleActions: "play none none none"
+                            }
+                        }
+                    );
+
+                    // 3D rotation scrub
+                    gsap.fromTo(el,
+                        { rotateX: 8, transformPerspective: 1200, transformOrigin: "bottom center" },
+                        {
+                            rotateX: 0,
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top bottom",
+                                end: "center center",
+                                scrub: 1
+                            }
+                        }
+                    );
+                });
+
+                // Reveal contato-info-column
+                gsap.fromTo('.contato-info-column',
+                    { opacity: 0, x: -30 },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        duration: 1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: '.contato-info-column',
+                            start: "top 90%",
+                            toggleActions: "play none none none"
+                        }
+                    }
+                );
+
+                // Horizontal Timeline scroll pinning
+                const track = document.getElementById("horizontal-track");
+                const pinSection = document.querySelector(".horizontal-scroll-sec");
+                if (track && pinSection) {
+                    gsap.to(track, {
+                        x: () => -(track.scrollWidth - window.innerWidth + 200),
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: pinSection,
+                            pin: true,
+                            start: "top top",
+                            end: () => `+=${track.scrollWidth}`,
+                            scrub: 1,
+                            invalidateOnRefresh: true
+                        }
+                    });
+                }
+
+                // Testimonial cards reveal
+                gsap.fromTo(".parallax-testimonial-card",
+                    { opacity: 0 },
+                    {
+                        opacity: 1,
+                        duration: 1.2,
+                        stagger: 0.15,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: ".testimonials-masonry",
+                            start: "top 85%"
+                        }
+                    }
+                );
+
+                // Testimonial cards parallax masonry
+                gsap.to(".speed-slow", {
+                    y: -50,
+                    scrollTrigger: {
+                        trigger: ".testimonials-masonry",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+                gsap.to(".speed-fast", {
+                    y: -120,
+                    scrollTrigger: {
+                        trigger: ".testimonials-masonry",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            });
+
+            // ESG Progress Wheel Trigger
+            const esgProgress = document.getElementById("progress-esg");
+            const safetyProgress = document.getElementById("progress-safety");
+            const valEsg = document.getElementById("val-esg");
+            const valSafety = document.getElementById("val-safety");
+
+            function animateRingProgress(el, textEl, targetVal) {
+                if (!el || !textEl) return;
+                let current = 0;
+                const interval = setInterval(() => {
+                    if (current >= targetVal) {
+                        clearInterval(interval);
+                    } else {
+                        current++;
+                        textEl.textContent = `${current}%`;
+                        el.style.background = `conic-gradient(var(--color-crimson) ${current * 3.6}deg, #131317 0deg)`;
+                    }
+                }, 15);
+            }
+
+            ScrollTrigger.create({
+                trigger: ".dashboard-layout",
+                start: "top 75%",
+                onEnter: () => {
+                    animateRingProgress(esgProgress, valEsg, 88);
+                    animateRingProgress(safetyProgress, valSafety, 100);
+                },
+                once: true
+            });
+        })();
+
+        // 9. Interactive CAD SVG Cost Estimator
+        (function() {
+            const sqmSlider = document.getElementById("sqm-slider");
+            const bubble = document.getElementById("slider-bubble");
+            const resTime = document.getElementById("res-time");
+            const resCost = document.getElementById("res-cost");
+
+            function updateEstimator(sqm) {
+                bubble.textContent = `${sqm} m²`;
+                
+                // calculation: 100 sqm = 8 months, 5000 sqm = 28 months
+                const months = Math.round(8 + Math.pow((sqm - 100) / 4900, 0.6) * 20);
+                resTime.textContent = `${months} meses`;
+                
+                // budget calculation: R$ 3500 base per sqm, scaled down slightly at high areas
+                let multiplier = 3500;
+                if (sqm > 500) multiplier = 3250;
+                if (sqm > 1500) multiplier = 2950;
+                if (sqm > 3000) multiplier = 2700;
+                
+                const costVal = (sqm * multiplier) / 1000;
+                if (costVal >= 1000) {
+                    resCost.textContent = `R$ ${(costVal / 1000).toFixed(1)}M`;
+                } else {
+                    resCost.textContent = `R$ ${Math.round(costVal)}k`;
+                }
+
+                // Dynamically update SVG CAD wireframe based on SQM
+                const box = document.getElementById("structure-box");
+                const floor1 = document.getElementById("floor-1");
+                const floor2 = document.getElementById("floor-2");
+                const floor3 = document.getElementById("floor-3");
+                const pile1 = document.getElementById("pile-1");
+                const pile2 = document.getElementById("pile-2");
+                const pile3 = document.getElementById("pile-3");
+                
+                const col1 = document.getElementById("col-1");
+                const col2 = document.getElementById("col-2");
+                const node1 = document.getElementById("node-1");
+                const node2 = document.getElementById("node-2");
+                const node3 = document.getElementById("node-3");
+                const node4 = document.getElementById("node-4");
+                const node5 = document.getElementById("node-5");
+                const cross1 = document.getElementById("cross-1");
+                const cross2 = document.getElementById("cross-2");
+                const cross3 = document.getElementById("cross-3");
+                const cross4 = document.getElementById("cross-4");
+                const svgTextScale = document.getElementById("svg-text-scale");
+
+                if (box && floor1 && floor2 && floor3) {
+                    // sqm scales from 100 to 5000. Let's map it to height between 60px and 180px
+                    const baseHeight = 60 + ((sqm - 100) / 4900) * 120;
+                    const yPos = 260 - baseHeight;
+                    
+                    box.setAttribute("y", yPos);
+                    box.setAttribute("height", baseHeight);
+                    
+                    // Adjust floor line positions
+                    floor1.setAttribute("y1", 260 - baseHeight * 0.25);
+                    floor1.setAttribute("y2", 260 - baseHeight * 0.25);
+                    floor2.setAttribute("y1", 260 - baseHeight * 0.5);
+                    floor2.setAttribute("y2", 260 - baseHeight * 0.5);
+                    floor3.setAttribute("y1", 260 - baseHeight * 0.75);
+                    floor3.setAttribute("y2", 260 - baseHeight * 0.75);
+                    
+                    // Adjust pile depth based on area/weight
+                    const pileDepth = 30 + ((sqm - 100) / 4900) * 40;
+                    pile1.setAttribute("y2", 260 + pileDepth);
+                    pile2.setAttribute("y2", 260 + pileDepth);
+                    pile3.setAttribute("y2", 260 + pileDepth);
+
+                    // Adjust columns height (y1 goes to roof level)
+                    if (col1) col1.setAttribute("y1", yPos);
+                    if (col2) col2.setAttribute("y1", yPos);
+
+                    // Adjust joints height
+                    if (node1) node1.setAttribute("cy", yPos);
+                    if (node2) node2.setAttribute("cy", yPos);
+                    if (node3) node3.setAttribute("cy", yPos);
+                    if (node4) node4.setAttribute("cy", 260 - baseHeight * 0.5);
+                    if (node5) node5.setAttribute("cy", 260 - baseHeight * 0.5);
+
+                    // Adjust crosses endpoint y2 to first floor level
+                    if (cross1) cross1.setAttribute("y2", 260 - baseHeight * 0.25);
+                    if (cross2) cross2.setAttribute("y2", 260 - baseHeight * 0.25);
+                    if (cross3) cross3.setAttribute("y2", 260 - baseHeight * 0.25);
+                    if (cross4) cross4.setAttribute("y2", 260 - baseHeight * 0.25);
+
+                    // Update scale & load dynamically
+                    if (svgTextScale) {
+                        const load = Math.round(350 + (sqm / 5000) * 500);
+                        svgTextScale.textContent = `SCALE: 1:${sqm > 2000 ? '500' : '200'} | LOAD: ${load} kN/m²`;
+                    }
+                }
+            }
+
+            if (sqmSlider) {
+                sqmSlider.addEventListener("input", (e) => {
+                    updateEstimator(e.target.value);
+                });
+                updateEstimator(sqmSlider.value);
+            }
+        })();
+    </script>
+</body>
+
+</html>

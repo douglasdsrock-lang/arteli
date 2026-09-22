@@ -1,0 +1,3411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Arthur Lima Arquitetura - Projetos autorais que unem estética, funcionalidade e personalidade para criar espaços luxuosos que inspiram e realizam sonhos.">
+    <title>Arthur Lima Arquitetura - Transforma Espaços. Realiza Sonhos.</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../../assets/isotipo.svg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Outfit:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Sora:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Lenis Smooth Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
+        :root {
+            --bg-black: #060606;
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(12, 12, 12, 0.75);
+            --bg-card-hover: rgba(20, 20, 20, 0.9);
+            --border-gold: rgba(197, 168, 128, 0.15);
+            --border-gold-hover: rgba(197, 168, 128, 0.4);
+
+            --primary-gold: #c5a880;
+            --gold-bright: #d4af37;
+            --gold-dark: #8e7046;
+            --gold-glow: rgba(197, 168, 128, 0.25);
+            --gold-transparent: rgba(197, 168, 128, 0);
+
+            --text-primary: #ffffff;
+            --text-secondary: #e5d5c5;
+            --text-muted: #8a8a8a;
+
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-accent: 'Sora', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+
+            --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            --gradient-angle: 0deg;
+        }
+
+        /* --- RESET & BASIC STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-gold) var(--bg-black);
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #020202;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #151515;
+            border-radius: 10px;
+            border: 2px solid #020202;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-gold);
+        }
+
+        /* --- GLOW FLARES BACKGROUND --- */
+        .flare {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(150px);
+            opacity: 0.12;
+            mix-blend-mode: screen;
+        }
+
+        .flare-1 {
+            width: 600px;
+            height: 600px;
+            top: 15%;
+            left: -200px;
+            background: radial-gradient(circle, var(--primary-gold) 0%, transparent 70%);
+            animation: pulse-flare 12s infinite alternate;
+        }
+
+        .flare-2 {
+            width: 800px;
+            height: 800px;
+            top: 45%;
+            right: -300px;
+            background: radial-gradient(circle, var(--gold-bright) 0%, transparent 70%);
+            animation: pulse-flare 15s infinite alternate;
+        }
+
+        .flare-3 {
+            width: 700px;
+            height: 700px;
+            bottom: 5%;
+            left: -150px;
+            background: radial-gradient(circle, var(--gold-dark) 0%, transparent 70%);
+            animation: pulse-flare 10s infinite alternate;
+        }
+
+        @keyframes pulse-flare {
+            0% {
+                transform: scale(1);
+                opacity: 0.08;
+            }
+
+            100% {
+                transform: scale(1.15);
+                opacity: 0.18;
+            }
+        }
+
+        /* --- SECTION LAYOUT --- */
+        section {
+            padding: 8rem 0;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+        }
+
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 5rem;
+            gap: 1rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            letter-spacing: 3px;
+            border: 1px solid var(--border-gold);
+            padding: 0.5rem 1.4rem;
+            border-radius: 100px;
+            background: rgba(197, 168, 128, 0.03);
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            margin-top: 0.5rem;
+        }
+
+        .section-title span {
+            color: var(--primary-gold);
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- SPOTLIGHT BUTTONS (Referencias/botões.md) --- */
+        .btn-spotlight-wrapper {
+            padding: 1px;
+            border-radius: 100px;
+            outline: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: visible;
+            display: inline-block;
+        }
+
+        .btn-spotlight-wrapper::before {
+            transition: 0.35s ease-out;
+            filter: blur(10px);
+            background: linear-gradient(to right, transparent 30%, var(--primary-gold) 80%, var(--gold-dark) 95%);
+            width: 108%;
+            height: 125%;
+            left: 50%;
+            top: 50%;
+            content: "";
+            border-radius: 100px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: var(--before-opacity, 1);
+            pointer-events: none;
+        }
+
+        .btn-spotlight-wrapper::after {
+            transition: 0.35s ease-out;
+            filter: blur(10px);
+            background: linear-gradient(to left, transparent 30%, var(--primary-gold) 80%, var(--gold-dark) 95%);
+            width: 108%;
+            height: 125%;
+            left: 50%;
+            top: 50%;
+            content: "";
+            border-radius: 100px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: var(--after-opacity, 0);
+            pointer-events: none;
+        }
+
+        .btn-spotlight {
+            background: rgba(8, 8, 8, 0.95) !important;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 1.1rem 2.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            border-radius: 100px;
+            position: relative;
+            z-index: 5;
+            color: var(--text-primary);
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: transform 0.2s;
+        }
+
+        .btn-spotlight:active {
+            transform: scale(0.98);
+        }
+
+        .btn-spotlight::before {
+            background-image: radial-gradient(45% 45% at 50% 50%, var(--primary-gold) 20%, rgba(197, 168, 128, 0.3) 50%, transparent 100%);
+            filter: blur(8px);
+            width: 250px;
+            height: 120px;
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(var(--button-translate-x, -50%), -50%);
+            border-radius: 100%;
+            transition: transform 0.8s cubic-bezier(.4, 0, .2, 1);
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .btn-spotlight i {
+            z-index: 6;
+            font-size: 1.1rem;
+            color: var(--primary-gold);
+            transition: transform 0.4s ease-out;
+        }
+
+        .btn-spotlight:hover i {
+            transform: translateX(4px);
+        }
+
+        .btn-spotlight span {
+            z-index: 6;
+        }
+
+        .btn-secondary {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 1.1rem 2.2rem;
+            border-radius: 100px;
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary i {
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .btn-secondary:hover i {
+            color: var(--primary-gold);
+        }
+
+        /* --- SEÇÃO 1: HEADER & HERO --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(6, 6, 6, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: var(--transition-smooth);
+        }
+
+        header.scrolled {
+            background: rgba(6, 6, 6, 0.95);
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.4rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            stroke-width: 1px;
+            color: var(--primary-gold);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-title);
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition-smooth);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background-color: var(--primary-gold);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+        }
+
+        .social-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+        }
+
+        .social-btn:hover {
+            color: var(--primary-gold);
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            height: 16px;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .orcamento-btn {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+            padding: 0.7rem 1.6rem;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .orcamento-btn:hover {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px rgba(197, 168, 128, 0.15);
+            color: var(--primary-gold);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .mobile-only-action {
+            display: none;
+        }
+
+        /* Hero Container styling matching screenshot */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: 8.5rem 2rem 4rem 2rem;
+            background:
+                linear-gradient(to right, rgba(6, 6, 6, 0.95) 0%, rgba(6, 6, 6, 0.8) 40%, rgba(6, 6, 6, 0.2) 75%, transparent 100%),
+                url('./bg-desktop.webp') no-repeat center center;
+            background-size: cover;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .hero-container {
+            max-width: 1350px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 3rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2.2rem;
+        }
+
+        .hero-badge-line {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-badge-text {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--primary-gold);
+            text-transform: uppercase;
+        }
+
+        .hero-badge-line::after {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background-color: var(--primary-gold);
+        }
+
+        .hero-headline {
+            font-family: var(--font-title);
+            font-size: clamp(2.6rem, 5vw, 4.6rem);
+            font-weight: 500;
+            line-height: 1.05;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+
+        .hero-headline span {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            color: var(--primary-gold);
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(197, 168, 128, 0.15);
+        }
+
+        .br-desktop {
+            display: inline;
+        }
+
+        .hero-description {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 500px;
+            font-weight: 300;
+        }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        /* Hero Graphic Frame (Render Image) */
+        .hero-graphic {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 540px;
+            aspect-ratio: 1.15;
+            border-radius: 8px;
+            overflow: visible;
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+            transition: var(--transition-smooth);
+        }
+
+        .hero-image-wrapper:hover img {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+            border-color: var(--primary-gold);
+            box-shadow: 0 25px 60px rgba(197, 168, 128, 0.1), 0 30px 60px rgba(0, 0, 0, 0.95);
+        }
+
+        .hero-video-trigger {
+            position: absolute;
+            top: 25%;
+            left: 20%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(6, 6, 6, 0.35);
+            padding: 0.8rem 1.4rem 0.8rem 0.8rem;
+            border-radius: 100px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .hero-video-trigger:hover {
+            background: rgba(197, 168, 128, 0.15);
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+        }
+
+        .play-btn-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            background: rgba(6, 6, 6, 0.6);
+            transition: var(--transition-smooth);
+        }
+
+        .hero-video-trigger:hover .play-btn-circle {
+            background: var(--primary-gold);
+            color: #000;
+        }
+
+        .play-text-box {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .play-text-box span:first-child {
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .play-text-box span:last-child {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Right Side vertical scroll nav */
+        .hero-vertical-nav {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            z-index: 10;
+        }
+
+        .vertical-nav-line {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--border-gold), transparent);
+        }
+
+        .vertical-nav-item {
+            font-family: var(--font-accent);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            writing-mode: vertical-rl;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .vertical-nav-item:hover,
+        .vertical-nav-item.active {
+            color: var(--primary-gold);
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        /* Bottom Glassmorphic panel */
+        .hero-stats-panel {
+            grid-column: 1 / -1;
+            margin-top: 4.5rem;
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 2.2rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+            position: relative;
+        }
+
+        .hero-stats-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            text-align: left;
+        }
+
+        .stat-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: rgba(197, 168, 128, 0.04);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-gold);
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .stat-card:hover .stat-icon-box {
+            background: rgba(197, 168, 128, 0.15);
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.2);
+            color: #fff;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .stat-info h4 {
+            font-family: var(--font-title);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+
+        .stat-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-weight: 300;
+        }
+
+        /* --- SEÇÃO 2: MANIFESTO / FILOSOFIA --- */
+        #manifesto {
+            background-color: var(--bg-dark);
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            overflow: hidden;
+        }
+
+        .manifesto-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3.5rem;
+            padding: 0 2rem;
+        }
+
+        /* Morph text styling from Referencias/textos.md */
+        .manifesto-morph-container {
+            height: 100px;
+            width: 100%;
+            position: relative;
+            filter: url(#threshold) blur(0.4px);
+            margin: 1rem 0;
+        }
+
+        .morph-text-span {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            display: inline-block;
+            font-family: var(--font-title);
+            font-weight: 600;
+            font-size: clamp(1.8rem, 4.5vw, 3.8rem);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            user-select: none;
+            color: var(--primary-gold);
+        }
+
+        .manifesto-text-block {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            line-height: 1.5;
+            color: var(--text-secondary);
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .manifesto-text-block span {
+            color: var(--primary-gold);
+            font-style: italic;
+        }
+
+        /* --- SEÇÃO 3: GALERIA HORIZONTAL (GSAP) --- */
+        #portfolio-horizontal {
+            width: 100%;
+            padding: 8rem 0;
+            overflow: hidden;
+            background-color: var(--bg-black);
+        }
+
+        .container-cards {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .horizontal-section-intro {
+            min-width: 450px;
+            padding-right: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .horizontal-section-intro h2 {
+            font-family: var(--font-title);
+            font-size: clamp(2.2rem, 4vw, 3.8rem);
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .horizontal-section-intro h2 span {
+            color: var(--primary-gold);
+        }
+
+        .cards {
+            display: flex;
+            gap: 3.5rem;
+            height: 70vh;
+            align-items: center;
+            will-change: transform;
+        }
+
+        .cards .card {
+            min-width: 580px !important;
+            height: 100%;
+            border-radius: 12px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            transition: border-color 0.4s;
+        }
+
+        .cards .card:hover {
+            border-color: var(--primary-gold);
+        }
+
+        .card-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.45;
+            z-index: 1;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .cards .card:hover .card-bg-img {
+            transform: scale(1.05);
+            opacity: 0.6;
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(6, 6, 6, 0.95) 0%, rgba(6, 6, 6, 0.4) 50%, transparent 100%);
+            z-index: 2;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .card-tag {
+            font-family: var(--font-accent);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            letter-spacing: 2px;
+            border: 1px solid rgba(197, 168, 128, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+        }
+
+        .card-title {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            max-width: 440px;
+            font-weight: 300;
+        }
+
+        .card-link {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .card-link i {
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+        }
+
+        .card-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* --- SEÇÃO 4: SERVIÇOS (CARD GRADIENTE ROTATIVO) --- */
+        #servicos {
+            background-color: var(--bg-dark);
+            border-top: 1px solid var(--border-gold);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+            width: 100%;
+        }
+
+        /* Custom rotating borders (Referencias/botões.md button 4 concept on cards) */
+        @property --gradient-angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 3.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85);
+            transition: var(--transition-smooth);
+            border: 1px solid var(--border-gold);
+        }
+
+        .service-card.premium-glow {
+            border-color: transparent;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                conic-gradient(from var(--gradient-angle), transparent, var(--primary-gold), transparent 20%, transparent) border-box;
+            border: 2px solid transparent;
+            box-shadow: 0 0 25px rgba(197, 168, 128, 0.1), 0 20px 45px rgba(0, 0, 0, 0.9);
+            animation: rotate-border-glow 6s linear infinite;
+        }
+
+        @keyframes rotate-border-glow {
+            to {
+                --gradient-angle: 360deg;
+            }
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 35px rgba(197, 168, 128, 0.25), 0 20px 50px rgba(0, 0, 0, 0.95);
+            border-color: var(--primary-gold);
+        }
+
+        .service-card.premium-glow:hover {
+            border-color: transparent;
+        }
+
+        .service-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(197, 168, 128, 0.1);
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .service-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: rgba(197, 168, 128, 0.05);
+            border: 1px solid var(--border-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-gold);
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover .service-icon-wrapper {
+            background: var(--primary-gold);
+            color: #000;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .service-icon-wrapper i {
+            font-size: 1.6rem;
+            stroke-width: 1.5px;
+        }
+
+        .service-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .service-info h3 {
+            font-family: var(--font-title);
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .service-info p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .service-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .service-features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .service-features-list li i {
+            font-size: 1rem;
+            color: var(--primary-gold);
+        }
+
+        /* --- SEÇÃO 5: ESTÚDIO / 3D SCROLL PERSPECTIVE --- */
+        #estudio-escala {
+            width: 100%;
+            background-color: var(--bg-black);
+            overflow: hidden;
+            border-top: 1px solid var(--border-gold);
+            padding: 0;
+        }
+
+        .escala {
+            transition: none !important;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .aumentar {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.92);
+            filter: blur(5px);
+            opacity: 0.5;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-gold);
+            will-change: transform, filter, opacity;
+        }
+
+        .studio-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+            opacity: 0.7;
+        }
+
+        .studio-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 30%, rgba(6, 6, 6, 0.85) 90%);
+            z-index: 2;
+        }
+
+        .escala2 {
+            position: absolute;
+            z-index: 20;
+            opacity: 0;
+            transform: scale(0.8) translateY(50px);
+            text-align: center;
+            max-width: 750px;
+            padding: 2rem;
+            will-change: transform, opacity;
+        }
+
+        .escala2 h2 {
+            font-family: var(--font-title);
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .escala2 h2 span {
+            color: var(--primary-gold);
+        }
+
+        .escala2 p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* --- SEÇÃO 6: O PROCESSO CRIATIVO --- */
+        #processo {
+            background-color: var(--bg-dark);
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        /* Centered line */
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background: rgba(197, 168, 128, 0.15);
+        }
+
+        .timeline-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-gold), var(--gold-bright));
+            box-shadow: 0 0 10px var(--primary-gold);
+            height: 0%;
+            transition: height 0.1s linear;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            margin-bottom: 6rem;
+            width: 50%;
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-item:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            margin-left: 50%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: -8px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--bg-black);
+            border: 2px solid var(--border-gold);
+            z-index: 10;
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+
+        .timeline-item.active .timeline-dot {
+            background: var(--primary-gold);
+            border-color: #fff;
+            box-shadow: 0 0 12px var(--primary-gold);
+            transform: scale(1.25);
+        }
+
+        .timeline-content {
+            width: 90%;
+            padding: 2rem;
+            border-radius: 12px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 10%;
+        }
+
+        .timeline-item.active .timeline-content {
+            border-color: var(--primary-gold);
+            box-shadow: 0 15px 35px rgba(197, 168, 128, 0.08), 0 10px 30px rgba(0, 0, 0, 0.85);
+        }
+
+        .timeline-step {
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .timeline-content h3 {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- SEÇÃO 7: O ARQUITETO (EQUIPE) --- */
+        #arquiteto {
+            background-color: var(--bg-black);
+        }
+
+        .architect-layout {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+
+        .architect-photo-frame {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            aspect-ratio: 0.85;
+            border-radius: 12px;
+            overflow: visible;
+        }
+
+        .architect-photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: 15px -15px -15px 15px;
+            border: 1px solid var(--primary-gold);
+            border-radius: 12px;
+            z-index: 1;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .architect-photo-frame:hover::before {
+            inset: 0px;
+            border-color: #fff;
+        }
+
+        .architect-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
+            transition: var(--transition-smooth);
+            filter: grayscale(30%);
+        }
+
+        .architect-photo-frame:hover .architect-img {
+            filter: grayscale(0%);
+            transform: translate(8px, -8px);
+            box-shadow: 0 25px 50px rgba(197, 168, 128, 0.05), 0 20px 50px rgba(0, 0, 0, 0.95);
+        }
+
+        .architect-bio {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .architect-bio h2 {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .architect-bio h2 span {
+            color: var(--primary-gold);
+        }
+
+        .architect-role {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: -1rem;
+        }
+
+        .architect-bio-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .architect-signature {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.8rem;
+            color: var(--primary-gold);
+            margin-top: 1rem;
+        }
+
+        /* --- SEÇÃO 8: DEPOIMENTOS (SWIPER) --- */
+        #depoimentos {
+            background-color: var(--bg-dark);
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .testimonials-container {
+            width: 100%;
+            overflow: visible;
+        }
+
+        .swiper-testimonials {
+            width: 100%;
+            padding: 2rem 0 5rem 0 !important;
+        }
+
+        .testimonial-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 3.5rem 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            text-align: left;
+            transition: var(--transition-smooth);
+            height: auto;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--primary-gold);
+            box-shadow: 0 15px 35px rgba(197, 168, 128, 0.05), 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+
+        .stars-row {
+            display: flex;
+            gap: 0.3rem;
+            color: var(--gold-bright);
+        }
+
+        .stars-row i {
+            font-size: 0.95rem;
+            fill: var(--gold-bright);
+        }
+
+        .testimonial-text {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-title);
+            font-weight: 800;
+            color: var(--primary-gold);
+            background: rgba(197, 168, 128, 0.04);
+            font-size: 1.1rem;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .author-info h4 {
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .author-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Swiper bullets custom */
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.15) !important;
+            opacity: 1 !important;
+            width: 8px !important;
+            height: 8px !important;
+            transition: var(--transition-smooth) !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--primary-gold) !important;
+            width: 24px !important;
+            border-radius: 5px !important;
+            box-shadow: 0 0 8px var(--primary-gold);
+        }
+
+        /* --- SEÇÃO 9: FAQ (ACCORDION) --- */
+        #faq {
+            background-color: var(--bg-black);
+        }
+
+        .faq-layout {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .faq-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary-gold);
+        }
+
+        .faq-item.active {
+            border-color: var(--primary-gold);
+            background-color: var(--bg-card-hover);
+            box-shadow: 0 10px 25px rgba(197, 168, 128, 0.04);
+        }
+
+        .faq-question {
+            padding: 1.6rem 2.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question h3 {
+            font-family: var(--font-title);
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: left;
+            transition: var(--transition-smooth);
+        }
+
+        .faq-item.active .faq-question h3 {
+            color: var(--primary-gold);
+        }
+
+        .faq-icon-box {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            flex-shrink: 0;
+        }
+
+        .faq-item:hover .faq-icon-box {
+            color: var(--primary-gold);
+            border-color: var(--primary-gold);
+        }
+
+        .faq-item.active .faq-icon-box {
+            transform: rotate(180deg);
+            color: #000;
+            background-color: var(--primary-gold);
+            border-color: var(--primary-gold);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .faq-answer-inner {
+            padding: 0 2.2rem 2rem 2.2rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 300;
+            text-align: left;
+        }
+
+        /* --- SEÇÃO 10: FORMULÁRIO & FOOTER --- */
+        #contato-orcamento {
+            background-color: var(--bg-dark);
+            border-top: 1px solid var(--border-gold);
+            padding-bottom: 0;
+        }
+
+        .contato-layout {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 5rem;
+            align-items: flex-start;
+            padding-bottom: 6rem;
+        }
+
+        .contato-info-box {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            text-align: left;
+        }
+
+        .contato-info-box h2 {
+            font-family: var(--font-title);
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .contato-info-box h2 span {
+            color: var(--primary-gold);
+        }
+
+        .contato-info-box p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-top: -1.2rem;
+        }
+
+        .contato-details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .contato-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .contato-detail-item .icon-circle {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(197, 168, 128, 0.04);
+            border: 1px solid var(--border-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-gold);
+        }
+
+        .contato-detail-item .text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .contato-detail-item .text-group span:first-child {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contato-detail-item .text-group span:last-child {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        /* Budget Estimate interactive form */
+        .orcamento-form-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+        }
+
+        .orcamento-form-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            text-align: left;
+            border-left: 3px solid var(--primary-gold);
+            padding-left: 0.9rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: rgba(6, 6, 6, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 0.9rem 1.1rem;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .form-select {
+            width: 100%;
+            background-color: rgba(6, 6, 6, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 0.9rem 1.1rem;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23c5a880' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1rem;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-gold);
+        }
+
+        textarea.form-input {
+            resize: none;
+            height: 120px;
+        }
+
+        .form-submit-btn {
+            background-color: var(--primary-gold);
+            color: #000;
+            border: none;
+            padding: 1.1rem 2.2rem;
+            border-radius: 100px;
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            box-shadow: 0 0 15px var(--gold-glow);
+            transition: var(--transition-smooth);
+        }
+
+        .form-submit-btn:hover {
+            background-color: var(--gold-bright);
+            box-shadow: 0 0 25px rgba(197, 168, 128, 0.45);
+            transform: translateY(-2px);
+        }
+
+        /* Bottom Footer panel */
+        footer {
+            border-top: 1px solid var(--border-gold);
+            background-color: #030303;
+            width: 100%;
+            margin-top: 6rem;
+            padding: 4rem 2rem 2.5rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 1fr;
+            gap: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-title);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 1px;
+            background-color: var(--primary-gold);
+        }
+
+        .footer-about-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .social-circle:hover {
+            color: #000;
+            background-color: var(--primary-gold);
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+        }
+
+        .footer-links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links-list a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links-list a:hover {
+            color: var(--primary-gold);
+            padding-left: 4px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.8rem;
+            width: 100%;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            background-color: rgba(6, 6, 6, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 0.8rem 1.1rem;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--primary-gold);
+        }
+
+        .newsletter-btn {
+            background-color: var(--primary-gold);
+            color: #000;
+            border: none;
+            padding: 0 1.4rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--gold-bright);
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        .footer-bottom-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        /* --- RESPONSIVIDADE (MEDIA QUERIES) --- */
+        @media (max-width: 1100px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .hero-info {
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero-badge-line,
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .hero-description {
+                max-width: 600px;
+            }
+
+            .hero-graphic {
+                justify-content: center;
+            }
+
+            .hero-vertical-nav {
+                display: none;
+            }
+
+            .hero-stats-panel {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 2rem;
+            }
+
+            .simulator-container,
+            .live-stream-container,
+            .tournament-grid,
+            .pricing-grid,
+            .services-grid,
+            .contato-layout,
+            .architect-layout,
+            .faq-footer-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .cards .card {
+                min-width: 440px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                background: rgba(6, 6, 6, 0.95);
+            }
+
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: #060606;
+                flex-direction: column;
+                padding: 3rem 2rem;
+                gap: 2.2rem;
+                border-top: 1px solid var(--border-gold);
+                z-index: 999;
+                align-items: center;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .header-actions {
+                display: none;
+            }
+
+            .mobile-only-action {
+                display: block;
+                width: 100%;
+                max-width: 280px;
+                margin-top: 0.5rem;
+            }
+
+            .mobile-only-action a::after {
+                display: none !important;
+            }
+
+            .mobile-orcamento-btn {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                padding: 0.9rem 1.5rem;
+                font-family: var(--font-accent);
+                font-size: 0.9rem;
+                font-weight: 700;
+                border-radius: 10px;
+                text-decoration: none;
+                background: none;
+                border: 1px solid var(--primary-gold);
+                color: var(--primary-gold) !important;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                transition: var(--transition-smooth);
+            }
+
+            .mobile-orcamento-btn:hover {
+                background: var(--primary-gold);
+                color: #000 !important;
+                box-shadow: 0 0 15px var(--gold-glow);
+            }
+
+            .hero {
+                padding-top: 7.5rem;
+                background: none;
+                position: relative;
+            }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                z-index: -1;
+                background:
+                    linear-gradient(to top, var(--bg-black) 0%, rgba(6, 6, 6, 0.4) 40%, rgba(6, 6, 6, 0.75) 100%),
+                    url('./bg-mobile.webp') no-repeat center center;
+                background-size: cover;
+                pointer-events: none;
+            }
+
+            .br-desktop {
+                display: none;
+            }
+
+            .hero-headline {
+                margin-top: 20vh;
+            }
+
+            .hero-stats-panel {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+                padding: 1.5rem;
+            }
+
+            .stat-card {
+                justify-content: flex-start;
+            }
+
+            section {
+                padding: 4.5rem 0;
+            }
+            .section-container {
+                padding: 0 1.2rem;
+            }
+            .manifesto-container {
+                padding: 0 1.2rem;
+            }
+            .horizontal-section-intro {
+                min-width: 100% !important;
+                width: 100%;
+                padding-right: 0;
+            }
+
+            .timeline-line,
+            .timeline-progress-bar {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                justify-content: flex-start;
+                padding-left: 45px;
+                margin-bottom: 4rem;
+            }
+
+            .timeline-item:nth-child(even) {
+                align-self: flex-start;
+                justify-content: flex-start;
+                margin-left: 0;
+            }
+
+            .timeline-dot {
+                left: 12px !important;
+                right: auto !important;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 0;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1.2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .cards .card {
+                min-width: 80vw !important;
+                padding: 2rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-headline {
+                font-size: clamp(2rem, 8vw, 2.8rem);
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .btn-spotlight {
+                padding: 0.9rem 1.8rem;
+                font-size: 0.8rem;
+            }
+
+            .btn-secondary {
+                padding: 0.9rem 1.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND LIGHT FLARES -->
+    <div class="flare flare-1"></div>
+    <div class="flare flare-2"></div>
+    <div class="flare flare-3"></div>
+
+    <!-- SVG filter threshold for morph text effect (Referencias/textos.md) -->
+    <svg id="filters" style="display:none">
+        <defs>
+            <filter id="threshold">
+                <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0
+										0 1 0 0 0
+										0 0 1 0 0
+										0 0 0 255 -140" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- SEÇÃO 1: HEADER & HERO -->
+    <header id="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <!-- Stylized AL Geometrical Icon in Gold -->
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2L2 22h4l6-12 6 12h4L12 2z" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8 14h8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="logo-text">
+                    <h1>Arthur Lima</h1>
+                    <span>Arquitetura</span>
+                </div>
+            </a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#inicio">Início</a></li>
+                <li class="nav-item"><a href="#portfolio-horizontal">Projetos</a></li>
+                <li class="nav-item"><a href="#arquiteto">Sobre</a></li>
+                <li class="nav-item"><a href="#servicos">Serviços</a></li>
+                <li class="nav-item"><a href="#processo">Processo</a></li>
+                <li class="nav-item"><a href="#contato-orcamento">Contato</a></li>
+                <!-- Mobile Action -->
+                <li class="nav-item mobile-only-action"><a href="#contato-orcamento" class="mobile-orcamento-btn">Orçamento</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <a href="https://instagram.com" target="_blank" class="social-btn" aria-label="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <div class="divider"></div>
+                <a href="#contato-orcamento" class="orcamento-btn">Orçamento</a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobile-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="hero" id="inicio">
+        <div class="hero-container">
+            <div class="hero-info">
+                <div class="hero-badge-line">
+                    <span class="hero-badge-text">Arquitetura que</span>
+                </div>
+
+                <h1 class="hero-headline">
+                    Transforma<span class="br-desktop"><br></span>
+                    Espaços.<br>
+                    <span>Realiza<br>Sonhos.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Projetos autorais que unem estética, funcionalidade e personalidade para criar lugares que inspiram
+                    e melhoram vidas.
+                </p>
+
+                <div class="hero-ctas">
+                    <!-- Spotligth premium button (Referencias/botões.md) -->
+                    <div class="btn-spotlight-wrapper">
+                        <a class="btn-spotlight" href="#portfolio-horizontal">
+                            <span>Conhecer Projetos</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <a class="btn-secondary" href="#contato-orcamento">
+                        <i data-lucide="message-square"></i>
+                        <span>Falar com Arquiteto</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-graphic">
+            </div>
+
+            <!-- Right side vertical navigation timeline track -->
+            <div class="hero-vertical-nav">
+                <span class="vertical-nav-item active" data-target="#inicio">Criar</span>
+                <div class="vertical-nav-line"></div>
+                <span class="vertical-nav-item" data-target="#processo">Realizar</span>
+                <div class="vertical-nav-line"></div>
+                <span class="vertical-nav-item" data-target="#contato-orcamento">Planejar</span>
+            </div>
+
+            <!-- Bottom Glassmorphic stats/services panel -->
+            <div class="hero-stats-panel">
+                <div class="stat-card">
+                    <div class="stat-icon-box">
+                        <i data-lucide="home"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Projetos Residenciais</h4>
+                        <p>Casas que acolhem, refletem e evoluem com você.</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box">
+                        <i data-lucide="building-2"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Projetos Comerciais</h4>
+                        <p>Ambientes que fortalecem marcas e impulsionam negócios.</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box">
+                        <i data-lucide="armchair"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Interiores</h4>
+                        <p>Design de interiores que une beleza, conforto e funcionalidade.</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box">
+                        <i data-lucide="clipboard-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Acompanhamento de Obra</h4>
+                        <p>Gestão completa para garantir qualidade em cada detalhe.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 2: MANIFESTO / FILOSOFIA (SOBRE) -->
+    <section id="manifesto">
+        <div class="manifesto-container">
+            <span class="section-subtitle">Manifesto</span>
+
+            <!-- Morph Text (Referencias/textos.md) -->
+            <div class="manifesto-morph-container">
+                <span id="morph-text-1" class="morph-text-span"></span>
+                <span id="morph-text-2" class="morph-text-span"></span>
+            </div>
+
+            <div class="manifesto-text-block scroll-bottom">
+                "Não criamos apenas paredes ou volumes de concreto. Nós desenhamos o <span>cenário da sua vida</span>.
+                Acreditamos que a arquitetura deve ser uma extensão da sua história, traduzindo sentimentos em espaços fluidos,
+                iluminados e atemporais."
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3: GALERIA HORIZONTAL (GSAP SCROLLTRIGGER) -->
+    <section id="portfolio-horizontal">
+        <div class="container-cards">
+            <!-- Left side fixed title during horizontal scroll -->
+            <div class="horizontal-section-intro">
+                <span class="section-subtitle" style="align-self: flex-start">Galeria</span>
+                <h2>Projetos <span>Autorais</span></h2>
+                <p class="section-desc">Uma seleção de obras que expressam sofisticação, respeito ao contexto e soluções inovadoras.</p>
+            </div>
+
+            <!-- Horizontal sliding cards -->
+            <div class="cards">
+                <!-- Card 1 -->
+                <div class="card">
+                    <img class="card-bg-img" src="./assets/projeto_brisa_vale.png" alt="Residência Brisa do Vale">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <span class="card-tag">Residencial</span>
+                        <h3 class="card-title">Residência Brisa do Vale</h3>
+                        <p class="card-desc">Integração perfeita com a natureza, concreto aparente e painéis de madeira ripada.</p>
+                        <a href="#contato-orcamento" class="card-link">Solicitar Detalhes <i data-lucide="arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <img class="card-bg-img" src="./assets/apartamento_ouro_fino.png" alt="Apartamento Ouro Fino">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <span class="card-tag">Interiores</span>
+                        <h3 class="card-title">Apartamento Ouro Fino</h3>
+                        <p class="card-desc">Minimalismo aconchegante com tons neutros, iluminação linear e marcenaria sob medida.</p>
+                        <a href="#contato-orcamento" class="card-link">Solicitar Detalhes <i data-lucide="arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <img class="card-bg-img" src="./assets/sede_nexus.png" alt="Sede Corporativa Nexus">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <span class="card-tag">Comercial</span>
+                        <h3 class="card-title">Sede Corporativa Nexus</h3>
+                        <p class="card-desc">Escritório moderno focado em colaboração, com biofilia e divisórias acústicas premium.</p>
+                        <a href="#contato-orcamento" class="card-link">Solicitar Detalhes <i data-lucide="arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="card">
+                    <img class="card-bg-img" src="./assets/casa_lago.png" alt="Casa do Lago">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <span class="card-tag">Residencial</span>
+                        <h3 class="card-title">Casa do Lago</h3>
+                        <p class="card-desc">Linhas horizontais marcantes, beirais generosos e grandes planos de vidro voltados para a água.</p>
+                        <a href="#contato-orcamento" class="card-link">Solicitar Detalhes <i data-lucide="arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="card">
+                    <img class="card-bg-img" src="./assets/villa_sunset.png" alt="Villa Sunset">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <span class="card-tag">Residencial</span>
+                        <h3 class="card-title">Villa Sunset</h3>
+                        <p class="card-desc">Estrutura metálica esbelta, piscina com borda infinita e automação residencial integrada.</p>
+                        <a href="#contato-orcamento" class="card-link">Solicitar Detalhes <i data-lucide="arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 4: SERVIÇOS (CARD GRADIENTE ROTATIVO) -->
+    <section id="servicos">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Especialidades</span>
+                <h2 class="section-title">Nossos <span>Serviços</span></h2>
+                <p class="section-desc">Oferecemos soluções completas do projeto ao gerenciamento, assegurando luxo, capricho e exclusividade.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1 (Premium gradient rotating border) -->
+                <div class="service-card premium-glow scroll-bottom">
+                    <span class="service-badge">Mais Procurado</span>
+                    <div class="service-icon-wrapper">
+                        <i data-lucide="home"></i>
+                    </div>
+                    <div class="service-info">
+                        <h3>Projeto Arquitetônico</h3>
+                        <p>Criação conceitual, plantas, modelagem 3D fotorealista e detalhamento técnico completo de residências luxuosas.</p>
+                        <ul class="service-features-list">
+                            <li><i data-lucide="check-circle-2"></i> Estudos volumétricos 3D</li>
+                            <li><i data-lucide="check-circle-2"></i> Layout de fluxos otimizado</li>
+                            <li><i data-lucide="check-circle-2"></i> Compatibilização estrutural</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card scroll-bottom1">
+                    <div class="service-icon-wrapper">
+                        <i data-lucide="armchair"></i>
+                    </div>
+                    <div class="service-info">
+                        <h3>Design de Interiores</h3>
+                        <p>Estudo detalhado de cores, revestimentos, marcenaria planejada, iluminação cênica e curadoria de móveis de design.</p>
+                        <ul class="service-features-list">
+                            <li><i data-lucide="check-circle-2"></i> Projeto luminotécnico</li>
+                            <li><i data-lucide="check-circle-2"></i> Especificação de acabamentos</li>
+                            <li><i data-lucide="check-circle-2"></i> Detalhamento de mobiliário</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card scroll-bottom2">
+                    <div class="service-icon-wrapper">
+                        <i data-lucide="clipboard-check"></i>
+                    </div>
+                    <div class="service-info">
+                        <h3>Gerenciamento de Obra</h3>
+                        <p>Fiscalização total da execução, cronograma financeiro, compras de materiais de alto padrão e garantia de fidelidade ao projeto.</p>
+                        <ul class="service-features-list">
+                            <li><i data-lucide="check-circle-2"></i> Relatórios semanais de evolução</li>
+                            <li><i data-lucide="check-circle-2"></i> Controle de prazos e orçamentos</li>
+                            <li><i data-lucide="check-circle-2"></i> Coordenação de equipes de obra</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 5: ESTÚDIO / 3D SCROLL PERSPECTIVE -->
+    <section id="estudio-escala">
+        <div class="escala">
+            <!-- Scaling image inside relative container -->
+            <div class="aumentar">
+                <div class="studio-overlay"></div>
+                <img class="studio-bg-img" src="./assets/estudio_3d.png" alt="Maquete 3D Estúdio">
+            </div>
+
+            <!-- Content revealed after image expands/fades -->
+            <div class="escala2" id="escala2-card">
+                <span class="section-subtitle" style="display: inline-block; margin-bottom: 1rem">O Estúdio</span>
+                <h2>Inovação <span>Tecnológica</span></h2>
+                <p>
+                    Utilizamos tecnologia de realidade virtual (VR) e renderização de ponta.
+                    Nossos clientes podem caminhar virtualmente pelos ambientes de seus futuros lares antes mesmo
+                    de colocarmos o primeiro tijolo na obra. Isso garante assertividade total, economia de recursos e
+                    eliminação de surpresas durante a construção.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 6: O PROCESSO CRIATIVO -->
+    <section id="processo">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Metodologia</span>
+                <h2 class="section-title">Como <span>Trabalhamos</span></h2>
+                <p class="section-desc">Um processo estruturado em etapas claras que garantem transparência, rigor técnico e criatividade.</p>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <!-- Interactive progress bar linked to scroll -->
+                <div class="timeline-progress-bar" id="timeline-progress"></div>
+
+                <!-- Step 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-step">Etapa 01</span>
+                        <h3>Briefing & Conceito</h3>
+                        <p>Reunião detalhada para compreender seus hábitos, gostos e necessidades. Analisamos o terreno e definimos o direcionamento conceitual e estético do projeto.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-step">Etapa 02</span>
+                        <h3>Estudo Preliminar & 3D</h3>
+                        <p>Apresentação das primeiras ideias volumétricas e maquete eletrônica 3D. Aqui você visualiza o projeto de forma realista e alinhamos as primeiras aprovações.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-step">Etapa 03</span>
+                        <h3>Projeto Executivo</h3>
+                        <p>Detalhamento de engenharia, hidráulica, elétrica e especificações para a construção. É o guia completo que as equipes da obra seguirão minuciosamente.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-step">Etapa 04</span>
+                        <h3>Construção & Entrega</h3>
+                        <p>Acompanhamento direto do estúdio na execução dos acabamentos e montagem de marcenaria e iluminação, culminando com a entrega do seu novo lar perfeito.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 7: O ARQUITETO (EQUIPE) -->
+    <section id="arquiteto">
+        <div class="section-container">
+            <div class="architect-layout">
+                <div class="architect-photo-frame">
+                    <!-- Premium profile image from assets -->
+                    <img class="architect-img" src="./assets/arthur_lima.png" alt="Arthur Lima Arquiteto">
+                </div>
+
+                <div class="architect-bio scroll-right">
+                    <span class="section-subtitle">O Arquiteto</span>
+                    <h2>Arthur <span>Lima</span></h2>
+                    <span class="architect-role">Arquiteto e Urbanista</span>
+                    <p class="architect-bio-text">
+                        Com mais de 10 anos de atuação no mercado de luxo, Arthur Lima formou-se com a premissa de que
+                        espaços moldam comportamentos. Seus projetos são marcados pelo rigor geométrico, pela iluminação dramática
+                        e pelo uso sincero de materiais como madeira, pedra natural e concreto.
+                        <br><br>
+                        Defende uma arquitetura contemporânea atemporal, livre de modismos, focada no bem-estar humano, na sofisticação
+                        silenciosa e no cuidado extremo com o acabamento e execução técnica.
+                    </p>
+                    <div class="architect-signature">Arthur Lima</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 8: DEPOIMENTOS (SWIPER) -->
+    <section id="depoimentos">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Avaliações</span>
+                <h2 class="section-title">O que dizem os <span>Clientes</span></h2>
+                <p class="section-desc">Relatos reais de quem confiou o sonho do próprio lar e a imagem da sua empresa ao nosso estúdio.</p>
+            </div>
+
+            <div class="testimonials-container">
+                <div class="swiper swiper-testimonials">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "O processo de realidade virtual foi incrível. Pudemos entrar no nosso quarto e ver a vista da janela antes da fundação começar. A casa ficou exatamente como no 3D."
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">FC</div>
+                                    <div class="author-info">
+                                        <h4>Fernando Cardoso</h4>
+                                        <p>Proprietário da Casa Sunset</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "O acompanhamento de obra oferecido pelo estúdio nos poupou de qualquer dor de cabeça. Eles resolveram todas as compras e gerenciaram os prazos perfeitamente."
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">MA</div>
+                                    <div class="author-info">
+                                        <h4>Mariana Alencar</h4>
+                                        <p>Proprietária da Casa Brisa do Vale</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "Além do bom gosto estético inquestionável, a atenção aos detalhes técnicos nas plantas executivas impressionou nossa construtora. Não houve erros ou desperdícios."
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">RG</div>
+                                    <div class="author-info">
+                                        <h4>Renato Guimarães</h4>
+                                        <p>Diretor do Grupo Nexus</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 9: FAQ (ACCORDION) -->
+    <section id="faq">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">FAQ</span>
+                <h2 class="section-title">Perguntas <span>Frequentes</span></h2>
+                <p class="section-desc">Esclareça suas dúvidas principais sobre custos de projetos, prazos e a execução das obras.</p>
+            </div>
+
+            <div class="faq-layout">
+                <!-- FAQ 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Como funciona a primeira reunião?</h3>
+                        <div class="faq-icon-box"><i data-lucide="chevron-down" style="width: 14px"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            A primeira reunião serve para nos conhecermos e alinharmos o escopo. Nela, você nos apresenta o seu terreno, suas expectativas estéticas e necessidades funcionais. A partir disso, enviamos uma proposta comercial detalhada do projeto.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>O estúdio trabalha fora da cidade ou estado?</h3>
+                        <div class="faq-icon-box"><i data-lucide="chevron-down" style="width: 14px"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Sim! Desenvolvemos projetos arquitetônicos e de interiores em todo o Brasil. Através de reuniões online semanais e visitas pontuais para análise técnica do lote ou reuniões de obra, garantimos a mesma qualidade dos projetos locais.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Vocês indicam os profissionais para a construção?</h3>
+                        <div class="faq-icon-box"><i data-lucide="chevron-down" style="width: 14px"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Sim, possuímos uma rede de construtoras, marceneiros, lojistas e fornecedores de mármores e esquadrias de alto padrão que confiamos há anos. A cotação é feita de forma transparente e enviada para aprovação do cliente.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Qual o prazo médio de entrega de um projeto completo?</h3>
+                        <div class="faq-icon-box"><i data-lucide="chevron-down" style="width: 14px"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Depende do tamanho do projeto. Para uma casa residencial média/grande (350m² a 600m²), o tempo estimado do estudo conceitual até o projeto executivo e luminotécnico finalizado varia entre 3 a 5 meses.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 10: FORMULÁRIO & FOOTER -->
+    <section id="contato-orcamento">
+        <div class="section-container">
+            <div class="contato-layout">
+                <div class="contato-info-box">
+                    <span class="section-subtitle" style="align-self: flex-start">Contato</span>
+                    <h2>Vamos planejar seu <span>próximo espaço?</span></h2>
+                    <p>Preencha os dados ao lado para agendar uma reunião em nosso estúdio ou receber uma análise preliminar da sua demanda comercial ou residencial.</p>
+
+                    <div class="contato-details-list">
+                        <div class="contato-detail-item">
+                            <div class="icon-circle"><i data-lucide="phone"></i></div>
+                            <div class="text-group">
+                                <span>Telefone / WhatsApp</span>
+                                <span>+55 (11) 99876-5432</span>
+                            </div>
+                        </div>
+                        <div class="contato-detail-item">
+                            <div class="icon-circle"><i data-lucide="mail"></i></div>
+                            <div class="text-group">
+                                <span>E-mail Corporativo</span>
+                                <span>contato@arthurlima.com.br</span>
+                            </div>
+                        </div>
+                        <div class="contato-detail-item">
+                            <div class="icon-circle"><i data-lucide="map-pin"></i></div>
+                            <div class="text-group">
+                                <span>Estúdio Físico</span>
+                                <span>Av. Paulista, 2000 - Cj 12 - São Paulo, SP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Estimate Request Form -->
+                <div class="orcamento-form-card">
+                    <h3>Solicitar Análise de Projeto</h3>
+                    <form id="project-estimate-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="form-name">Nome Completo</label>
+                                <input type="text" id="form-name" class="form-input" placeholder="Seu nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-email">E-mail</label>
+                                <input type="email" id="form-email" class="form-input" placeholder="Seu e-mail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-phone">WhatsApp</label>
+                                <input type="tel" id="form-phone" class="form-input" placeholder="(00) 00000-0000" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-service">Tipo de Projeto</label>
+                                <select id="form-service" class="form-select" required>
+                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="residencial">Projeto Residencial</option>
+                                    <option value="comercial">Projeto Comercial</option>
+                                    <option value="interiores">Design de Interiores</option>
+                                    <option value="gerenciamento">Gerenciamento de Obra</option>
+                                </select>
+                            </div>
+                            <div class="form-group form-full-width">
+                                <label for="form-message">Breve descrição da sua demanda</label>
+                                <textarea id="form-message" class="form-input" placeholder="Ex: Casa térrea de 400m² em condomínio fechado, com 4 suítes..." required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="form-submit-btn">Enviar Solicitação</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rodapé -->
+        <footer>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo-link">
+                        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2L2 22h4l6-12 6 12h4L12 2z" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M8 14h8" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="logo-text">
+                            <h1>Arthur Lima</h1>
+                            <span>Arquitetura</span>
+                        </div>
+                    </a>
+                    <p class="footer-about-text">Projetando residências e espaços corporativos de alto padrão com sofisticação atemporal, inovação tecnológica e gerenciamento completo.</p>
+                    <div class="footer-socials">
+                        <a href="https://instagram.com" target="_blank" class="social-circle" aria-label="Instagram">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="social-circle" aria-label="Facebook">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="social-circle" aria-label="LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Navegação</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#portfolio-horizontal">Projetos</a></li>
+                        <li><a href="#arquiteto">Sobre</a></li>
+                        <li><a href="#servicos">Serviços</a></li>
+                        <li><a href="#processo">Processo</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Novidades</h4>
+                    <p class="footer-about-text">Assine nossa newsletter para receber artigos exclusivos sobre tendências de design e fotos dos bastidores de nossas obras finalizadas.</p>
+                    <form class="newsletter-form" id="newsletter-form-action">
+                        <input type="email" class="newsletter-input" placeholder="Seu e-mail" required>
+                        <button type="submit" class="newsletter-btn"><i data-lucide="arrow-right" style="width: 16px"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Arthur Lima Arquitetura. Todos os direitos reservados.</span>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <!-- JAVASCRIPT & EFFECTS -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Mobile Menu Open/Close Logic
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        // Close menu on link click
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.querySelector('i').setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // 2. Header scrolled state background changes
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 3. Hero spotlight buttons custom mouse move glow effect (Referencias/botões.md)
+        const spotlightWrappers = document.querySelectorAll('.btn-spotlight-wrapper');
+        spotlightWrappers.forEach(wrapper => {
+            const btn = wrapper.querySelector('.btn-spotlight');
+            wrapper.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                btn.style.setProperty('--button-translate-x', `${x - rect.width / 2}px`);
+                
+                // Active angle glow rotation transition
+                wrapper.style.setProperty('--before-opacity', '0');
+                wrapper.style.setProperty('--after-opacity', '1');
+            });
+            wrapper.addEventListener('mouseleave', () => {
+                btn.style.setProperty('--button-translate-x', `-50%`);
+                wrapper.style.setProperty('--before-opacity', '1');
+                wrapper.style.setProperty('--after-opacity', '0');
+            });
+        });
+
+        // 4. Hero vertical navigation items target click scrolling
+        const verticalNavItems = document.querySelectorAll('.vertical-nav-item');
+        verticalNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const targetId = item.getAttribute('data-target');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Update active class on scroll
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = `#${entry.target.id}`;
+                    verticalNavItems.forEach(item => {
+                        if (item.getAttribute('data-target') === id) {
+                            item.classList.add('active');
+                        } else {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('#inicio, #processo, #contato-orcamento').forEach(section => {
+            scrollObserver.observe(section);
+        });
+
+        // 5. Morphing text logic in Manifesto Section (Referencias/textos.md)
+        const morphText1 = document.getElementById("morph-text-1");
+        const morphText2 = document.getElementById("morph-text-2");
+
+        const morphWords = [
+            "Concepção",
+            "Planejamento",
+            "Exclusividade",
+            "Inovação",
+            "Sofisticação"
+        ];
+
+        const morphTime = 1.0;
+        const cooldownTime = 1.5;
+
+        let morphIndex = morphWords.length - 1;
+        let morphTimeTracker = new Date();
+        let morphAmount = 0;
+        let morphCooldown = cooldownTime;
+
+        morphText1.textContent = morphWords[morphIndex % morphWords.length];
+        morphText2.textContent = morphWords[(morphIndex + 1) % morphWords.length];
+
+        function doMorph() {
+            morphAmount -= morphCooldown;
+            morphCooldown = 0;
+            let fraction = morphAmount / morphTime;
+            if (fraction > 1) {
+                morphCooldown = cooldownTime;
+                fraction = 1;
+            }
+            setMorph(fraction);
+        }
+
+        function setMorph(fraction) {
+            morphText2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+            morphText2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+            fraction = 1 - fraction;
+            morphText1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+            morphText1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+            morphText1.textContent = morphWords[morphIndex % morphWords.length];
+            morphText2.textContent = morphWords[(morphIndex + 1) % morphWords.length];
+        }
+
+        function doCooldown() {
+            morphAmount = 0;
+            morphText2.style.filter = "";
+            morphText2.style.opacity = "100%";
+            morphText1.style.filter = "";
+            morphText1.style.opacity = "0%";
+        }
+
+        function animateMorph() {
+            requestAnimationFrame(animateMorph);
+            let newTime = new Date();
+            let shouldIncrement = morphCooldown > 0;
+            let dt = (newTime - morphTimeTracker) / 1000;
+            morphTimeTracker = newTime;
+            morphCooldown -= dt;
+
+            if (morphCooldown <= 0) {
+                if (shouldIncrement) morphIndex++;
+                doMorph();
+            } else {
+                doCooldown();
+            }
+        }
+
+        animateMorph();
+
+        // 6. GSAP Horizontal Scroll and Lenis integration (Referencias/Scroll efects.md)
+        gsap.registerPlugin(ScrollTrigger);
+
+        let lenis;
+        function initLenis() {
+            if (window.innerWidth > 1024 && typeof Lenis !== "undefined") {
+                lenis = new Lenis({
+                    duration: 1.4,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                });
+
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+
+                ScrollTrigger.scrollerProxy(document.documentElement, {
+                    scrollTop(value) {
+                        if (arguments.length) {
+                            lenis.scrollTo(value, { immediate: true });
+                        }
+                        return window.scrollY || window.pageYOffset;
+                    },
+                    getBoundingClientRect() {
+                        return { top: 0, left: 0, width: innerWidth, height: innerHeight };
+                    },
+                    fixedMarkers: true
+                });
+
+                lenis.on("scroll", ScrollTrigger.update);
+            }
+        }
+
+        initLenis();
+
+        if (window.matchMedia("(max-width: 1024px)").matches) {
+            ScrollTrigger.normalizeScroll(true);
+        }
+
+        const containerCards = document.querySelector(".container-cards");
+        const cards = document.querySelector(".cards");
+
+        let endLen = 0;
+        let finalX = 0;
+
+        function measure(respiroPx = 0) {
+            const prev = cards.style.transform;
+            cards.style.transform = "none";
+            const contRect = containerCards.getBoundingClientRect();
+            const lastRect = cards.lastElementChild.getBoundingClientRect();
+            const padR = parseFloat(getComputedStyle(containerCards).paddingRight || 0);
+            const overflowRight = lastRect.right - (contRect.right - padR);
+            const need = Math.max(0, Math.ceil(overflowRight) + respiroPx);
+            cards.style.transform = prev;
+            endLen = need;
+            finalX = -need;
+        }
+
+        let tl;
+        function build(respiroPx = 0) {
+            ScrollTrigger.getAll().forEach((st) => {
+                if (st.vars?.trigger === containerCards) st.kill();
+            });
+
+            gsap.set(cards, { x: 0, force3D: true, willChange: "transform" });
+            measure(respiroPx);
+
+            tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerCards,
+                    start: "top top",
+                    end: () => "+=" + endLen,
+                    scrub: true,
+                    pin: true,
+                    pinType: window.matchMedia("(max-width: 767px)").matches ? "transform" : "fixed",
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    invalidateOnRefresh: true,
+                    onRefreshInit: () => gsap.set(cards, { x: 0 }),
+                    onRefresh: () => {
+                        measure(respiroPx);
+                        tl.scrollTrigger.end = tl.scrollTrigger.start + endLen;
+                    }
+                }
+            }).to(cards, { x: () => finalX, ease: "none", immediateRender: false });
+
+            return tl;
+        }
+
+        const mm = gsap.matchMedia();
+        mm.add("(max-width: 767px)", () => build(0));
+        mm.add("(min-width: 768px) and (max-width: 1024px)", () => build(20));
+        mm.add("(min-width: 1025px)", () => build(120));
+
+        let rTO;
+        window.addEventListener("resize", () => {
+            clearTimeout(rTO);
+            rTO = setTimeout(() => {
+                if (!lenis) initLenis();
+                ScrollTrigger.refresh();
+            }, 120);
+        });
+
+        // 7. Seção 5: Estúdio / 3D Scroll Scale & Perspective
+        const estudioSection = document.getElementById("estudio-escala");
+        const scaleCard = document.getElementById("escala2-card");
+        const scaleImage = document.querySelector(".aumentar");
+
+        // Configura estados iniciais via GSAP
+        gsap.set(scaleImage, { scale: 0.92, filter: "blur(5px)", opacity: 0.5 });
+        gsap.set(scaleCard, { opacity: 0, scale: 0.8, y: 50 });
+
+        const scaleTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: estudioSection,
+                start: "top top",
+                end: "bottom -150%", // Espaço de rolagem confortável
+                pin: true,
+                scrub: true,
+                invalidateOnRefresh: true
+            }
+        });
+
+        scaleTimeline
+            // Primeiro zoom que remove o blur e deixa a imagem em tamanho real
+            .to(scaleImage, {
+                scale: 1.0,
+                filter: "blur(0px)",
+                opacity: 0.9,
+                duration: 1
+            })
+            // Segundo zoom imersivo que passa pela imagem ampliando-a e sumindo com ela
+            .to(scaleImage, {
+                scale: 3.5,
+                filter: "blur(15px)",
+                opacity: 0,
+                duration: 2,
+                ease: "power1.in"
+            })
+            // Animação de entrada do bloco descritivo centralizado
+            .to(scaleCard, {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            }, "-=1.2"); // Inicia ao mesmo tempo que a imagem some
+
+        // 8. Seção 6: Timeline vertical progress bar indicator
+        const timelineProgress = document.getElementById("timeline-progress");
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineSection = document.getElementById('processo');
+
+        ScrollTrigger.create({
+            trigger: timelineSection,
+            start: "top 30%",
+            end: "bottom 70%",
+            scrub: true,
+            onUpdate: (self) => {
+                const progressPercent = self.progress * 100;
+                timelineProgress.style.height = `${progressPercent}%`;
+
+                // Highlight active items
+                timelineItems.forEach((item, index) => {
+                    const itemRect = item.getBoundingClientRect();
+                    const triggerY = window.innerHeight * 0.55;
+                    if (itemRect.top < triggerY) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // 9. Seção 8: Testimonials Swiper Carousel
+        const swiperTestimonials = new Swiper('.swiper-testimonials', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            speed: 800,
+            autoplay: {
+                delay: 4500,
+                disableOnInteraction: false
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                1100: {
+                    slidesPerView: 3,
+                    spaceBetween: 40
+                }
+            }
+        });
+
+        // 10. Seção 9: FAQ accordion logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Reset all FAQ items
+                faqItems.forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-answer').style.maxHeight = '0';
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // 11. Custom generic entrance reveal triggers on scroll
+        const scrollRevealElements = document.querySelectorAll(".scroll-bottom, .scroll-bottom1, .scroll-bottom2, .scroll-right");
+        const revealPos = window.innerHeight * 0.8;
+
+        function checkScrollReveal() {
+            scrollRevealElements.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < revealPos) {
+                    el.classList.add("ativo");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", checkScrollReveal);
+        window.addEventListener("load", checkScrollReveal);
+
+        // 12. Form interactive submit responses
+        const estimateForm = document.getElementById("project-estimate-form");
+        estimateForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("Muito obrigado pelo contato! Arthur Lima ou um de nossos especialistas em projetos entrará em contato em até 24h úteis para agendarmos sua reunião.");
+            estimateForm.reset();
+        });
+
+        const newsletterForm = document.getElementById("newsletter-form-action");
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("E-mail cadastrado com sucesso na nossa newsletter premium de arquitetura!");
+            newsletterForm.reset();
+        });
+    </script>
+</body>
+
+</html>

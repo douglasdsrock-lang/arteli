@@ -1,0 +1,2750 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Clínica Vida Plena - Centro de Excelência Médica. Consultas especializadas, diagnósticos de imagem e análises clínicas em um ambiente de alto padrão.">
+    <title>Vida Plena - Centro de Excelência Médica</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../../assets/isotipo.svg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Lenis Smooth Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
+        :root {
+            --primary-green: #0d9488;
+            --primary-green-hover: #0f766e;
+            --primary-green-light: #f4faf7;
+            --accent-emerald: #10b981;
+            --accent-teal: #0d9488;
+            --bg-canvas: #fafbfd;
+            --bg-white: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+
+            --font-title: 'Outfit', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-accent: 'Sora', sans-serif;
+
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-fast: all 0.2s ease;
+        }
+
+        /* --- RESET & BASIC STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-green) var(--bg-canvas);
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-green-hover);
+        }
+
+        section {
+            padding: 7.5rem 0;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            margin-bottom: 4.5rem;
+            gap: 0.8rem;
+            max-width: 750px;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--accent-emerald);
+            letter-spacing: 1.5px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title span {
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            font-weight: 400;
+            margin-top: 0.2rem;
+        }
+
+        /* --- BUTTONS SYSTEM (botões.md adaptations) --- */
+        .btn-green {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border: none;
+            padding: 0.85rem 2.2rem;
+            border-radius: 9999px;
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .btn-green:hover {
+            background-color: var(--primary-green-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
+        }
+
+        .btn-outline-green {
+            background: none;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 0.75rem 2.2rem;
+            border-radius: 9999px;
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .btn-outline-green:hover {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .logo-link {
+            text-decoration: none !important;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+
+        /* --- HEADER & HERO --- */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: transparent;
+            border-bottom: none;
+            transition: var(--transition-smooth);
+        }
+
+        header.scrolled {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-icon-container {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-title);
+            font-size: 1.55rem;
+            font-weight: 800;
+            line-height: 1;
+            color: #0f2537;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            font-family: var(--font-accent);
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: #334155;
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-fast);
+            position: relative;
+            padding: 0.4rem 0;
+        }
+
+        .nav-item a:hover {
+            color: var(--accent-teal);
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-teal);
+            transition: var(--transition-fast);
+        }
+
+        .nav-item a.active-link {
+            color: var(--accent-teal);
+        }
+
+        .nav-item a.active-link::after {
+            width: 80%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .phone-link {
+            text-decoration: none;
+            color: #334155;
+            font-family: var(--font-accent);
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 9999px;
+            padding: 0.6rem 1.2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+            transition: var(--transition-fast);
+        }
+
+        .phone-link:hover {
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .phone-link i,
+        .phone-link svg {
+            width: 14px;
+            height: 14px;
+            display: block;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #0f2537;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle i,
+        .mobile-menu-toggle svg {
+            width: 26px;
+            height: 26px;
+            display: block;
+        }
+
+        .mobile-menu-close-container {
+            display: none;
+        }
+
+        /* Hero Section (Rebuilt: full-bleed image background bg-desktop.webp) */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: url('bg-desktop.webp') no-repeat center center;
+            background-size: cover;
+            border-bottom: none;
+            padding: 10rem 0 16rem;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero-info {
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.8rem;
+        }
+
+        .hero-subtitle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-tag {
+            font-family: var(--font-accent);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .heartbeat-pulse {
+            display: flex;
+            align-items: center;
+            opacity: 0.8;
+        }
+
+        .hero-headline {
+            font-family: var(--font-title);
+            font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+            font-weight: 800;
+            color: #0f2537;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-headline .teal-text {
+            color: var(--accent-teal);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #475569;
+            line-height: 1.6;
+            max-width: 580px;
+        }
+
+        .hero-description .green-highlight {
+            color: var(--accent-teal);
+            font-weight: 700;
+        }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-green-pill {
+            background-color: var(--accent-teal);
+            color: #ffffff;
+            border: none;
+            padding: 0.95rem 2.2rem;
+            border-radius: 9999px;
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.2);
+        }
+
+        .btn-green-pill:hover {
+            background-color: var(--primary-green-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.25);
+        }
+
+        .btn-outline-green-pill {
+            background: #ffffff;
+            border: 2px solid var(--accent-teal);
+            color: var(--accent-teal);
+            padding: 0.85rem 2.2rem;
+            border-radius: 9999px;
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .btn-outline-green-pill:hover {
+            background-color: var(--accent-teal);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .hero-pillars-container {
+            position: absolute;
+            bottom: 3.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1300px;
+            padding: 0 2.5rem;
+            z-index: 15;
+        }
+
+        .hero-pillars-container .pilares-row {
+            display: flex;
+            gap: 2.2rem;
+            align-items: center;
+            max-width: 62%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 15px 35px rgba(15, 37, 55, 0.08);
+        }
+
+        .hero-pillars-container .pilar-card {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            display: flex;
+            gap: 1.1rem;
+            align-items: center;
+            position: relative;
+            flex: 1;
+        }
+
+        .hero-pillars-container .pilar-card:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: -1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 38px;
+            background-color: #e2e8f0;
+        }
+
+        .hero-pillars-container .pilar-icon-box {
+            width: 46px;
+            height: 46px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .hero-pillars-container .pilar-icon-box i,
+        .hero-pillars-container .pilar-icon-box svg {
+            width: 22px;
+            height: 22px;
+            display: block;
+        }
+
+        .hero-pillars-container .pilar-text h4 {
+            font-family: var(--font-title);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f2537;
+            margin-bottom: 0.15rem;
+        }
+
+        .hero-pillars-container .pilar-text p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+
+        /* --- SEÇÃO 4: A CLÍNICA --- */
+        #sobre {
+            background-color: #ffffff;
+        }
+        .clinica-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .clinica-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .clinica-text p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .clinica-text p strong {
+            color: var(--text-dark);
+        }
+
+        .clinica-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .clinica-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .clinica-list li i,
+        .clinica-list li svg {
+            color: var(--accent-emerald);
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        .clinica-image {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            aspect-ratio: 1.25;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.02);
+        }
+
+        .clinica-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .clinica-image:hover img {
+            transform: scale(1.02);
+        }
+
+
+        /* --- SEÇÃO 5: ESPECIALIDADES (Geometric Grid) --- */
+        .especialidades-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .especialidade-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.2rem;
+        }
+
+        .especialidade-card:hover {
+            border-color: var(--accent-emerald);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.05);
+        }
+
+        .especialidade-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-green-light);
+            color: var(--primary-green);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .especialidade-card:hover .especialidade-icon {
+            background-color: var(--accent-emerald);
+            color: #ffffff;
+        }
+
+        .especialidade-icon i,
+        .especialidade-icon svg {
+            width: 22px;
+            height: 22px;
+            display: block;
+        }
+
+        .especialidade-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .especialidade-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .especialidade-btn {
+            color: var(--primary-green);
+            font-family: var(--font-accent);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .especialidade-btn:hover {
+            color: var(--accent-emerald);
+        }
+
+        .especialidade-btn i,
+        .especialidade-btn svg {
+            width: 14px;
+            height: 14px;
+            display: block;
+        }
+
+
+        /* --- SEÇÃO 6: CORPO CLÍNICO --- */
+        .corpo-clinico-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .membro-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+        }
+
+        .membro-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .membro-visual {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1.15;
+            background-color: var(--primary-green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .membro-visual i.avatar-placeholder {
+            width: 70px;
+            height: 70px;
+            color: var(--primary-green);
+            opacity: 0.25;
+        }
+
+        .membro-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .membro-card:hover .membro-visual img {
+            transform: scale(1.03);
+        }
+
+        .membro-info {
+            padding: 2rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            flex-grow: 1;
+            align-items: flex-start;
+        }
+
+        .membro-especialidade {
+            font-family: var(--font-accent);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-emerald);
+        }
+
+        .membro-nome {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .membro-crm {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .membro-resumo {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .membro-btn {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition-fast);
+        }
+
+        .membro-btn:hover {
+            color: var(--accent-emerald);
+        }
+
+        .membro-btn i,
+        .membro-btn svg {
+            width: 14px;
+            height: 14px;
+            display: block;
+        }
+
+
+        /* --- SEÇÃO 7: EXAMES & DIAGNÓSTICOS (GSAP Horizontal Scroll) --- */
+        #galeria {
+            padding: 8rem 0;
+            background-color: var(--primary-green-light);
+            overflow-x: clip;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .container-cards {
+            transition: none !important;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .galeria-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .galeria-intro {
+            min-width: 380px;
+            padding-right: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .galeria-intro h2 {
+            font-family: var(--font-title);
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.25;
+        }
+
+        .galeria-intro h2 span {
+            color: var(--primary-green);
+        }
+
+        .galeria-intro p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .cards {
+            display: flex;
+            gap: 2rem;
+            will-change: transform;
+            transition: none !important;
+        }
+
+        .cards .card {
+            min-width: 440px;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.01);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            aspect-ratio: 0.95;
+            transition: var(--transition-smooth);
+        }
+
+        .cards .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 15px 35px rgba(13, 148, 136, 0.04);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 55%;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .cards .card:hover .card-img-wrapper img {
+            transform: scale(1.03);
+        }
+
+        .card-info {
+            padding: 2rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            flex-grow: 1;
+        }
+
+        .card-tag {
+            font-family: var(--font-accent);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-emerald);
+        }
+
+        .card-title {
+            font-family: var(--font-title);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 767px) {
+            .cards .card {
+                min-width: 80vw !important;
+            }
+        }
+
+
+        /* --- SEÇÃO 8: CONVÊNIOS ATENDIDOS (Sleek simple track) --- */
+        #convenios-carousel-section {
+            padding: 5rem 0;
+            background-color: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .widget-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .fade-overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 6rem;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .fade-left {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-white), transparent);
+        }
+
+        .fade-right {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-white), transparent);
+        }
+
+        .carousel-track {
+            display: flex;
+            width: max-content;
+        }
+
+        .carousel-tag {
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 0.7rem 1.6rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            border: 1px solid var(--border-color);
+            background-color: #fafbfc;
+            color: var(--text-muted);
+            font-family: var(--font-accent);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition-fast);
+        }
+
+        .carousel-tag:hover {
+            border-color: var(--accent-emerald);
+            color: var(--primary-green);
+            cursor: pointer;
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-left {
+            animation: scrollLeft 45s linear infinite;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 768px) {
+            .animate-left { animation-duration: 25s; }
+            .fade-overlay { width: 2.5rem; }
+            .carousel-tag { padding: 0.6rem 1.2rem; font-size: 0.78rem; }
+        }
+
+
+        /* --- SEÇÃO 9: DEPOIMENTOS --- */
+        .depoimentos-container {
+            position: relative;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .swiper-testimonials {
+            padding-bottom: 4rem;
+        }
+
+        .testimonial-card {
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 24px;
+            padding: 4.5rem 3.5rem 3.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.8rem;
+            box-shadow: 0 20px 40px rgba(15, 37, 55, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: "“";
+            position: absolute;
+            top: 0.5rem;
+            left: 2.5rem;
+            font-size: 8rem;
+            font-family: Georgia, serif;
+            color: rgba(13, 148, 136, 0.08);
+            line-height: 1;
+            user-select: none;
+        }
+
+        .stars-row {
+            display: flex;
+            gap: 0.25rem;
+            color: #fbbf24;
+        }
+
+        .stars-row i,
+        .stars-row svg {
+            width: 18px;
+            height: 18px;
+            fill: #fbbf24;
+            stroke: #fbbf24;
+            display: block;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #334155;
+            font-weight: 500;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .author-avatar {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-emerald) 100%);
+            color: #ffffff;
+            font-family: var(--font-accent);
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
+            border: none;
+            letter-spacing: 0.5px;
+        }
+
+        .author-info {
+            text-align: left;
+        }
+
+        .author-info h4 {
+            font-family: var(--font-title);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.1rem;
+        }
+
+        .author-info p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            color: var(--primary-green);
+            background: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 8px 20px rgba(15, 37, 55, 0.06);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swiper-button-prev:hover,
+        .swiper-button-next:hover {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border-color: var(--primary-green);
+            transform: scale(1.05);
+        }
+
+        .swiper-button-prev:after,
+        .swiper-button-next:after {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .swiper-pagination-bullet {
+            width: 8px;
+            height: 8px;
+            background: #cbd5e1;
+            opacity: 0.7;
+            transition: var(--transition-fast);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--primary-green) !important;
+            width: 24px !important;
+            border-radius: 4px !important;
+        }
+
+
+
+
+
+        /* --- SEÇÃO 11: CONTATO E AGENDAMENTO --- */
+        .contato-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: stretch;
+        }
+
+        .contato-info-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 2.5rem;
+        }
+
+        .contato-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .contato-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            transition: var(--transition-fast);
+        }
+
+        .contato-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .contato-icon-wrapper {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-green-light);
+            color: var(--primary-green);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contato-icon-wrapper i,
+        .contato-icon-wrapper svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        .contato-text h4 {
+            font-family: var(--font-title);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .contato-text p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+        .social-link i,
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2px;
+        }
+
+        .contato-form-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .contato-form-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-family: var(--font-accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: #fafbfc;
+            border: 1.5px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.8rem 1.1rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-emerald);
+            background-color: #ffffff;
+        }
+
+        textarea.form-input {
+            resize: none;
+            min-height: 100px;
+        }
+
+
+        /* --- SEÇÃO 12: FOOTER --- */
+        footer {
+            background-color: var(--primary-green-light);
+            border-top: 1px solid var(--border-color);
+            padding: 5rem 0 2.5rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.8fr 0.8fr 1.1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            align-items: flex-start;
+        }
+
+        .footer-logo-col p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer-title {
+            font-family: var(--font-title);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-emerald);
+            padding-left: 2px;
+        }
+
+        .footer-newsletter-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-newsletter-col p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.3rem;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            background-color: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.7rem 1.1rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent-emerald);
+        }
+
+        .newsletter-btn {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--primary-green-hover);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--accent-emerald);
+        }
+
+
+        /* --- SCROLL ENTRANCE ANIMATIONS (Scroll efects.md) --- */
+        .scroll-left {
+            opacity: 0;
+            transition: var(--transition-smooth);
+            transform: translate(-30px, 0);
+        }
+
+        .scroll-right {
+            opacity: 0;
+            transition: var(--transition-smooth);
+            transform: translate(30px, 0);
+        }
+
+        .scroll-bottom {
+            opacity: 0;
+            transition: var(--transition-smooth);
+            transform: translate(0, 30px);
+        }
+
+        .scroll-bottom1 {
+            opacity: 0;
+            transition-delay: 0.15s !important;
+            transition: var(--transition-smooth);
+            transform: translate(0, 30px);
+        }
+
+        .scroll-bottom2 {
+            opacity: 0;
+            transition-delay: 0.3s !important;
+            transition: var(--transition-smooth);
+            transform: translate(0, 30px);
+        }
+
+        .ativo {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+            filter: blur(0px);
+        }
+
+
+        /* --- RESPONSIVIDADE (MEDIA QUERIES) --- */
+        @media (max-width: 1024px) {
+            #galeria {
+                padding: 5rem 0;
+            }
+            .container-cards {
+                min-height: auto;
+            }
+            .galeria-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 3rem;
+                padding: 0 1.5rem;
+            }
+            .galeria-intro {
+                min-width: 100%;
+                padding-right: 0;
+            }
+            .cards {
+                flex-direction: column;
+                width: 100%;
+                gap: 1.5rem;
+            }
+            .cards .card {
+                min-width: 100% !important;
+                aspect-ratio: auto;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .hero {
+                padding: 0;
+                min-height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                background: linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.98) 45%, rgba(255, 255, 255, 0.8) 60%, rgba(255, 255, 255, 0) 75%), url('bg-mobile.webp') no-repeat center -200px;
+                background-size: cover;
+            }
+
+            .hero-container {
+                padding: 55vh 1.5rem 4rem;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .hero-subtitle-wrapper {
+                display: none;
+            }
+
+            .hero-info {
+                align-items: center;
+                text-align: center;
+                max-width: 100%;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .hero-wave,
+            .leaf-illustration {
+                display: none;
+            }
+
+            .hero-pillars-container {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                padding: 4rem 2rem 2rem;
+                background: #ffffff;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .hero-pillars-container .pilares-row {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 0;
+                max-width: 100%;
+                width: 100%;
+                align-items: stretch;
+                background: none;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .hero-pillars-container .pilar-card {
+                padding: 1.25rem;
+                background: var(--bg-canvas);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                width: 100% !important;
+                min-height: 96px;
+                display: flex;
+                align-items: center;
+                box-sizing: border-box;
+            }
+
+            .hero-pillars-container .pilar-card:not(:last-child)::after {
+                display: none;
+            }
+
+            .clinica-layout,
+            .contato-layout {
+                grid-template-columns: 1fr;
+                gap: 3.5rem;
+            }
+
+            .especialidades-grid,
+            .corpo-clinico-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 4rem 2rem;
+                gap: 2.5rem;
+                z-index: 2000;
+                border-top: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu .nav-item a {
+                font-size: 1.25rem;
+                letter-spacing: 2px;
+                padding: 0.6rem 0;
+            }
+
+            .mobile-menu-close-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+
+            .mobile-menu-close {
+                background: none;
+                border: none;
+                color: var(--text-dark);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.5rem;
+                transition: var(--transition-fast);
+            }
+
+            .mobile-menu-close:hover {
+                color: var(--primary-green);
+                transform: scale(1.1);
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .header-actions {
+                display: none;
+            }
+
+            .especialidades-grid,
+            .corpo-clinico-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contato-form-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .swiper-button-prev,
+            .swiper-button-next {
+                display: none !important;
+            }
+            .swiper-testimonials {
+                padding-bottom: 2.5rem;
+            }
+            .testimonial-card {
+                padding: 3.5rem 2rem 2.5rem;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-btn {
+                width: 100%;
+                border-radius: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SEÇÃO 1: HEADER & HERO -->
+    <header id="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <div class="logo-icon-container">
+                    <svg width="38" height="38" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 90C50 90 12 62 12 36C12 18 26 10 40 18C45 21 50 28 50 28C50 28 55 21 60 18C74 10 88 18 88 36C88 62 50 90 50 90Z" stroke="#0d9488" stroke-width="7" stroke-linejoin="round" fill="none"/>
+                        <path d="M50 78C50 78 22 56 22 36C22 23 32 17 42 23C45 25 50 31 50 31C50 31 55 25 58 23C68 17 78 23 78 36C78 56 50 78 50 78Z" fill="#0d9488"/>
+                        <path d="M50 28V44M42 36H58" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Vida Plena</h1>
+                    <span>Clínica de Saúde</span>
+                </div>
+            </a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="mobile-menu-close-container">
+                    <button class="mobile-menu-close" id="mobile-close" aria-label="Fechar Menu">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                    </button>
+                </li>
+                <li class="nav-item"><a href="#inicio" class="active-link">Início</a></li>
+                <li class="nav-item"><a href="#sobre">A Clínica</a></li>
+                <li class="nav-item"><a href="#especialidades">Especialidades</a></li>
+                <li class="nav-item"><a href="#corpo-clinico">Corpo Clínico</a></li>
+                <li class="nav-item"><a href="#convenios">Convênios</a></li>
+                <li class="nav-item"><a href="#contato">Contato</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <a href="#contato" class="btn-green">
+                    <i data-lucide="calendar"></i>
+                    <span>Agendar Consulta</span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Abrir Menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="hero" id="inicio">
+        <div class="hero-container section-container">
+            <div class="hero-info scroll-left">
+                <!-- Subtitle with heartbeat pulse line -->
+                <div class="hero-subtitle-wrapper">
+                    <span class="hero-tag">Cuidar de você. Esse é o nosso propósito.</span>
+                    <div class="heartbeat-pulse">
+                        <svg width="45" height="16" viewBox="0 0 45 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 8H15L18 2L22 14L25 6L27 8H45" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <h1 class="hero-headline">
+                    Sua saúde em<br>
+                    boas mãos,<br>
+                    <span class="teal-text">sempre.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Atendimento humanizado, tecnologia avançada e uma equipe dedicada para cuidar do que mais importa: <span class="green-highlight">você e sua família.</span>
+                </p>
+
+                <div class="hero-ctas">
+                    <a href="#contato" class="btn-green-pill">
+                        <i data-lucide="calendar"></i>
+                        <span>Agendar Consulta</span>
+                    </a>
+
+                    <a class="btn-outline-green-pill" href="#sobre">
+                        <i data-lucide="play-circle"></i>
+                        <span>Conheça a clínica</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pillars aligned in flow right below buttons/hero-info inside hero-container -->
+        <div class="hero-pillars-container">
+            <div class="pilares-row scroll-bottom">
+                <div class="pilar-card">
+                    <div class="pilar-icon-box">
+                        <i data-lucide="heart-pulse"></i>
+                    </div>
+                    <div class="pilar-text">
+                        <h4>Atendimento Humanizado</h4>
+                        <p>Você no centro de tudo.</p>
+                    </div>
+                </div>
+                <div class="pilar-card">
+                    <div class="pilar-icon-box">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <div class="pilar-text">
+                        <h4>Segurança e Qualidade</h4>
+                        <p>Protocolos rigorosos para sua proteção.</p>
+                    </div>
+                </div>
+                <div class="pilar-card">
+                    <div class="pilar-icon-box">
+                        <i data-lucide="users-2"></i>
+                    </div>
+                    <div class="pilar-text">
+                        <h4>Diversas Especialidades</h4>
+                        <p>Tudo o que você precisa em um só lugar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SEÇÃO 4: A CLÍNICA (Institucional) -->
+    <section id="sobre">
+        <div class="section-container">
+            <div class="clinica-layout">
+                <div class="clinica-text scroll-left">
+                    <span class="section-subtitle">A Clínica</span>
+                    <h2 class="section-title">Infraestrutura diagnóstica de excelência e <span>cuidado integrado</span></h2>
+                    <p>
+                        A <strong>Clínica Vida Plena</strong> é referência em serviços integrados de saúde. Nossa unidade reúne consultórios médicos de múltiplas especialidades, área de exames laboratoriais rápidos e um completo parque de diagnóstico por imagem de alta definição.
+                    </p>
+                    <p>
+                        Trabalhamos com o conceito de atendimento ágil e contínuo, onde o paciente realiza consultas e exames complementares de forma simplificada, encurtando o tempo para diagnósticos seguros e tratamentos eficazes.
+                    </p>
+
+                    <ul class="clinica-list">
+                        <li><i data-lucide="check" style="stroke: var(--accent-emerald)"></i> Acessibilidade física plena e estacionamento no local</li>
+                        <li><i data-lucide="check" style="stroke: var(--accent-emerald)"></i> Resultados de exames disponíveis online em até 24h</li>
+                        <li><i data-lucide="check" style="stroke: var(--accent-emerald)"></i> Corpo clínico formado por especialistas renomados</li>
+                    </ul>
+
+                    <a href="#contato" class="btn-green">
+                        <span>Fale com o agendamento</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="clinica-image scroll-right">
+                    <img src="./assets/clinic_about.png" alt="Consulta humanizada na clínica Vida Plena">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 5: ESPECIALIDADES MÉDICAS (Sleek Geometric Grid) -->
+    <section id="especialidades" style="background-color: #ffffff;">
+        <div class="section-container">
+            <div class="section-header scroll-bottom">
+                <span class="section-subtitle">Corpo de Especialistas</span>
+                <h2 class="section-title">Nossas <span>especialidades médicas</span></h2>
+                <p class="section-desc">Prestamos assistência médica preventiva, curativa e diagnóstica cobrindo as principais demandas clínicas de toda a família.</p>
+            </div>
+
+            <div class="especialidades-grid">
+                <!-- Card 1 -->
+                <div class="especialidade-card scroll-bottom">
+                    <div class="especialidade-icon">
+                        <i data-lucide="heart"></i>
+                    </div>
+                    <h3>Cardiologia</h3>
+                    <p>Avaliações cardíacas completas, preventivas e exames de esforço e eletrocardiografia acoplados.</p>
+                    <a href="#contato" class="especialidade-btn">Consultar <i data-lucide="chevron-right"></i></a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="especialidade-card scroll-bottom1">
+                    <div class="especialidade-icon">
+                        <i data-lucide="baby"></i>
+                    </div>
+                    <h3>Pediatria</h3>
+                    <p>Acompanhamento infantil desde o primeiro mês, puericultura e orientações de desenvolvimento e vacinas.</p>
+                    <a href="#contato" class="especialidade-btn">Consultar <i data-lucide="chevron-right"></i></a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="especialidade-card scroll-bottom2">
+                    <div class="especialidade-icon">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <h3>Ginecologia e Obstetrícia</h3>
+                    <p>Rotina de exames preventivos femininos, planejamento familiar e acompanhamento pré-natal completo.</p>
+                    <a href="#contato" class="especialidade-btn">Consultar <i data-lucide="chevron-right"></i></a>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="especialidade-card scroll-bottom">
+                    <div class="especialidade-icon">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                    <h3>Dermatologia</h3>
+                    <p>Tratamento clínico e cirúrgico de afecções dermatológicas, além de procedimentos estéticos específicos da pele.</p>
+                    <a href="#contato" class="especialidade-btn">Consultar <i data-lucide="chevron-right"></i></a>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="especialidade-card scroll-bottom1">
+                    <div class="especialidade-icon">
+                        <i data-lucide="accessibility"></i>
+                    </div>
+                    <h3>Ortopedia</h3>
+                    <p>Tratamento de patologias articulares, ósseas e musculares, fisioterapia de reabilitação e lesões agudas.</p>
+                    <a href="#contato" class="especialidade-btn">Consultar <i data-lucide="chevron-right"></i></a>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="especialidade-card scroll-bottom2">
+                    <div class="especialidade-icon">
+                        <i data-lucide="stethoscope"></i>
+                    </div>
+                    <h3>Clínica Geral</h3>
+                    <p>Avaliação integrativa global do paciente, triagem de exames gerais de rotina e direcionamento clínico.</p>
+                    <a href="#contato" class="especialidade-btn">Consultar <i data-lucide="chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 6: CORPO CLÍNICO (Sleek medical cards) -->
+    <section id="corpo-clinico">
+        <div class="section-container">
+            <div class="section-header scroll-bottom">
+                <span class="section-subtitle">Profissionais</span>
+                <h2 class="section-title">Médicos de referências <span>para sua consulta</span></h2>
+                <p class="section-desc">Conheça os profissionais responsáveis por manter nosso padrão de qualidade assistencial e carinho em saúde.</p>
+            </div>
+
+            <div class="corpo-clinico-grid">
+                <!-- Dr 1 -->
+                <div class="membro-card scroll-bottom">
+                    <div class="membro-visual">
+                        <img src="./assets/doctor_lucas.png" alt="Dr. Lucas Rocha">
+                    </div>
+                    <div class="membro-info">
+                        <span class="membro-especialidade">Cardiologia</span>
+                        <h3 class="membro-nome">Dr. Lucas Rocha</h3>
+                        <span class="membro-crm">CRM-SP 123.456</span>
+                        <p class="membro-resumo">Especialista pela Sociedade Brasileira de Cardiologia, com atuação em prevenção, check-ups de esforço e monitoramento de hipertensão.</p>
+                        <a href="#contato" class="membro-btn">Agendar Horário <i data-lucide="chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Dr 2 -->
+                <div class="membro-card scroll-bottom1">
+                    <div class="membro-visual">
+                        <img src="./assets/doctor_juliana.png" alt="Dra. Juliana Alves">
+                    </div>
+                    <div class="membro-info">
+                        <span class="membro-especialidade">Pediatria</span>
+                        <h3 class="membro-nome">Dra. Juliana Alves</h3>
+                        <span class="membro-crm">CRM-SP 234.567</span>
+                        <p class="membro-resumo">Graduada e pós-graduada pela USP, especialista em desenvolvimento infantil na primeira infância e imunização escolar preventiva.</p>
+                        <a href="#contato" class="membro-btn">Agendar Horário <i data-lucide="chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Dr 3 -->
+                <div class="membro-card scroll-bottom2">
+                    <div class="membro-visual">
+                        <img src="./assets/doctor_leticia.png" alt="Dra. Letícia Schmidt">
+                    </div>
+                    <div class="membro-info">
+                        <span class="membro-especialidade">Dermatologia</span>
+                        <h3 class="membro-nome">Dra. Letícia Schmidt</h3>
+                        <span class="membro-crm">CRM-SP 345.678</span>
+                        <p class="membro-resumo">Membro titular da Sociedade Brasileira de Dermatologia, com foco em diagnóstico de pele, pequenos procedimentos cirúrgicos e estética avançada.</p>
+                        <a href="#contato" class="membro-btn">Agendar Horário <i data-lucide="chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 7: EXAMES & DIAGNÓSTICOS (GSAP Horizontal Scroll) -->
+    <section id="galeria">
+        <div class="container-cards">
+            <div class="galeria-wrapper">
+                <div class="galeria-intro">
+                    <span class="section-subtitle">Exames Avançados</span>
+                    <h2>Diagnósticos rápidos <span>em um só local</span></h2>
+                    <p>Estrutura laboratorial e de diagnóstico por imagem de alta definição integrada aos consultórios médicos para agilizar seus laudos com segurança.</p>
+                    <a href="#contato" class="btn-outline-green" style="margin-top: 1rem;">
+                        <span>Ver exames disponíveis</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Horizontal sliding cards -->
+                <div class="cards">
+                    <!-- Diagnostic 1 -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="./assets/doctor_mri.png" alt="Ressonância Magnética de Alta Definição">
+                        </div>
+                        <div class="card-info">
+                            <span class="card-tag">Exame de Imagem</span>
+                            <h3 class="card-title">Ressonância Magnética</h3>
+                            <p class="card-desc">Tecnologia avançada de imagem para diagnósticos precisos de partes moles, articulações, tecidos cerebrais e vasculares.</p>
+                        </div>
+                    </div>
+                    <!-- Diagnostic 2 -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="./assets/doctor_ultra.png" alt="Ultrassonografia Digital Integrada">
+                        </div>
+                        <div class="card-info">
+                            <span class="card-tag">Diagnóstico</span>
+                            <h3 class="card-title">Ultrassonografia Digital</h3>
+                            <p class="card-desc">Exames ecográficos completos (abdominais, tireoide, obstétricos e vasculares com doppler colorido) para análise ágil.</p>
+                        </div>
+                    </div>
+                    <!-- Diagnostic 3 -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="./assets/doctor_lab.png" alt="Laboratório de Análises Clínicas">
+                        </div>
+                        <div class="card-info">
+                            <span class="card-tag">Análises</span>
+                            <h3 class="card-title">Análises Clínicas</h3>
+                            <p class="card-desc">Laboratório integrado para coleta e processamento rápido de exames bioquímicos, hemogramas e análises hormonais completas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 8: CONVÊNIOS ATENDIDOS (Sleek simple tag carousel) -->
+    <section id="convenios" style="padding: 0; border: none;">
+        <div id="convenios-carousel-section">
+            <div class="widget-container">
+                <div class="carousel-wrapper">
+                    <div class="fade-overlay fade-left"></div>
+                    <div class="fade-overlay fade-right"></div>
+                    <div class="carousel-track animate-left" id="row1-widget">
+                        <!-- Content generated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 9: DEPOIMENTOS (SWIPER) -->
+    <section id="depoimentos" style="background-color: #ffffff;">
+        <div class="section-container">
+            <div class="section-header scroll-bottom" style="align-items: center; text-align: center; margin-left: auto; margin-right: auto;">
+                <span class="section-subtitle">Pacientes</span>
+                <h2 class="section-title">O que dizem os <span>nossos pacientes</span></h2>
+                <p class="section-desc">A opinião e a satisfação de quem colocou o cuidado com a própria saúde nas mãos dos nossos médicos especialistas.</p>
+            </div>
+
+            <div class="depoimentos-container scroll-bottom1">
+                <div class="swiper swiper-testimonials">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "A infraestrutura de exames é espetacular. Fiz minha ressonância e em menos de 24h os resultados já estavam disponíveis online para minha médica. Atendimento do recepção foi ágil."
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">MC</div>
+                                    <div class="author-info">
+                                        <h4>Mauro Camargo</h4>
+                                        <p>Paciente da Cardiologia (52 anos)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "Recomendo de olhos fechados a pediatria. A Dra. Juliana Alves foi extremamente atenciosa, lúdica e cuidou da minha filha com muito carinho. O consultório infantil é ótimo."
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">FR</div>
+                                    <div class="author-info">
+                                        <h4>Fabiana Ramos</h4>
+                                        <p>Mãe da Alice (Paciente da Pediatria)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "Clínica limpa, organizada e com agendamento pontual. Fazer consulta e exames integrados poupou o meu dia corrido de trabalho. Profissionais qualificados em cada setor."
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">TO</div>
+                                    <div class="author-info">
+                                        <h4>Thiago Oliveira</h4>
+                                        <p>Paciente de Check-up Clínico (34 anos)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Navigation Arrows -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <!-- Pagination dots -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- SEÇÃO 11: CONTATO E AGENDAMENTO (Geometric form) -->
+    <section id="contato" style="background-color: #ffffff;">
+        <div class="section-container">
+            <div class="contato-layout">
+                <div class="contato-info-column scroll-left">
+                    <div>
+                        <span class="section-subtitle">Canais de Contato</span>
+                        <h2 class="section-title" style="margin-top: 0.5rem; margin-bottom: 1.2rem;">Venha realizar <span>seus exames</span></h2>
+                        <p style="color: var(--text-muted); line-height: 1.6; font-size: 0.95rem;">
+                            Preencha nosso formulário de agendamento de consultas ou fale diretamente com a nossa central de atendimento para confirmar seu horário em qualquer especialidade ou diagnóstico de imagem.
+                        </p>
+                    </div>
+
+                    <div class="contato-cards">
+                        <!-- Card 1 -->
+                        <div class="contato-card">
+                            <div class="contato-icon-wrapper">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div class="contato-text">
+                                <h4>Endereço da Unidade</h4>
+                                <p>Av. Paulista, 1000 - Bela Vista, São Paulo - SP</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="contato-card">
+                            <div class="contato-icon-wrapper">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div class="contato-text">
+                                <h4>Central Telefônica / WhatsApp</h4>
+                                <p>(11) 3456-7890 / (11) 99999-7777</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="contato-card">
+                            <div class="contato-icon-wrapper">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <div class="contato-text">
+                                <h4>Horário de Atendimento</h4>
+                                <p>Segunda a Sexta: 07h às 19h | Sábado: 07h às 13h</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 style="font-family: var(--font-title); font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.6rem;">Nossas Mídias Sociais</h4>
+                        <div class="social-row">
+                            <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                            </a>
+                            <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="social-link" aria-label="Linkedin">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contato-form-card scroll-right">
+                    <h3>Agendamento Online</h3>
+                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Solicitação de consulta enviada com sucesso! Um de nossos assistentes entrará em contato em breve para confirmar seu agendamento.');">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="patient-name">Nome do Paciente</label>
+                                <input type="text" id="patient-name" class="form-input" placeholder="Ex: Mauro Camargo" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" class="form-input" placeholder="Ex: nome@dominio.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Telefone / WhatsApp</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="Ex: (11) 99999-8888" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="specialty">Especialidade / Exame</label>
+                                <select id="specialty" class="form-input" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value="cardiologia">Cardiologia</option>
+                                    <option value="pediatria">Pediatria</option>
+                                    <option value="ginecologia">Ginecologia</option>
+                                    <option value="dermatologia">Dermatologia</option>
+                                    <option value="ortopedia">Ortopedia</option>
+                                    <option value="clinica-geral">Clínica Geral</option>
+                                    <option value="exame-ressonancia">Ressonância Magnética</option>
+                                    <option value="exame-ultrassonografia">Ultrassonografia</option>
+                                    <option value="exame-laboratorio">Análises Clínicas</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pref-date">Data Preferencial</label>
+                                <input type="date" id="pref-date" class="form-input" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="message">Mensagem ou Convênio (Opcional)</label>
+                                <textarea id="message" class="form-input" placeholder="Informe se deseja atendimento particular ou se tem convênio credenciado..."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-green" style="width: 100%; margin-top: 1rem;">
+                            <span>Solicitar Agendamento</span>
+                            <i data-lucide="check-circle-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 12: FOOTER -->
+    <footer>
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="footer-logo-col">
+                    <a href="#" class="logo-link">
+                        <div class="logo-icon-container">
+                            <svg width="38" height="38" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50 90C50 90 12 62 12 36C12 18 26 10 40 18C45 21 50 28 50 28C50 28 55 21 60 18C74 10 88 18 88 36C88 62 50 90 50 90Z" stroke="#0d9488" stroke-width="7" stroke-linejoin="round" fill="none"/>
+                                <path d="M50 78C50 78 22 56 22 36C22 23 32 17 42 23C45 25 50 31 50 31C50 31 55 25 58 23C68 17 78 23 78 36C78 56 50 78 50 78Z" fill="#0d9488"/>
+                                <path d="M50 28V44M42 36H58" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text">
+                            <h1 style="font-size: 1.4rem;">Vida Plena</h1>
+                            <span>Clínica de Saúde</span>
+                        </div>
+                    </a>
+                    <p style="margin-top: 0.8rem;">Infraestrutura médica integrada e de alto padrão tecnológica focada no bem-estar continuado da sua família.</p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Institucional</h4>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#sobre">A Clínica</a></li>
+                        <li><a href="#especialidades">Especialidades</a></li>
+                        <li><a href="#corpo-clinico">Corpo Clínico</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Diagnósticos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#galeria">Centro de Imagem</a></li>
+                        <li><a href="#convenios">Planos Credenciados</a></li>
+                        <li><a href="#contato">Agendar Consulta</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter-col">
+                    <h4 class="footer-title">Boletim Informativo</h4>
+                    <p>Fique sabendo sobre prevenção de doenças, saúde e notícias da nossa unidade.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Obrigado por se inscrever em nossa newsletter!'); this.reset();">
+                        <input type="email" class="newsletter-input" placeholder="Seu e-mail..." required>
+                        <button type="submit" class="newsletter-btn" aria-label="Enviar">
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Vida Plena Clínica de Saúde. Responsável Técnico: Dr. Lucas Rocha - CRM-SP 123.456. Todos os direitos reservados.</span>
+                <div class="footer-bottom-links">
+                    <a href="../../../politica-de-privacidade.html">Política de Privacidade</a>
+                    <a href="../../../termos-de-uso.html">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- SCRIPTS E INTEGRAÇÕES -->
+    <script>
+        // Initialize Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // Sticky Header scroll styling
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const mobileClose = document.getElementById('mobile-close');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        if (mobileClose) {
+            mobileClose.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.querySelector('i').setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.querySelector('i').setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Active Link styling on scroll
+        const sections = document.querySelectorAll('section, div.hero');
+        const navLinks = document.querySelectorAll('.nav-item a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active-link');
+                }
+            });
+        });
+
+
+        // Insurances Tag Carousel filler (carrossel.md adaptation)
+        (function() {
+            const insurances = [
+                "SulAmérica",
+                "Bradesco Saúde",
+                "Amil",
+                "Unimed Nacional",
+                "Porto Seguro",
+                "Golden Cross",
+                "Care Plus",
+                "Sompo Saúde",
+                "Allianz Saúde",
+                "Mediservice",
+                "NotreDame Intermédica",
+                "Seguros Unimed",
+                "Omint",
+                "Central Nacional Unimed"
+            ];
+
+            function createTag(text) {
+                return `<div class="carousel-tag">${text}</div>`;
+            }
+
+            function fillRow(elementId, dataArray) {
+                const container = document.getElementById(elementId);
+                if (!container) return; 
+                
+                const content = [
+                    ...dataArray, 
+                    ...dataArray, 
+                    ...dataArray, 
+                    ...dataArray,
+                    ...dataArray
+                ].map(topic => createTag(topic)).join(''); 
+                container.innerHTML = content;
+            }
+
+            const dataRow1 = [...insurances];
+
+            document.addEventListener('DOMContentLoaded', () => {
+                fillRow('row1-widget', dataRow1);
+            });
+        })();
+
+
+        // Entrance scroll animations (Scroll efects.md)
+        const elementos = document.querySelectorAll(".scroll-left, .scroll-right, .scroll-bottom, .scroll-bottom1, .scroll-bottom2");
+        const posicaoScroll = window.innerHeight * 0.85;
+
+        function fadeScroll(){
+            elementos.forEach(elemento => {
+                const elementoTop = elemento.getBoundingClientRect().top;
+                if(elementoTop < posicaoScroll){
+                    elemento.classList.add("ativo");
+                }
+            });
+        }
+        
+        window.addEventListener("scroll", fadeScroll);
+        window.addEventListener("load", fadeScroll);
+
+
+        // Testimonials Swiper
+        const swiper = new Swiper('.swiper-testimonials', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+            },
+        });
+    </script>
+
+    <!-- Lenis & GSAP ScrollTrigger Integration (Scroll efects.md) -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        let lenis;
+        function initLenisIfDesktop() {
+            if (window.innerWidth > 1024 && !lenis && typeof Lenis !== "undefined") {
+                lenis = new Lenis({ duration: 1.5 });
+
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+
+                ScrollTrigger.scrollerProxy(document.documentElement, {
+                    scrollTop(value) {
+                        if (arguments.length) {
+                            lenis.scrollTo(value, { immediate: true });
+                        }
+                        return window.scrollY || window.pageYOffset;
+                    },
+                    getBoundingClientRect() {
+                        return {
+                            top: 0,
+                            left: 0,
+                            width: innerWidth,
+                            height: innerHeight
+                        };
+                    },
+                    fixedMarkers: true
+                });
+
+                lenis.on("scroll", ScrollTrigger.update);
+            }
+        }
+
+        window.addEventListener("load", () => {
+            initLenisIfDesktop();
+        });
+
+        if (window.matchMedia("(max-width: 1024px)").matches) {
+            ScrollTrigger.normalizeScroll(true);
+        }
+
+        const mm = gsap.matchMedia();
+        const containerCards = document.querySelector(".container-cards");
+        const cards = document.querySelector(".cards");
+
+        let endLen = 0;
+        let finalX = 0;
+
+        function measure(respiroPx = 0) {
+            const prev = cards.style.transform;
+            cards.style.transform = "none";
+
+            const contRect = containerCards.getBoundingClientRect();
+            const lastRect = cards.lastElementChild.getBoundingClientRect();
+            const padR = parseFloat(getComputedStyle(containerCards).paddingRight || 0);
+
+            const overflowRight = lastRect.right - (contRect.right - padR);
+            const need = Math.max(0, Math.ceil(overflowRight) + respiroPx);
+
+            cards.style.transform = prev;
+
+            endLen = need;
+            finalX = -need;
+        }
+
+        let tl;
+        function build(respiroPx = 0) {
+            ScrollTrigger.getAll().forEach((st) => {
+                if (st.vars?.trigger === containerCards) st.kill();
+            });
+
+            const intro = document.querySelector(".galeria-intro");
+            gsap.set(cards, { x: 0, force3D: true, willChange: "transform" });
+            gsap.set(intro, { x: 0, opacity: 1 });
+
+            measure(respiroPx);
+
+            tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerCards,
+                    start: "top top",
+                    end: () => "+=" + endLen,
+                    scrub: true,
+                    pin: true,
+                    pinType: window.matchMedia("(max-width: 767px)").matches
+                        ? "transform"
+                        : "fixed",
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    invalidateOnRefresh: true,
+                    onRefreshInit: () => {
+                        gsap.set(cards, { x: 0 });
+                        gsap.set(intro, { x: 0, opacity: 1 });
+                    },
+                    onRefresh: () => {
+                        measure(respiroPx);
+                        tl.scrollTrigger.end = tl.scrollTrigger.start + endLen;
+                    }
+                }
+            });
+
+            // Fade e slide out da introdução da galeria
+            tl.to(intro, {
+                x: -150,
+                opacity: 0,
+                ease: "none"
+            }, 0);
+
+            // Animação dos cards deslizando
+            tl.to(cards, {
+                x: () => finalX,
+                ease: "none",
+                immediateRender: false
+            }, 0);
+
+            return tl;
+        }
+
+        // Desktop pinned horizontal scroll diagnostics rooms gallery
+        mm.add("(min-width: 1025px)", () => {
+            build(80);
+        });
+
+        let rTO;
+        window.addEventListener("resize", () => {
+            clearTimeout(rTO);
+            rTO = setTimeout(() => {
+                initLenisIfDesktop();
+                ScrollTrigger.refresh();
+            }, 120);
+        });
+    </script>
+</body>
+
+</html>

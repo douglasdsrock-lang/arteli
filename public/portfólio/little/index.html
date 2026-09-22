@@ -1,0 +1,3460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Little Escola Infantil - Um ambiente acolhedor onde cada criança é incentivada a brincar, aprender e crescer com alegria e confiança. Conheça nossa proposta pedagógica e agende uma visita.">
+    <title>Little Escola Infantil - Hoje brincamos, amanhã crescemos.</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../../assets/isotipo.svg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Lenis Smooth Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
+        :root {
+            --primary-pink: #ff5773;
+            --primary-pink-hover: #ff788f;
+            --primary-yellow: #fec03f;
+            --primary-yellow-light: #fff5df;
+            --primary-blue: #7c7cf8;
+            --primary-blue-light: #eef2ff;
+            --accent-lime: #98d93a;
+            --bg-canvas: #faf9f6;
+            --bg-white: #ffffff;
+            --text-dark: #2c2c54;
+            --text-muted: #6f6f8e;
+            --border-soft: rgba(124, 124, 248, 0.12);
+
+            --font-title: 'Quicksand', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-accent: 'Sora', sans-serif;
+
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-fast: all 0.2s ease;
+        }
+
+        /* --- RESET & BASIC STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-pink) var(--bg-canvas);
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #eaeaea;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-pink);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-pink-hover);
+        }
+
+        section {
+            padding: 8rem 0;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+        }
+
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 5rem;
+            gap: 1rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-pink);
+            letter-spacing: 2px;
+            background: rgba(255, 87, 115, 0.08);
+            padding: 0.5rem 1.4rem;
+            border-radius: 100px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .section-title span {
+            color: var(--primary-blue);
+        }
+
+        .section-title span.yellow-txt {
+            color: var(--primary-yellow);
+        }
+
+        .section-title span.pink-txt {
+            color: var(--primary-pink);
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            line-height: 1.6;
+            font-weight: 400;
+            margin-top: 0.5rem;
+        }
+
+        /* --- BUTTONS SYSTEM (botões.md) --- */
+        .btn-pink {
+            background-color: var(--primary-pink);
+            color: #ffffff;
+            border: none;
+            padding: 0.9rem 2.2rem;
+            border-radius: 100px;
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 20px rgba(255, 87, 115, 0.25);
+        }
+
+        .btn-pink:hover {
+            background-color: var(--primary-pink-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 87, 115, 0.35);
+        }
+
+        .btn-pink i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-outline-blue {
+            background: none;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 0.8rem 2.2rem;
+            border-radius: 100px;
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-outline-blue:hover {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 124, 248, 0.25);
+        }
+
+        .btn-outline-blue i {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Mouse Light Tracking Button (botões.md Botão 02 adaptation) */
+        .zeph19 {
+            width: fit-content;
+            overflow: visible;
+            z-index: 1;
+            position: relative;
+            padding: 0px;
+            border-radius: 100px;
+        }
+
+        .zeph19::before {
+            transition: 0.35s ease-out;
+            filter: blur(12px);
+            background: linear-gradient(to right, transparent 30%, var(--primary-pink) 80%, var(--primary-yellow) 95%);
+            width: 108%;
+            height: 125%;
+            left: 50%;
+            top: 50%;
+            content: "";
+            border-radius: 100px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: var(--before-opacity, 1);
+            pointer-events: none;
+        }
+
+        .zeph19::after {
+            transition: 0.35s ease-out;
+            filter: blur(12px);
+            background: linear-gradient(to left, transparent 30%, var(--primary-pink) 80%, var(--primary-yellow) 95%);
+            width: 108%;
+            height: 125%;
+            left: 50%;
+            top: 50%;
+            content: "";
+            border-radius: 100px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: var(--after-opacity, 0);
+            pointer-events: none;
+        }
+
+        .zeph20 {
+            z-index: 5;
+            overflow: hidden;
+            border-radius: 100px;
+            position: relative;
+            background: var(--primary-pink);
+            box-shadow: 0 8px 20px rgba(255, 87, 115, 0.25);
+            transition: var(--transition-smooth);
+        }
+
+        .zeph20:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 87, 115, 0.35);
+        }
+
+        .zeph20 .elementor-button {
+            background: transparent !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            border-radius: 100px;
+            position: relative;
+            text-decoration: none;
+            color: #ffffff;
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .zeph20 .elementor-button:before {
+            background-image: radial-gradient(43.3% 44.23% at 50% 49.51%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 100%);
+            filter: blur(6px);
+            width: 300px;
+            height: 150px;
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(var(--button-translate-x, -50%), -50%);
+            border-radius: 100%;
+            transition: transform 0.8s cubic-bezier(.4, 0, .2, 1);
+            pointer-events: none;
+        }
+
+        .zeph20 .elementor-button-text,
+        .zeph20 .elementor-button-icon {
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            transition: var(--transition-smooth);
+        }
+
+        .zeph20 .elementor-button-icon i {
+            width: 18px;
+            height: 18px;
+        }
+
+
+        /* --- HEADER & HERO --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(250, 249, 246, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(124, 124, 248, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        header.scrolled {
+            background: rgba(250, 249, 246, 0.98);
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .logo-icon-container {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            font-family: var(--font-accent);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem;
+            align-items: center;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: var(--transition-smooth);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-item a:hover {
+            color: var(--primary-pink);
+        }
+
+        /* Underline effect */
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-pink);
+            border-radius: 5px;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item a.active-link {
+            color: var(--primary-pink);
+        }
+
+        .nav-item a.active-link::after,
+        .nav-item a:hover::after {
+            width: 25px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle i {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* Hero Container */
+        .hero {
+            min-height: 100vh;
+            padding-top: 8.5rem;
+            padding-bottom: 5rem;
+            background-color: #faf9f6;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1350px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            align-items: center;
+            gap: 3rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.8rem;
+        }
+
+        .hero-badge-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--primary-yellow-light);
+            border: 1px dashed rgba(254, 192, 63, 0.4);
+            padding: 0.5rem 1.2rem;
+            border-radius: 100px;
+        }
+
+        .hero-badge-line i {
+            color: var(--primary-pink);
+            width: 18px;
+            height: 18px;
+        }
+
+        .hero-badge-text {
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-headline {
+            font-family: var(--font-title);
+            font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .hero-headline span.pink-text {
+            color: var(--primary-pink);
+        }
+
+        .hero-headline span.yellow-text {
+            color: var(--primary-yellow);
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 580px;
+        }
+
+        .hero-description strong {
+            color: var(--text-dark);
+        }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .hero-graphic-side {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-img-mask {
+            width: 100%;
+            max-width: 480px;
+            aspect-ratio: 1;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 8px solid #ffffff;
+            position: relative;
+            z-index: 5;
+            animation: morph-bubble 15s ease-in-out infinite alternate;
+        }
+
+        .hero-img-mask img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+            transition: var(--transition-smooth);
+        }
+
+        @keyframes morph-bubble {
+            0% {
+                border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            }
+            50% {
+                border-radius: 50% 50% 50% 50% / 30% 60% 40% 70%;
+            }
+            100% {
+                border-radius: 60% 40% 30% 70% / 60% 40% 60% 40%;
+            }
+        }
+
+        /* Circular Rotating Badge */
+        .rotating-badge-container {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            z-index: 15;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .rotating-badge-container:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .rotating-badge-container svg.badge-text-svg {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            animation: rotate-badge-spin 25s linear infinite;
+        }
+
+        .rotating-badge-center {
+            width: 55px;
+            height: 55px;
+            background: var(--primary-yellow-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rotating-badge-center i {
+            color: var(--primary-yellow);
+            width: 24px;
+            height: 24px;
+            fill: var(--primary-yellow);
+        }
+
+        @keyframes rotate-badge-spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Decorative SVGs and background graphics */
+        .wave-decorations {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            pointer-events: none;
+            z-index: 1;
+            line-height: 0;
+        }
+
+        .wave-decorations svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .doodle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 6;
+            opacity: 0.85;
+        }
+
+        .doodle-rainbow {
+            bottom: 10%;
+            left: 4%;
+            width: 140px;
+            animation: bounce-slow 4s ease-in-out infinite alternate;
+        }
+
+        .doodle-star {
+            top: 15%;
+            left: 45%;
+            width: 32px;
+            animation: spin-pulse 6s linear infinite;
+        }
+
+        .doodle-plane {
+            bottom: 12%;
+            right: 48%;
+            width: 160px;
+            animation: float-slow 5s ease-in-out infinite alternate;
+        }
+
+        .doodle-heart {
+            top: 25%;
+            right: 8%;
+            width: 40px;
+            animation: heartbeat-slow 3s ease-in-out infinite;
+        }
+
+        @keyframes bounce-slow {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        @keyframes float-slow {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(10px, -10px) rotate(3deg); }
+        }
+
+        @keyframes spin-pulse {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.15); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes heartbeat-slow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+
+        /* --- SEÇÃO 3: A ESCOLA (Nossa Essência) --- */
+        .essencia-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 5rem;
+        }
+
+        .essencia-image-container {
+            position: relative;
+        }
+
+        .essencia-img-frame {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+            border: 8px solid #ffffff;
+            aspect-ratio: 1.15;
+        }
+
+        .essencia-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .essencia-img-frame:hover img {
+            transform: scale(1.03);
+        }
+
+        .essencia-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(124, 124, 248, 0.03);
+            border: 1px solid var(--border-soft);
+        }
+
+        .stat-box {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .stat-number {
+            font-family: var(--font-title);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .essencia-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .essencia-info p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .essencia-info p strong {
+            color: var(--text-dark);
+        }
+
+        .essencia-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .essencia-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .essencia-list li i {
+            color: var(--accent-lime);
+            fill: rgba(152, 217, 58, 0.1);
+            width: 22px;
+            height: 22px;
+        }
+
+
+        /* --- SEÇÃO 4: DIFERENCIAIS / VALORES --- */
+        .diferenciais-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .diferencial-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-soft);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diferencial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-pink);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition-smooth);
+        }
+
+        .diferencial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(124, 124, 248, 0.05);
+            border-color: rgba(124, 124, 248, 0.2);
+        }
+
+        .diferencial-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .diferencial-card:nth-child(2)::before { background: var(--primary-yellow); }
+        .diferencial-card:nth-child(3)::before { background: var(--primary-blue); }
+        .diferencial-card:nth-child(4)::before { background: var(--accent-lime); }
+        .diferencial-card:nth-child(5)::before { background: var(--primary-pink); }
+        .diferencial-card:nth-child(6)::before { background: var(--primary-yellow); }
+
+        .diferencial-icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .diferencial-card:nth-child(1) .diferencial-icon-box { background: rgba(255, 87, 115, 0.08); color: var(--primary-pink); }
+        .diferencial-card:nth-child(2) .diferencial-icon-box { background: rgba(254, 192, 63, 0.08); color: var(--primary-yellow); }
+        .diferencial-card:nth-child(3) .diferencial-icon-box { background: rgba(124, 124, 248, 0.08); color: var(--primary-blue); }
+        .diferencial-card:nth-child(4) .diferencial-icon-box { background: rgba(152, 217, 58, 0.08); color: var(--accent-lime); }
+        .diferencial-card:nth-child(5) .diferencial-icon-box { background: rgba(255, 87, 115, 0.08); color: var(--primary-pink); }
+        .diferencial-card:nth-child(6) .diferencial-icon-box { background: rgba(254, 192, 63, 0.08); color: var(--primary-yellow); }
+
+        .diferencial-card:hover .diferencial-icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .diferencial-icon-box i {
+            width: 28px;
+            height: 28px;
+        }
+
+        .diferencial-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .diferencial-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+
+        /* --- SEÇÃO 5: PROPOSTA PEDAGÓGICA (Morph Text reference adaptation) --- */
+        .proposta-container {
+            background-color: var(--primary-blue-light);
+            border-radius: 40px;
+            padding: 6rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 5rem;
+            overflow: hidden;
+            border: 1px solid rgba(124, 124, 248, 0.1);
+        }
+
+        .proposta-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            z-index: 10;
+        }
+
+        .proposta-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .proposta-info p strong {
+            color: var(--text-dark);
+        }
+
+        .proposta-anim-side {
+            background: var(--bg-white);
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 40px rgba(124, 124, 248, 0.05);
+            border: 1px solid var(--border-soft);
+            position: relative;
+            text-align: center;
+        }
+
+        .proposta-anim-label {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: absolute;
+            top: 2rem;
+        }
+
+        /* SVG morph text (Textos.md) */
+        .morph-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: url(#threshold) blur(0.4px);
+        }
+
+        .morph-text-span {
+            position: absolute;
+            width: 100%;
+            display: inline-block;
+            font-family: var(--font-title);
+            font-weight: 800;
+            font-size: clamp(2rem, 3.5vw, 3.5rem);
+            text-align: center;
+            user-select: none;
+            color: var(--primary-pink);
+        }
+
+
+        /* --- SEÇÃO 6: NOSSOS NÍVEIS / TURMAS --- */
+        .niveis-tabs-header {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--bg-white);
+            border: 2px solid var(--border-soft);
+            color: var(--text-muted);
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(124, 124, 248, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .nivel-detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 5rem;
+            align-items: center;
+            background: #ffffff;
+            padding: 4rem;
+            border-radius: 32px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 15px 40px rgba(124, 124, 248, 0.02);
+        }
+
+        .nivel-visual {
+            position: relative;
+            width: 100%;
+        }
+
+        .nivel-img-wrapper {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 8px solid var(--primary-blue-light);
+            aspect-ratio: 1.2;
+            width: 100%;
+        }
+
+        .nivel-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nivel-age-tag {
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+            background-color: var(--primary-yellow);
+            color: var(--text-dark);
+            font-family: var(--font-accent);
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.7rem 1.6rem;
+            border-radius: 100px;
+            box-shadow: 0 5px 15px rgba(254, 192, 63, 0.3);
+        }
+
+        .nivel-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .nivel-info h3 {
+            font-family: var(--font-title);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .nivel-info p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .nivel-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .nivel-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .nivel-info-item i {
+            color: var(--primary-pink);
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            margin-top: 2px;
+        }
+
+        .nivel-info-item-content h4 {
+            font-family: var(--font-title);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .nivel-info-item-content p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* --- SEÇÃO 7: NOSSOS ESPAÇOS / GALERIA (Scroll efects.md GSAP Horizontal Scroll) --- */
+        #galeria-horizontal {
+            padding: 8rem 0;
+            background-color: #faf9f6;
+            overflow-x: clip;
+        }
+
+        .container-cards {
+            transition: none !important;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .galeria-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .galeria-intro {
+            min-width: 400px;
+            padding-right: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.2rem;
+        }
+
+        .galeria-intro h2 {
+            font-family: var(--font-title);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .galeria-intro h2 span {
+            color: var(--primary-pink);
+        }
+
+        .galeria-intro p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .cards {
+            display: flex;
+            gap: 2.5rem;
+            will-change: transform;
+            transition: none !important;
+        }
+
+        .cards .card {
+            min-width: 460px;
+            background: #ffffff;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-soft);
+            display: flex;
+            flex-direction: column;
+            aspect-ratio: 0.95;
+            transition: var(--transition-smooth);
+        }
+
+        .cards .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(124, 124, 248, 0.06);
+            border-color: rgba(124, 124, 248, 0.15);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 60%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .cards .card:hover .card-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .card-info {
+            padding: 2.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            flex-grow: 1;
+        }
+
+        .card-tag {
+            font-family: var(--font-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary-blue);
+        }
+
+        .card-title {
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 767px) {
+            .cards .card {
+                min-width: 80vw !important;
+            }
+        }
+
+
+        /* --- SEÇÃO 8: CARROSSEL DE ATIVIDADES (carrossel.md reference adaptation) --- */
+        #atividades-carousel-section {
+            padding: 6rem 0;
+            background-color: var(--bg-white);
+            border-top: 1px solid var(--border-soft);
+            border-bottom: 1px solid var(--border-soft);
+            overflow: hidden;
+        }
+
+        .widget-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .fade-overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 8rem;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .fade-left {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-white), transparent);
+        }
+
+        .fade-right {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-white), transparent);
+        }
+
+        .carousel-track {
+            display: flex;
+            width: max-content;
+        }
+
+        .carousel-tag {
+            margin-left: 0.8rem;
+            margin-right: 0.8rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 9999px;
+            white-space: nowrap;
+            border: 2px solid var(--border-soft);
+            background-color: var(--primary-blue-light);
+            color: var(--primary-blue);
+            font-family: var(--font-accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition-smooth);
+        }
+
+        .carousel-tag:hover {
+            background-color: var(--primary-pink);
+            border-color: var(--primary-pink);
+            color: #ffffff;
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        /* Carousel Row Colors */
+        .carousel-wrapper:nth-child(2) .carousel-tag {
+            background-color: var(--primary-yellow-light);
+            color: var(--primary-yellow);
+        }
+        .carousel-wrapper:nth-child(2) .carousel-tag:hover {
+            background-color: var(--primary-pink);
+            border-color: var(--primary-pink);
+            color: #ffffff;
+        }
+
+        .carousel-wrapper:nth-child(3) .carousel-tag {
+            background-color: rgba(152, 217, 58, 0.08);
+            color: var(--accent-lime);
+        }
+        .carousel-wrapper:nth-child(3) .carousel-tag:hover {
+            background-color: var(--primary-pink);
+            border-color: var(--primary-pink);
+            color: #ffffff;
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .animate-left {
+            animation: scrollLeft 50s linear infinite;
+        }
+
+        .animate-right {
+            animation: scrollRight 60s linear infinite;
+        }
+
+        .animate-left-fast {
+            animation: scrollLeft 45s linear infinite;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 768px) {
+            .animate-left { animation-duration: 30s; }
+            .animate-right { animation-duration: 35s; }
+            .animate-left-fast { animation-duration: 25s; }
+            .fade-overlay { width: 3rem; }
+            .carousel-tag { padding: 0.6rem 1.3rem; font-size: 0.8rem; }
+        }
+
+
+        /* --- SEÇÃO 9: DEPOIMENTOS --- */
+        .depoimentos-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .swiper-testimonials {
+            padding-bottom: 4rem;
+        }
+
+        .testimonial-card {
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            border-radius: 32px;
+            padding: 3.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.8rem;
+            box-shadow: 0 15px 35px rgba(124, 124, 248, 0.02);
+        }
+
+        .stars-row {
+            display: flex;
+            gap: 0.3rem;
+            color: var(--primary-yellow);
+        }
+
+        .stars-row i {
+            width: 22px;
+            height: 22px;
+            fill: var(--primary-yellow);
+        }
+
+        .testimonial-text {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-pink);
+            color: #ffffff;
+            font-family: var(--font-accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--primary-blue-light);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-author:nth-child(even) .author-avatar {
+            background: var(--primary-yellow);
+        }
+
+        .author-info {
+            text-align: left;
+        }
+
+        .author-info h4 {
+            font-family: var(--font-title);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .author-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            color: var(--primary-blue);
+            background: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-soft);
+            transition: var(--transition-smooth);
+        }
+
+        .swiper-button-prev:after,
+        .swiper-button-next:after {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .swiper-button-prev:hover,
+        .swiper-button-next:hover {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            border-color: var(--primary-blue);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--primary-pink);
+        }
+
+
+        /* --- SEÇÃO 10: BLOG & NOTÍCIAS --- */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .blog-card {
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.02);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(124, 124, 248, 0.05);
+            border-color: rgba(124, 124, 248, 0.15);
+        }
+
+        .blog-img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1.5;
+            background-color: var(--primary-blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .blog-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .blog-card:hover .blog-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .blog-tag {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.2rem;
+            background: #ffffff;
+            color: var(--primary-pink);
+            font-family: var(--font-accent);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .blog-info {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            flex-grow: 1;
+        }
+
+        .blog-date {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .blog-title {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .blog-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .blog-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-blue);
+            font-family: var(--font-accent);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            margin-top: auto;
+            padding-top: 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .blog-link:hover {
+            color: var(--primary-pink);
+        }
+
+        .blog-link i {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-link:hover i {
+            transform: translateX(4px);
+        }
+
+
+        /* --- SEÇÃO 11: CONTATO / AGENDAMENTO --- */
+        .contato-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: stretch;
+        }
+
+        .contato-info-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .contato-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contato-card {
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            border-radius: 20px;
+            padding: 1.8rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.01);
+            transition: var(--transition-smooth);
+        }
+
+        .contato-card:hover {
+            border-color: rgba(124, 124, 248, 0.15);
+            transform: translateX(5px);
+        }
+
+        .contato-icon-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contato-card:nth-child(1) .contato-icon-wrapper { background: rgba(255, 87, 115, 0.08); color: var(--primary-pink); }
+        .contato-card:nth-child(2) .contato-icon-wrapper { background: rgba(124, 124, 248, 0.08); color: var(--primary-blue); }
+        .contato-card:nth-child(3) .contato-icon-wrapper { background: rgba(254, 192, 63, 0.08); color: var(--primary-yellow); }
+
+        .contato-icon-wrapper i {
+            width: 24px;
+            height: 24px;
+        }
+
+        .contato-text h4 {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .contato-text p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-pink);
+            color: #ffffff;
+            border-color: var(--primary-pink);
+            transform: translateY(-3px);
+        }
+
+        .social-link i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .contato-form-card {
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            border-radius: 32px;
+            padding: 3.5rem;
+            box-shadow: 0 15px 40px rgba(124, 124, 248, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contato-form-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-family: var(--font-accent);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: #faf9f6;
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            padding: 0.9rem 1.2rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-blue);
+            background-color: #ffffff;
+            box-shadow: 0 0 12px rgba(124, 124, 248, 0.12);
+        }
+
+        textarea.form-input {
+            resize: none;
+            min-height: 120px;
+        }
+
+
+        /* --- SEÇÃO 12: FOOTER --- */
+        footer {
+            background-color: var(--primary-blue-light);
+            border-top: 1px solid var(--border-soft);
+            padding: 6rem 0 3rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.8fr 0.8fr 1.1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .footer-logo-col p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-pink);
+            padding-left: 4px;
+        }
+
+        .footer-newsletter-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-newsletter-col p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            background-color: #ffffff;
+            border: 2px solid var(--border-soft);
+            border-radius: 100px;
+            padding: 0.8rem 1.4rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--primary-pink);
+        }
+
+        .newsletter-btn {
+            background-color: var(--primary-pink);
+            color: #ffffff;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--primary-pink-hover);
+            transform: scale(1.05);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-soft);
+            padding-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        .footer-bottom-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--primary-pink);
+        }
+
+
+        /* --- SCROLL ENTRANCE ANIMATIONS (Scroll efects.md adaptation) --- */
+        .scroll-left {
+            opacity: 0;
+            transition: var(--transition-smooth);
+            transform: translate(-30px, 0);
+        }
+
+        .scroll-left1 {
+            opacity: 0;
+            transition-delay: 0.2s !important;
+            transition: var(--transition-smooth);
+            transform: translate(-30px, 0);
+        }
+
+        .scroll-right {
+            opacity: 0;
+            transition: var(--transition-smooth);
+            transform: translate(30px, 0);
+        }
+
+        .scroll-right1 {
+            opacity: 0;
+            transition-delay: 0.2s !important;
+            transition: var(--transition-smooth);
+            transform: translate(30px, 0);
+        }
+
+        .scroll-bottom {
+            opacity: 0;
+            transition: var(--transition-smooth);
+            transform: translate(0, 30px);
+        }
+
+        .scroll-bottom1 {
+            opacity: 0;
+            transition-delay: 0.2s !important;
+            transition: var(--transition-smooth);
+            transform: translate(0, 30px);
+        }
+
+        .scroll-bottom2 {
+            opacity: 0;
+            transition-delay: 0.4s !important;
+            transition: var(--transition-smooth);
+            transform: translate(0, 30px);
+        }
+
+        .scroll-bottom3 {
+            opacity: 0;
+            transition-delay: 0.6s !important;
+            transition: var(--transition-smooth);
+            transform: translate(0, 30px);
+        }
+
+        .blur {
+            transform: scale(0.95);
+            opacity: 0;
+            filter: blur(15px);
+            transition: all 0.6s ease !important;
+        }
+
+        .ativo {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+            filter: blur(0px);
+        }
+
+
+        /* --- RESPONSIVIDADE (MEDIA QUERIES) --- */
+        @media (max-width: 1100px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .hero-info {
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero-badge-line,
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .hero-description {
+                max-width: 600px;
+            }
+
+            .hero-graphic-side {
+                justify-content: center;
+            }
+
+            .essencia-layout,
+            .proposta-container,
+            .nivel-detail-layout,
+            .contato-layout {
+                grid-template-columns: 1fr;
+                gap: 3.5rem;
+            }
+
+            .diferenciais-grid,
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 75px);
+                background-color: var(--bg-canvas);
+                flex-direction: column;
+                padding: 3rem 2rem;
+                gap: 2rem;
+                border-top: 1px solid var(--border-soft);
+                z-index: 999;
+                align-items: center;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .header-actions {
+                display: none;
+            }
+
+            .diferenciais-grid,
+            .blog-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .proposta-container {
+                padding: 3rem 1.5rem;
+            }
+
+            .nivel-detail-layout {
+                padding: 1.5rem;
+            }
+
+            .nivel-info-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .contato-form-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1.2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-btn {
+                width: 100%;
+                border-radius: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SVG filter threshold for morph text effect (Referencias/textos.md) -->
+    <svg id="filters" style="display:none">
+        <defs>
+            <filter id="threshold">
+                <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0
+										0 1 0 0 0
+										0 0 1 0 0
+										0 0 0 255 -140" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- SEÇÃO 1: HEADER & HERO -->
+    <header id="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <div class="logo-icon-container">
+                    <!-- Cute child school logo icon -->
+                    <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 15L15 45V85H85V45L50 15Z" fill="#eef2ff" stroke="#7c7cf8" stroke-width="6" stroke-linejoin="round"/>
+                        <path d="M35 85V55H65V85" fill="none" stroke="#7c7cf8" stroke-width="6" stroke-linejoin="round"/>
+                        <path d="M50 25C50 25 43 35 43 40C43 43.866 46.134 47 50 47C53.866 47 57 43.866 57 40C57 35 50 25 50 25Z" fill="#ff5773" />
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>little</h1>
+                    <span>Escola Infantil</span>
+                </div>
+            </a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#inicio" class="active-link">Início</a></li>
+                <li class="nav-item"><a href="#sobre">A Escola</a></li>
+                <li class="nav-item"><a href="#proposta">Proposta</a></li>
+                <li class="nav-item"><a href="#turmas">Turmas</a></li>
+                <li class="nav-item"><a href="#galeria">Espaços</a></li>
+                <li class="nav-item"><a href="#atividades">Atividades</a></li>
+                <li class="nav-item"><a href="#blog">Blog</a></li>
+                <li class="nav-item"><a href="#contato">Contato</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <a href="#contato" class="btn-pink">
+                    <i data-lucide="calendar"></i>
+                    <span>Agende uma visita</span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Abrir Menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="hero" id="inicio">
+        <!-- Background wave decorations -->
+        <div class="wave-decorations">
+            <svg viewBox="0 0 1440 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,192C180,160,360,96,540,117.3C720,139,900,245,1080,240C1260,235,1440,117,1560,58.7L1680,0L1680,240L1560,240C1440,240,1260,240,1080,240C900,240,720,240,540,240C360,240,180,240,0,240Z" fill="#ff5773" fill-opacity="0.05"/>
+                <path d="M0,120C180,180,360,240,540,213.3C720,187,900,75,1080,48C1260,21,1440,80,1560,109.3L1680,138.7L1680,240L1560,240C1440,240,1260,240,1080,240C900,240,720,240,540,240C360,240,180,240,0,240Z" fill="#7c7cf8" fill-opacity="0.03"/>
+            </svg>
+        </div>
+
+        <!-- Doodle graphics -->
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' stroke='%23ff5773' stroke-width='4' fill='none'><path d='M20 70C20 40, 80 40, 80 70 M30 70C30 50, 70 50, 70 70 M40 70C40 57, 60 57, 60 70' stroke-linecap='round'/></svg>" class="doodle doodle-rainbow" alt="Rainbow Doodle">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%237c7cf8' stroke-width='2' fill='none'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg>" class="doodle doodle-star" alt="Star Doodle">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' stroke='%237c7cf8' stroke-width='2' stroke-dasharray='5,5' fill='none'><path d='M10 80 Q 40 10, 90 20'/><polygon points='90 20, 80 15, 85 30' fill='%237c7cf8'/></svg>" class="doodle doodle-plane" alt="Airplane path Doodle">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff5773' opacity='0.7'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>" class="doodle doodle-heart" alt="Heart Doodle">
+
+        <div class="hero-container">
+            <div class="hero-info scroll-left">
+                <div class="hero-badge-line">
+                    <i data-lucide="sparkles"></i>
+                    <span class="hero-badge-text">Aprender, brincar e crescer</span>
+                </div>
+
+                <h1 class="hero-headline">
+                    Hoje brincamos,<br>
+                    <span class="pink-text">amanhã crescemos,</span><br>
+                    <span class="yellow-text">sempre juntos!</span>
+                </h1>
+
+                <p class="hero-description">
+                    Um ambiente acolhedor onde cada criança é incentivada a <strong>explorar, aprender e descobrir</strong> o mundo com alegria e segurança.
+                </p>
+
+                <div class="hero-ctas">
+                    <!-- Premium Mouse Hover Light Effect (Referencias/botões.md) -->
+                    <div class="zeph19">
+                        <div class="zeph20">
+                            <a href="#sobre" class="elementor-button">
+                                <span class="elementor-button-icon">
+                                    <i data-lucide="heart"></i>
+                                </span>
+                                <span class="elementor-button-text">Conheça nossa escola</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a class="btn-outline-blue" href="#contato">
+                        <i data-lucide="play-circle"></i>
+                        <span>Assistir Vídeo</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-graphic-side scroll-right">
+                <div class="hero-img-mask">
+                    <img src="./assets/hero_child.png" alt="Criança brincando na Little Escola Infantil">
+                </div>
+
+                <!-- Circular rotating badge (Referencias/background.md circular background concept) -->
+                <div class="rotating-badge-container">
+                    <svg class="badge-text-svg" viewBox="0 0 100 100">
+                        <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+                        <text font-family="Sora" font-size="8.8" font-weight="700" fill="#2c2c54" letter-spacing="2.5">
+                            <textPath href="#circlePath">
+                                CUIDAR • EDUCAR • INSPIRAR •
+                            </textPath>
+                        </text>
+                    </svg>
+                    <div class="rotating-badge-center">
+                        <i data-lucide="heart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SEÇÃO 3: A ESCOLA (Nossa Essência) -->
+    <section id="sobre">
+        <div class="section-container">
+            <div class="essencia-layout">
+                <div class="essencia-image-container scroll-left">
+                    <div class="essencia-img-frame">
+                        <img src="./assets/essence.png" alt="Professora lendo história para crianças">
+                    </div>
+                    
+                    <div class="essencia-stats">
+                        <div class="stat-box">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Anos de Histórias</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Equipe Graduada</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Alunos por Turma</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="essencia-info scroll-right">
+                    <span class="section-subtitle">Nossa Essência</span>
+                    <h2 class="section-title">Onde o afeto e a <span>educação se encontram</span></h2>
+                    <p>
+                        Na <strong>Little Escola Infantil</strong>, entendemos que os primeiros anos de vida são fundamentais para a formação de um indivíduo seguro, criativo e feliz. Nossos espaços foram inteiramente projetados para estimular a curiosidade natural de cada etapa de desenvolvimento.
+                    </p>
+                    <p>
+                        Acreditamos que a infância deve ser vivida intensamente. Por isso, aliamos metodologias pedagógicas reconhecidas a uma rotina de carinho, segurança e brincadeiras livres que desenvolvem inteligência emocional e cognição.
+                    </p>
+
+                    <ul class="essencia-list">
+                        <li><i data-lucide="check-circle-2"></i> Ambientes lúdicos e seguros</li>
+                        <li><i data-lucide="check-circle-2"></i> Currículo integrado ao desenvolvimento individual</li>
+                        <li><i data-lucide="check-circle-2"></i> Foco no convívio social harmônico e na empatia</li>
+                    </ul>
+
+                    <a href="#contato" class="btn-pink">
+                        <span>Fale Conosco</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 4: DIFERENCIAIS / VALORES -->
+    <section id="diferenciais" style="background-color: #ffffff;">
+        <div class="section-container">
+            <div class="section-header scroll-bottom">
+                <span class="section-subtitle">Nossos Diferenciais</span>
+                <h2 class="section-title">Por que escolher a <span>nossa escola?</span></h2>
+                <p class="section-desc">Cuidado em cada pequeno detalhe para oferecer a melhor experiência educativa e social para seu filho.</p>
+            </div>
+
+            <div class="diferenciais-grid">
+                <!-- Card 1 -->
+                <div class="diferencial-card scroll-bottom">
+                    <div class="diferencial-icon-box">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3>Segurança Máxima</h3>
+                    <p>Ambientes totalmente monitorados, controle de acesso rigoroso e infraestrutura segura com pisos emborrachados.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="diferencial-card scroll-bottom1">
+                    <div class="diferencial-icon-box">
+                        <i data-lucide="apple"></i>
+                    </div>
+                    <h3>Nutrição Saudável</h3>
+                    <p>Cardápio balanceado elaborado por nutricionistas infantis com ingredientes orgânicos, frescos e sem conservantes.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="diferencial-card scroll-bottom2">
+                    <div class="diferencial-icon-box">
+                        <i data-lucide="languages"></i>
+                    </div>
+                    <h3>Base Bilíngue</h3>
+                    <p>Ensino integrado da língua inglesa de forma natural e interativa em todas as vivências diárias do aluno.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="diferencial-card scroll-bottom">
+                    <div class="diferencial-icon-box">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <h3>Equipe Especializada</h3>
+                    <p>Professores e auxiliares graduados, psicopedagoga de apoio constante e equipe treinada em primeiros socorros.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="diferencial-card scroll-bottom1">
+                    <div class="diferencial-icon-box">
+                        <i data-lucide="sprout"></i>
+                    </div>
+                    <h3>Contato com a Natureza</h3>
+                    <p>Espaço ao ar livre para banhos de sol, plantio na horta escolar e vivências ecológicas inesquecíveis.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="diferencial-card scroll-bottom2">
+                    <div class="diferencial-icon-box">
+                        <i data-lucide="heart-handshake"></i>
+                    </div>
+                    <h3>Socioemocional</h3>
+                    <p>Práticas dedicadas à identificação de emoções, empatia, escuta ativa e incentivo à cooperação e cooperação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 5: PROPOSTA PEDAGÓGICA (Adaptada de Textos.md) -->
+    <section id="proposta">
+        <div class="section-container">
+            <div class="proposta-container">
+                <div class="proposta-info scroll-left">
+                    <span class="section-subtitle" style="background: rgba(124, 124, 248, 0.08); color: var(--primary-blue);">Pedagogia</span>
+                    <h2 class="section-title">Metodologias <span>Ativas</span></h2>
+                    <p>
+                        A proposta pedagógica da Little baseia-se na união de abordagens consagradas como **Montessori** e **Reggio Emilia**, com foco no protagonismo da criança. 
+                    </p>
+                    <p>
+                        Os educadores atuam como facilitadores do aprendizado, estimulando a curiosidade inata das crianças. Nosso método preza pelo estímulo sensorial, expressão artística e investigação científica prática.
+                    </p>
+                    <a href="#contato" class="btn-pink" style="box-shadow: none;">
+                        <span>Ver Projeto Pedagógico</span>
+                        <i data-lucide="file-text"></i>
+                    </a>
+                </div>
+
+                <!-- Morphing text effect adapted from Referencias/textos.md -->
+                <div class="proposta-anim-side scroll-right">
+                    <div class="proposta-anim-label">Nossos Valores Centrais</div>
+                    <div class="morph-wrapper">
+                        <span id="text1" class="morph-text-span"></span>
+                        <span id="text2" class="morph-text-span"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 6: NOSSOS NÍVEIS / TURMAS -->
+    <section id="turmas" style="background-color: #ffffff;">
+        <div class="section-container">
+            <div class="section-header scroll-bottom">
+                <span class="section-subtitle">Nossos Níveis</span>
+                <h2 class="section-title">Turmas preparadas para <span>cada etapa</span></h2>
+                <p class="section-desc">Atividades e rotinas específicas de acordo com a faixa etária para garantir o desenvolvimento saudável.</p>
+            </div>
+
+            <!-- Tabs System -->
+            <div class="niveis-tabs-header scroll-bottom">
+                <button class="tab-btn active" onclick="switchTab(event, 'bercario')">Berçário</button>
+                <button class="tab-btn" onclick="switchTab(event, 'toddler')">Toddler</button>
+                <button class="tab-btn" onclick="switchTab(event, 'preschool')">Preschool</button>
+            </div>
+
+            <!-- Tab 1: Berçário -->
+            <div id="bercario" class="tab-content active">
+                <div class="nivel-detail-layout">
+                    <div class="nivel-visual">
+                        <div class="nivel-img-wrapper">
+                            <img src="./assets/essence.png" alt="Bebês em atividade">
+                        </div>
+                        <div class="nivel-age-tag">4 meses a 1 ano</div>
+                    </div>
+                    <div class="nivel-info">
+                        <h3>Berçário (Maternal Baby)</h3>
+                        <p>
+                            No berçário da Little, o foco principal é a estimulação sensorial e o acolhimento afetivo. Nosso berçário possui sala de estimulação climatizada, solário exclusivo e uma rotina que respeita o sono e a alimentação individual de cada bebê.
+                        </p>
+                        <div class="nivel-info-grid">
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Psicomotricidade</h4>
+                                    <p>Estímulos para engatinhar, rolar e pinça fina através de brinquedos sensoriais.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Lactário Exclusivo</h4>
+                                    <p>Higienização rígida e controle no armazenamento das mamadeiras e papinhas.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Musicalização</h4>
+                                    <p>Sons suaves e canções de ninar que ajudam no desenvolvimento linguístico primário.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Acompanhamento</h4>
+                                    <p>Relatório diário completo sobre sono, trocas e alimentação enviado aos pais.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Toddler -->
+            <div id="toddler" class="tab-content">
+                <div class="nivel-detail-layout">
+                    <div class="nivel-visual">
+                        <div class="nivel-img-wrapper">
+                            <img src="./assets/hero_child.png" alt="Criança brincando">
+                        </div>
+                        <div class="nivel-age-tag">1 a 2 anos</div>
+                    </div>
+                    <div class="nivel-info">
+                        <h3>Toddler (Maternal Júnior)</h3>
+                        <p>
+                            Uma fase de intensas descobertas motoras, fala e início da autonomia. No Toddler, incentivamos a exploração de espaços de forma segura, a socialização com outros pequenos e o desenvolvimento da coordenação.
+                        </p>
+                        <div class="nivel-info-grid">
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Autonomia Inicial</h4>
+                                    <p>Estímulo para calçar sapatos, guardar brinquedos e se alimentar de forma independente.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Desenv. da Linguagem</h4>
+                                    <p>Jogos de palavras, contação de histórias com fantoches e ampliação do vocabulário.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Desfralde Consciente</h4>
+                                    <p>Processo conduzido em parceria com a família de forma tranquila e respeitosa.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Artes Plásticas</h4>
+                                    <p>Manipulação de argila, tintas naturais e texturas diversas para estímulo expressivo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Preschool -->
+            <div id="preschool" class="tab-content">
+                <div class="nivel-detail-layout">
+                    <div class="nivel-visual">
+                        <div class="nivel-img-wrapper">
+                            <img src="./assets/sala_aula.png" alt="Crianças na sala de aula">
+                        </div>
+                        <div class="nivel-age-tag">3 a 5 anos</div>
+                    </div>
+                    <div class="nivel-info">
+                        <h3>Preschool (Educação Infantil)</h3>
+                        <p>
+                            Fase em que a imaginação ganha asas e o raciocínio lógico é estimulado de forma divertida. Nossos alunos do Preschool têm base de alfabetização bilíngue, projetos de ciências práticos, além de introdução à robótica educativa.
+                        </p>
+                        <div class="nivel-info-grid">
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Base Bilíngue Plena</h4>
+                                    <p>Atividades diárias em inglês para naturalizar o idioma através do brincar estruturado.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Projetos Científicos</h4>
+                                    <p>Experiências práticas simples para estimular o questionamento lógico e observação.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Letramento Lúdico</h4>
+                                    <p>Contato diário com escrita e leitura de forma orgânica através de contos de fadas.</p>
+                                </div>
+                            </div>
+                            <div class="nivel-info-item">
+                                <i data-lucide="check-circle"></i>
+                                <div class="nivel-info-item-content">
+                                    <h4>Robótica Infantil</h4>
+                                    <p>Brinquedos de programação tangíveis que desenvolvem raciocínio de algoritmos básicos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 7: NOSSOS ESPAÇOS / GALERIA (Scroll efects.md GSAP Horizontal Scroll) -->
+    <section id="galeria">
+        <div class="container-cards">
+            <div class="galeria-wrapper">
+                <!-- Left side title pinned during scroll -->
+                <div class="galeria-intro">
+                    <span class="section-subtitle">Nossos Espaços</span>
+                    <h2>Um tour por <span>nossa escola</span></h2>
+                    <p>Ambientes planejados e seguros que estimulam o aprendizado e a criatividade das crianças em cada detalhe.</p>
+                    <a href="#contato" class="btn-outline-blue" style="margin-top: 1rem;">
+                        <span>Ver todos os espaços</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Horizontal sliding cards -->
+                <div class="cards">
+                    <!-- Space 1 -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="./assets/sala_aula.png" alt="Sala de Aula Integrada">
+                        </div>
+                        <div class="card-info">
+                            <span class="card-tag">Aprendizado</span>
+                            <h3 class="card-title">Salas de Aula Lúdicas</h3>
+                            <p class="card-desc">Ambientes amplos com mobiliário ergonômico montessoriano, permitindo fácil circulação e autonomia.</p>
+                        </div>
+                    </div>
+                    <!-- Space 2 -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="./assets/playground.png" alt="Playground ao ar livre">
+                        </div>
+                        <div class="card-info">
+                            <span class="card-tag">Brincadeira</span>
+                            <h3 class="card-title">Playground de Madeira</h3>
+                            <p class="card-desc">Nosso parquinho ecológico ao ar livre estimula o equilíbrio, as habilidades motoras e a socialização.</p>
+                        </div>
+                    </div>
+                    <!-- Space 3 -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="./assets/biblioteca.png" alt="Biblioteca Infantil">
+                        </div>
+                        <div class="card-info">
+                            <span class="card-tag">Leitura</span>
+                            <h3 class="card-title">Cantinho da Leitura</h3>
+                            <p class="card-desc">Espaço aconchegante com almofadas macias e um acervo literário com mais de 500 títulos infantis selecionados.</p>
+                        </div>
+                    </div>
+                    <!-- Space 4 -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="./assets/horta.png" alt="Horta Orgânica">
+                        </div>
+                        <div class="card-info">
+                            <span class="card-tag">Natureza</span>
+                            <h3 class="card-title">Horta Orgânica Escolar</h3>
+                            <p class="card-desc">Um laboratório vivo onde os alunos aprendem sobre biologia, plantio e a importância da alimentação saudável.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 8: CARROSSEL DE ATIVIDADES (carrossel.md) -->
+    <section id="atividades">
+        <div class="section-container">
+            <div class="section-header scroll-bottom" style="margin-bottom: 3.5rem;">
+                <span class="section-subtitle">Vivências e Projetos</span>
+                <h2 class="section-title">Atividades que <span>despertam paixões</span></h2>
+                <p class="section-desc">Oferecemos uma grade curricular estendida com atividades que enriquecem o desenvolvimento cultural e físico do aluno.</p>
+            </div>
+        </div>
+
+        <div id="atividades-carousel-section">
+            <div class="widget-container">
+                <!-- Row 1: Left direction -->
+                <div class="carousel-wrapper">
+                    <div class="fade-overlay fade-left"></div>
+                    <div class="fade-overlay fade-right"></div>
+                    <div class="carousel-track animate-left" id="row1-widget">
+                        <!-- Content generated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Row 2: Right direction -->
+                <div class="carousel-wrapper">
+                    <div class="fade-overlay fade-left"></div>
+                    <div class="fade-overlay fade-right"></div>
+                    <div class="carousel-track animate-right" id="row2-widget">
+                        <!-- Content generated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Row 3: Left fast direction -->
+                <div class="carousel-wrapper">
+                    <div class="fade-overlay fade-left"></div>
+                    <div class="fade-overlay fade-right"></div>
+                    <div class="carousel-track animate-left-fast" id="row3-widget">
+                        <!-- Content generated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 9: DEPOIMENTOS (SWIPER) -->
+    <section id="depoimentos">
+        <div class="section-container">
+            <div class="section-header scroll-bottom">
+                <span class="section-subtitle">Depoimentos</span>
+                <h2 class="section-title">O carinho de quem <span>confia na Little</span></h2>
+                <p class="section-desc">Nada fala mais alto sobre nossa escola do que o relato e a tranquilidade dos pais de nossos queridos alunos.</p>
+            </div>
+
+            <div class="depoimentos-container scroll-bottom1">
+                <div class="swiper swiper-testimonials">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "A Little foi a melhor escolha que fizemos. A adaptação da nossa filha foi extremamente tranquila devido ao carinho dos professores. Ela chega em casa animada todos os dias!"
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">MS</div>
+                                    <div class="author-info">
+                                        <h4>Mariana Silva</h4>
+                                        <p>Mãe da Gabi (Turma Toddler)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "O berçário é impecável. Como mãe de primeira viagem, me senti muito insegura em voltar ao trabalho, mas os boletins diários e a equipe qualificada me deram toda a paz que eu precisava."
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">AL</div>
+                                    <div class="author-info">
+                                        <h4>Amanda Lopes</h4>
+                                        <p>Mãe do Theo (Maternal Baby)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="stars-row">
+                                    <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "A base bilingue deles é fantástica. Meu filho de 4 anos se comunica de forma super espontânea em inglês com palavras simples, jogando e brincando. O ensino deles realmente funciona."
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">RC</div>
+                                    <div class="author-info">
+                                        <h4>Rodrigo Costa</h4>
+                                        <p>Pai do Lucas (Preschool)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Navigation Arrows -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <!-- Pagination dots -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 10: BLOG & NOTÍCIAS -->
+    <section id="blog" style="background-color: #ffffff;">
+        <div class="section-container">
+            <div class="section-header scroll-bottom">
+                <span class="section-subtitle">Blog da Little</span>
+                <h2 class="section-title">Dicas e conteúdos para <span>pais e educadores</span></h2>
+                <p class="section-desc">Artigos semanais elaborados por nosso corpo pedagógico abordando dicas de desenvolvimento e criação saudável.</p>
+            </div>
+
+            <div class="blog-grid">
+                <!-- Artigo 1 -->
+                <div class="blog-card scroll-bottom">
+                    <div class="blog-img-wrapper">
+                        <img src="./assets/essence.png" alt="Desenvolvimento infantil">
+                        <span class="blog-tag">Desenvolvimento</span>
+                    </div>
+                    <div class="blog-info">
+                        <span class="blog-date">30 Mai, 2026</span>
+                        <h3 class="blog-title">A importância do brincar no desenvolvimento cognitivo</h3>
+                        <p class="blog-desc">Entenda como atividades lúdicas ativam conexões cerebrais essenciais na primeira infância e como estimulá-las em casa.</p>
+                        <a href="#contato" class="blog-link">
+                            <span>Ler Artigo</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Artigo 2 -->
+                <div class="blog-card scroll-bottom1">
+                    <div class="blog-img-wrapper">
+                        <img src="./assets/hero_child.png" alt="Adaptação Escolar">
+                        <span class="blog-tag">Adaptação</span>
+                    </div>
+                    <div class="blog-info">
+                        <span class="blog-date">18 Mai, 2026</span>
+                        <h3 class="blog-title">Adaptação Escolar: Como preparar as crianças e os pais</h3>
+                        <p class="blog-desc">Conselhos práticos e amorosos para reduzir a ansiedade de separação nos primeiros dias de aula de bebês e toddlers.</p>
+                        <a href="#contato" class="blog-link">
+                            <span>Ler Artigo</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Artigo 3 -->
+                <div class="blog-card scroll-bottom2">
+                    <div class="blog-img-wrapper">
+                        <img src="./assets/sala_aula.png" alt="Alimentação saudável">
+                        <span class="blog-tag">Saúde</span>
+                    </div>
+                    <div class="blog-info">
+                        <span class="blog-date">05 Mai, 2026</span>
+                        <h3 class="blog-title">Introdução alimentar saudável de forma lúdica</h3>
+                        <p class="blog-desc">Dicas para introduzir novos sabores e vegetais no cardápio diário dos pequenos de forma tranquila e divertida.</p>
+                        <a href="#contato" class="blog-link">
+                            <span>Ler Artigo</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 11: CONTATO E AGENDAMENTO -->
+    <section id="contato">
+        <div class="section-container">
+            <div class="contato-layout">
+                <div class="contato-info-column scroll-left">
+                    <div>
+                        <span class="section-subtitle">Visitas e Informações</span>
+                        <h2 class="section-title" style="margin-top: 1rem; margin-bottom: 1.5rem;">Venha nos <span>conhecer!</span></h2>
+                        <p style="color: var(--text-muted); line-height: 1.7;">
+                            Ficaremos muito felizes em receber sua família para um café e apresentar nossa proposta pedagógica, instalações e equipe. Agende seu horário preenchendo o formulário ou fale conosco.
+                        </p>
+                    </div>
+
+                    <div class="contato-cards">
+                        <!-- Card 1 -->
+                        <div class="contato-card">
+                            <div class="contato-icon-wrapper">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div class="contato-text">
+                                <h4>Endereço</h4>
+                                <p>Rua das Flores, 123 - Jardins, São Paulo - SP</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="contato-card">
+                            <div class="contato-icon-wrapper">
+                                <i data-lucide="phone-call"></i>
+                            </div>
+                            <div class="contato-text">
+                                <h4>Telefone e WhatsApp</h4>
+                                <p>(11) 4002-8922 / (11) 99999-8888</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="contato-card">
+                            <div class="contato-icon-wrapper">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <div class="contato-text">
+                                <h4>Horário de Funcionamento</h4>
+                                <p>Segunda a Sexta: 07:00h às 19:00h</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 style="font-family: var(--font-title); font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.8rem;">Siga-nos nas redes</h4>
+                        <div class="social-row">
+                            <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram">
+                                <i data-lucide="instagram"></i>
+                            </a>
+                            <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook">
+                                <i data-lucide="facebook"></i>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" class="social-link" aria-label="Youtube">
+                                <i data-lucide="youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contato-form-card scroll-right">
+                    <h3>Solicitar Agendamento de Visita</h3>
+                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Solicitação de visita enviada com sucesso! Nossa equipe entrará em contato em até 24h para confirmar seu horário.');">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="parent-name">Nome dos Pais / Responsável</label>
+                                <input type="text" id="parent-name" class="form-input" placeholder="Ex: Mariana e Ricardo" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">E-mail de Contato</label>
+                                <input type="email" id="email" class="form-input" placeholder="Ex: nome@dominio.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Telefone / WhatsApp</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="Ex: (11) 99999-8888" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="child-age">Idade do Filho(a)</label>
+                                <select id="child-age" class="form-input" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value="bercario">4 meses a 1 ano</option>
+                                    <option value="toddler">1 a 2 anos</option>
+                                    <option value="preschool">3 a 5 anos</option>
+                                    <option value="outro">Mais de 5 anos</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="visit-date">Data Preferencial</label>
+                                <input type="date" id="visit-date" class="form-input" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="message">Mensagem ou Dúvida (Opcional)</label>
+                                <textarea id="message" class="form-input" placeholder="Diga-nos o melhor horário de contato..."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-pink" style="width: 100%; margin-top: 1.5rem;">
+                            <span>Confirmar Agendamento</span>
+                            <i data-lucide="check-circle-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO 12: FOOTER -->
+    <footer>
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="footer-logo-col">
+                    <a href="#" class="logo-link">
+                        <div class="logo-icon-container">
+                            <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50 15L15 45V85H85V45L50 15Z" fill="#eef2ff" stroke="#7c7cf8" stroke-width="6" stroke-linejoin="round"/>
+                                <path d="M35 85V55H65V85" fill="none" stroke="#7c7cf8" stroke-width="6" stroke-linejoin="round"/>
+                                <path d="M50 25C50 25 43 35 43 40C43 43.866 46.134 47 50 47C53.866 47 57 43.866 57 40C57 35 50 25 50 25Z" fill="#ff5773" />
+                            </svg>
+                        </div>
+                        <div class="logo-text">
+                            <h1 style="font-size: 1.5rem;">little</h1>
+                            <span>Escola Infantil</span>
+                        </div>
+                    </a>
+                    <p>Um ambiente estruturado com carinho para inspirar criatividade, explorar potencialidades e educar para o futuro.</p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Links Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#sobre">A Escola</a></li>
+                        <li><a href="#proposta">Proposta Pedagógica</a></li>
+                        <li><a href="#turmas">Turmas & Níveis</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Institucional</h4>
+                    <ul class="footer-links">
+                        <li><a href="#galeria">Nossos Espaços</a></li>
+                        <li><a href="#atividades">Atividades</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contato">Agendar Visita</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter-col">
+                    <h4 class="footer-title">Mantenha contato</h4>
+                    <p>Inscreva-se em nossa newsletter para receber artigos pedagógicos e atualizações do nosso calendário escolar.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Obrigado por se inscrever em nossa newsletter!'); this.reset();">
+                        <input type="email" class="newsletter-input" placeholder="Seu e-mail..." required>
+                        <button type="submit" class="newsletter-btn" aria-label="Enviar">
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Little Escola Infantil. Todos os direitos reservados.</span>
+                <div class="footer-bottom-links">
+                    <a href="../../../politica-de-privacidade.html">Política de Privacidade</a>
+                    <a href="../../../termos-de-uso.html">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- SCRIPTS E INTEGRAÇÕES -->
+    <script>
+        // Initialize Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // Sticky Header scroll styling
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.querySelector('i').setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Active Link styling on scroll
+        const sections = document.querySelectorAll('section, div.hero');
+        const navLinks = document.querySelectorAll('.nav-item a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active-link');
+                }
+            });
+        });
+
+        // Switch Tabs (Níveis/Turmas)
+        function switchTab(evt, tabId) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+
+        // Adaptated from Referencias/carrossel.md (Atividades Tags Carousel filler)
+        (function() {
+            const activities = [
+                "Inglês Diário",
+                "Musicalização",
+                "Artes Plásticas",
+                "Culinária Infantil",
+                "Teatro & Expressão",
+                "Judô Kids",
+                "Ballet",
+                "Jardinagem Prática",
+                "Robótica Tangível",
+                "Yoga Infantil",
+                "Xadrez Criativo",
+                "Psicomotricidade",
+                "Contação de Histórias",
+                "Educação Ecológica"
+            ];
+
+            function createTag(text) {
+                return `<div class="carousel-tag">${text}</div>`;
+            }
+
+            function fillRow(elementId, dataArray) {
+                const container = document.getElementById(elementId);
+                if (!container) return; 
+                
+                const content = [
+                    ...dataArray, 
+                    ...dataArray, 
+                    ...dataArray, 
+                    ...dataArray,
+                    ...dataArray
+                ].map(topic => createTag(topic)).join(''); 
+                container.innerHTML = content;
+            }
+
+            // Mix array orders for different rows
+            const dataRow1 = [...activities];
+            const dataRow2 = [...activities].reverse();
+            const dataRow3 = [...activities].sort(() => Math.random() - 0.5);
+
+            document.addEventListener('DOMContentLoaded', () => {
+                fillRow('row1-widget', dataRow1);
+                fillRow('row2-widget', dataRow2);
+                fillRow('row3-widget', dataRow3);
+            });
+        })();
+
+
+        // Adaptated from Referencias/botões.md (Mouse Light Tracking button 02)
+        document.addEventListener("DOMContentLoaded", () => {
+            const wrapper = document.querySelector(".zeph19");
+            const button = document.querySelector(".zeph20 .elementor-button");
+            let timeoutId;
+
+            if (wrapper && button) {
+                button.addEventListener("mousemove", (event) => {
+                    clearTimeout(timeoutId);
+                    
+                    const wrapperRect = wrapper.getBoundingClientRect();
+                    const mouseX = event.clientX - wrapperRect.left;
+                    const mousePercentage = Math.min(Math.max(mouseX / wrapperRect.width, 0), 1);
+
+                    wrapper.style.setProperty("--before-opacity", mousePercentage.toFixed(2));
+                    wrapper.style.setProperty("--after-opacity", (1 - mousePercentage).toFixed(2));
+
+                    const buttonRect = button.getBoundingClientRect();
+                    const relativeMouseX = event.clientX - buttonRect.left;
+                    const translateX = (relativeMouseX / buttonRect.width) * 100 - 100;
+
+                    button.style.setProperty("--button-translate-x", `${translateX}%`);
+                });
+
+                button.addEventListener("mouseleave", () => {
+                    timeoutId = setTimeout(() => {
+                        wrapper.style.setProperty("--before-opacity", "1");
+                        wrapper.style.setProperty("--after-opacity", "0");
+                        button.style.setProperty("--button-translate-x", "-50%");
+                    }, 800);
+                });
+            }
+        });
+
+
+        // Adaptated from Referencias/textos.md (Morph Text 01)
+        (function() {
+            const elts = {
+                text1: document.getElementById("text1"),
+                text2: document.getElementById("text2")
+            };
+
+            const texts = [
+                "Cuidar",
+                "Educar",
+                "Brincar",
+                "Explorar",
+                "Crescer",
+                "Inspirar"
+            ];
+
+            const morphTime = 1.2;
+            const cooldownTime = 0.8;
+
+            let textIndex = texts.length - 1;
+            let time = new Date();
+            let morph = 0;
+            let cooldown = cooldownTime;
+
+            elts.text1.textContent = texts[textIndex % texts.length];
+            elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+
+            function doMorph() {
+                morph -= cooldown;
+                cooldown = 0;
+
+                let fraction = morph / morphTime;
+
+                if (fraction > 1) {
+                    cooldown = cooldownTime;
+                    fraction = 1;
+                }
+
+                setMorph(fraction);
+            }
+
+            function setMorph(fraction) {
+                elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+                elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+                fraction = 1 - fraction;
+                elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+                elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+                elts.text1.textContent = texts[textIndex % texts.length];
+                elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+            }
+
+            function doCooldown() {
+                morph = 0;
+                elts.text2.style.filter = "";
+                elts.text2.style.opacity = "100%";
+                elts.text1.style.filter = "";
+                elts.text1.style.opacity = "0%";
+            }
+
+            function animateMorph() {
+                requestAnimationFrame(animateMorph);
+
+                let newTime = new Date();
+                let shouldIncrementIndex = cooldown > 0;
+                let dt = (newTime - time) / 1000;
+                time = newTime;
+
+                cooldown -= dt;
+
+                if (cooldown <= 0) {
+                    if (shouldIncrementIndex) {
+                        textIndex++;
+                    }
+                    doMorph();
+                } else {
+                    doCooldown();
+                }
+            }
+
+            animateMorph();
+        })();
+
+
+        // Adaptated from Referencias/Scroll efects.md (Animação de entrada vinculada ao scroll)
+        const elementos = document.querySelectorAll(".scroll-left, .scroll-left1, .scroll-right, .scroll-right1, .scroll-bottom, .scroll-bottom1, .scroll-bottom2, .scroll-bottom3, .blur");
+        const posicaoScroll = window.innerHeight * 0.85; // slightly higher trigger line for natural flow
+
+        function fadeScroll(){
+            elementos.forEach(elemento => {
+                const elementoTop = elemento.getBoundingClientRect().top;
+                
+                if(elementoTop < posicaoScroll){
+                    elemento.classList.add("ativo");
+                }
+            });
+        }
+        
+        window.addEventListener("scroll", fadeScroll);
+        // Trigger once at load
+        window.addEventListener("load", fadeScroll);
+
+
+        // Initialize Testimonials Swiper
+        const swiper = new Swiper('.swiper-testimonials', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+            },
+        });
+    </script>
+
+    <!-- Lenis & GSAP ScrollTrigger Integration (Scroll efects.md adaptation) -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        let lenis;
+        function initLenisIfDesktop() {
+            if (window.innerWidth > 1024 && !lenis && typeof Lenis !== "undefined") {
+                lenis = new Lenis({ duration: 1.5 });
+
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+
+                ScrollTrigger.scrollerProxy(document.documentElement, {
+                    scrollTop(value) {
+                        if (arguments.length) {
+                            lenis.scrollTo(value, { immediate: true });
+                        }
+                        return window.scrollY || window.pageYOffset;
+                    },
+                    getBoundingClientRect() {
+                        return {
+                            top: 0,
+                            left: 0,
+                            width: innerWidth,
+                            height: innerHeight
+                        };
+                    },
+                    fixedMarkers: true
+                });
+
+                lenis.on("scroll", ScrollTrigger.update);
+            }
+        }
+
+        window.addEventListener("load", () => {
+            initLenisIfDesktop();
+        });
+
+        if (window.matchMedia("(max-width: 1024px)").matches) {
+            ScrollTrigger.normalizeScroll(true);
+        }
+
+        const mm = gsap.matchMedia();
+        const containerCards = document.querySelector(".container-cards");
+        const cards = document.querySelector(".cards");
+
+        let endLen = 0;
+        let finalX = 0;
+
+        function measure(respiroPx = 0) {
+            const prev = cards.style.transform;
+            cards.style.transform = "none";
+
+            const contRect = containerCards.getBoundingClientRect();
+            const lastRect = cards.lastElementChild.getBoundingClientRect();
+            const padR = parseFloat(getComputedStyle(containerCards).paddingRight || 0);
+
+            const overflowRight = lastRect.right - (contRect.right - padR);
+            const need = Math.max(0, Math.ceil(overflowRight) + respiroPx);
+
+            cards.style.transform = prev;
+
+            endLen = need;
+            finalX = -need;
+        }
+
+        let tl;
+        function build(respiroPx = 0) {
+            ScrollTrigger.getAll().forEach((st) => {
+                if (st.vars?.trigger === containerCards) st.kill();
+            });
+
+            gsap.set(cards, { x: 0, force3D: true, willChange: "transform" });
+
+            measure(respiroPx);
+
+            tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerCards,
+                    start: "top top",
+                    end: () => "+=" + endLen,
+                    scrub: true,
+                    pin: true,
+                    pinType: window.matchMedia("(max-width: 767px)").matches
+                        ? "transform"
+                        : "fixed",
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    invalidateOnRefresh: true,
+                    onRefreshInit: () => gsap.set(cards, { x: 0 }),
+                    onRefresh: () => {
+                        measure(respiroPx);
+                        tl.scrollTrigger.end = tl.scrollTrigger.start + endLen;
+                    }
+                }
+            }).to(cards, { x: () => finalX, ease: "none", immediateRender: false });
+
+            return tl;
+        }
+
+        // desktop pin horizontal scroll gallery, standard grid/flex wrap flow on mobile
+        mm.add("(min-width: 1025px)", () => {
+            build(80);
+        });
+
+        let rTO;
+        window.addEventListener("resize", () => {
+            clearTimeout(rTO);
+            rTO = setTimeout(() => {
+                initLenisIfDesktop();
+                ScrollTrigger.refresh();
+            }, 120);
+        });
+    </script>
+</body>
+
+</html>
