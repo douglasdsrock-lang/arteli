@@ -3199,24 +3199,28 @@
             position: relative;
             margin: 8px auto 0 auto;
             text-align: center;
-            filter: url(#threshold) blur(0.6px);
             width: 100%;
-            height: 1.15em;
+            height: 1.25em;
             font-size: 1.12em; /* 12% larger than h1 */
         }
-        #morph-text1, #morph-text2 {
-            position: absolute;
-            left: 0;
-            top: 0;
+        #morph-text {
+            position: relative;
             width: 100%;
             height: 100%;
-            display: inline-block;
+            display: block;
             text-align: center;
             user-select: none;
             white-space: nowrap;
             background: linear-gradient(135deg, #5d96f8 0%, #1b69f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            will-change: opacity, transform;
+        }
+
+        #morph-text.is-changing {
+            opacity: 0;
+            transform: translateY(-8px);
         }
 
         /* --- SHIMMER GRADIENT TEXT ANIMATION (Textos.md) --- */
@@ -3418,7 +3422,7 @@
             <span class="badge-icon"><i data-lucide="trending-up"></i></span>
             <span class="badge-text txtgradiente">Plataforma completa para crescimento</span>
         </div>
-        <h1>Automação inteligente para <br><span id="morph-container"><span id="morph-text1"></span><span id="morph-text2"></span></span></h1>
+        <h1>Automação inteligente para <br><span id="morph-container"><span id="morph-text">resultados reais.</span></span></h1>
         <p>Centralize processos, economize tempo e escale seu negócio com uma plataforma poderosa e intuitiva.</p>
         
         <div class="hero-ctas">
@@ -4605,10 +4609,7 @@
         }
 
         // --- TEXT MORPH ANIMATION (Textos.md) ---
-        const morphElts = {
-            text1: document.getElementById("morph-text1"),
-            text2: document.getElementById("morph-text2")
-        };
+        const morphText = document.getElementById("morph-text");
         const morphTexts = [
             "resultados reais.",
             "vendas em escala.",
@@ -4616,65 +4617,19 @@
             "processos simples.",
             "negócios maiores."
         ];
-        const morphTime = 1.2;
-        const cooldownTime = 1.8;
-        let morphTextIndex = morphTexts.length - 1;
-        let morphTimeVar = new Date();
-        let morphVal = 0;
-        let morphCooldown = cooldownTime;
-
-        if (morphElts.text1 && morphElts.text2) {
-            morphElts.text1.textContent = morphTexts[morphTextIndex % morphTexts.length];
-            morphElts.text2.textContent = morphTexts[(morphTextIndex + 1) % morphTexts.length];
-        }
-
-        function doMorph() {
-            morphVal -= morphCooldown;
-            morphCooldown = 0;
-            let fraction = morphVal / morphTime;
-            if (fraction > 1) {
-                morphCooldown = cooldownTime;
-                fraction = 1;
-            }
-            setMorph(fraction);
-        }
-
-        function setMorph(fraction) {
-            if (!morphElts.text1 || !morphElts.text2) return;
-            morphElts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-            morphElts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-            fraction = 1 - fraction;
-            morphElts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-            morphElts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-            morphElts.text1.textContent = morphTexts[morphTextIndex % morphTexts.length];
-            morphElts.text2.textContent = morphTexts[(morphTextIndex + 1) % morphTexts.length];
-        }
-
-        function doCooldown() {
-            if (!morphElts.text1 || !morphElts.text2) return;
-            morphVal = 0;
-            morphElts.text2.style.filter = "";
-            morphElts.text2.style.opacity = "100%";
-            morphElts.text1.style.filter = "";
-            morphElts.text1.style.opacity = "0%";
-        }
+        let morphTextIndex = 0;
+        let morphTimer;
 
         function animateMorph() {
-            if (!morphElts.text1 || !morphElts.text2) return;
-            requestAnimationFrame(animateMorph);
-            let newTime = new Date();
-            let shouldIncrementIndex = morphCooldown > 0;
-            let dt = (newTime - morphTimeVar) / 1000;
-            morphTimeVar = newTime;
-            morphCooldown -= dt;
-            if (morphCooldown <= 0) {
-                if (shouldIncrementIndex) morphTextIndex++;
-                doMorph();
-            } else {
-                doCooldown();
-            }
+            if (!morphText || morphTimer) return;
+            morphTimer = window.setInterval(() => {
+                morphText.classList.add("is-changing");
+                window.setTimeout(() => {
+                    morphTextIndex = (morphTextIndex + 1) % morphTexts.length;
+                    morphText.textContent = morphTexts[morphTextIndex];
+                    morphText.classList.remove("is-changing");
+                }, 350);
+            }, 3000);
         }
 
         // --- TESTIMONIALS SCROLL CAROUSEL (GSAP + ScrollTrigger) ---
